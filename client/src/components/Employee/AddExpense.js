@@ -1,7 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Sidenav from './SideNav/Sidenav';
+import Sidenav from '../SideNav/Sidenav';
+import ExpenseTable from '../ExpenseTable';
+import TopupTable from '../TopupTable';
+import AddExpenseForm from '../Employee/AddExpenseForm';
 
 import clsx from 'clsx';    
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -21,7 +24,8 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './SideNav/listItems';
+import { mainListItems, secondaryListItems } from '../SideNav/listItems';
+import Footer from '../Footer/Footer';
 
 function Copyright() {
     return (
@@ -100,9 +104,11 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     height: '100vh',
+    width: '60px',
     overflow: 'auto',
   },
   container: {
+    width: '100vh',
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
   },
@@ -113,11 +119,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   fixedHeight: {
-    height: 240,
+    height: 200,
   },
 }));
 
-export default function Report() {
+export default function History() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const handleDrawerOpen = () => {
@@ -135,7 +141,7 @@ export default function Report() {
         <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          This is for Reporting Section
+          <AddExpenseForm/>
           <Box pt={4}>
             <Copyright />
           </Box>
