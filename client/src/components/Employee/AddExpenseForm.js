@@ -8,7 +8,7 @@ class AddExpenseForm extends Component{
     constructor(props) {
     super(props);
     this.state = {
-      employeeid: 'K7 Kovarthanan',
+      managerid: 'K7 Kovarthanan',
       category: '',
       paymentMethod: '',
       amount: null,
@@ -26,38 +26,37 @@ class AddExpenseForm extends Component{
     e.preventDefault();
 
     const { employeeid, category, paymentMethod, amount, description, file } = this.state;
-    alert(this.state.employeeid);
+    alert(this.state.managerid);
     alert(this.state.amount);
     alert(this.state.category);
     alert(this.state.paymentMethod);
     alert(this.state.description);
     alert(this.state.file);
 
-    // axios.post('http://localhost:3000/AddEsxpenseForm', { employeeid, category, paymentMethod, amount, description, file })
+    // axios.post('http://localhost:3000/AddEsxpenseForm', { managerid, category, paymentMethod, amount, description, file })
     //   .then((result) => {
     //     this.props.history.push("/AddExpenseForm")
     //   });
   }
 
     render(){
-        const { employeeid, category, paymentMethod, amount, description, file } = this.state;
+        const { managerid, category, paymentMethod, amount, description, file } = this.state;
     return (
         <Form onSubmit={this.onSubmit} className="container">
             <FormGroup> 
-                <Label for="employeeSelect">To</Label>
-                <input type="text" class="form-control" name="employeeid" value={employeeid} onChange={this.onChange} placeholder="ISBN" />
-                {/* <Input type="select" name="employeeid" id="employeeSelect">
+                <Label for="managerSelect">To</Label>
+                <Input required type="select" class="form-control" name="managerid" value={managerid} onChange={this.onChange} placeholder="Manager" >
                     <option aria-label="None" value="" />
-                    <option>Employee1</option>
-                    <option>Employee2</option>
-                    <option>Employee3</option>
-                    <option>Employee4</option>
-                    <option>Employee5</option>
-                </Input> */}
+                    <option value="id1">Employee1</option>
+                    <option value="id2">Employee2</option>
+                    <option value="id3">Employee3</option>
+                    <option value="id4">Employee4</option>
+                    <option value="id5">Employee5</option>
+                </Input>
             </FormGroup>
             <FormGroup>
                 <Label for="categorySelect">Category</Label>
-                <Input type="select" name="category" value={category} onChange={this.onChange} id="expenseTypeSelect">
+                <Input required type="select" name="category" value={category} onChange={this.onChange} id="expenseTypeSelect">
                     <option aria-label="None" value="" />
                     <option value="travel">Travel</option>
                     <option value="food" >Food</option>
@@ -68,7 +67,7 @@ class AddExpenseForm extends Component{
             </FormGroup>
             <FormGroup>
                 <Label for="paymentSelect">Payment Method</Label>
-                <Input type="select" name="paymentMethod" value={paymentMethod} onChange={this.onChange} id="paymentSelect">
+                <Input required type="select" name="paymentMethod" value={paymentMethod} onChange={this.onChange} id="paymentSelect">
                     <option aria-label="None" value="" />
                     <option value="cash" >Cash</option>
                     <option value="card">Card</option>
@@ -81,6 +80,7 @@ class AddExpenseForm extends Component{
                     <InputGroupText>Rs.</InputGroupText>
                     <Input 
                         placeholder="Amount" 
+                        required
                         name="amount" 
                         value={amount} 
                         onChange={this.onChange}

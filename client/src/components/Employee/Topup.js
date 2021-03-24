@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, container } from 'reactstrap';
 import TopupForm from './TopupForm';
-import '../App.css';
+import '../../App.css';
 
 const Topup = (props) => {
   const {
