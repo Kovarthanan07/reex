@@ -4,10 +4,6 @@ import axios from 'axios';
 import Dashboard from './components/Employee/Dashboard';
 import Report from './components/Report';
 import History from './components/History';
-import AddExpense from './components/Employee/AddExpense';
-// import Dash from './components/Dash';
-// import Login from './components/login';
-import Topup from './components/Employee/Topup';
 import { BrowserRouter, Route } from "react-router-dom";
 import Landing from './components/landing';
 import Login from './components/Login/login';
@@ -52,17 +48,10 @@ function App() {
     <div className="App">
       <React.Fragment>
       <BrowserRouter>
-      {/* <Login/> */}
-      {/* <Dashboard/> */}
-      <Route exact path="/" render={() => <Dashboard posts={Dashboard}/>}/>
-      {/* <Route path="/receipt/:id" render={props => <Receipt {...props} posts={posts}/>}/>
-      <Route path="/update/:id" render={props => <EditReceipt {...props} posts={posts}/>}/> */}
-      {/* <Route path="/" component={Dashboard}/> */}
-      <Route path="/Topup" component={Topup}/>
+      <Route exact path="/" render={() => <Landing posts={Landing}/>}/>
       <Route path="/Report" component={Report}/>
       <Route path="/History" component={History}/>
-      <Route path="/AddExpense" component={AddExpense}/>
-      <Route path="/Landing" component={Landing}/>
+      <Route path="/Dashboard" component={Dashboard}/>
       <Route path="/Login" component={Login}/>
       </BrowserRouter>
     </React.Fragment>
