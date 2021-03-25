@@ -25,18 +25,22 @@ class AddExpenseForm extends Component{
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { employeeid, category, paymentMethod, amount, description, file } = this.state;
-    alert(this.state.managerid);
-    alert(this.state.amount);
-    alert(this.state.category);
-    alert(this.state.paymentMethod);
-    alert(this.state.description);
-    alert(this.state.file);
-
-    // axios.post('http://localhost:3000/AddEsxpenseForm', { managerid, category, paymentMethod, amount, description, file })
-    //   .then((result) => {
-    //     this.props.history.push("/AddExpenseForm")
-    //   });
+    const { managerid, category, paymentMethod, amount, description, file } = this.state;
+    // alert(this.state.managerid);
+    // alert(this.state.amount);
+    // alert(this.state.category);
+    // alert(this.state.paymentMethod);
+    // alert(this.state.description);
+    // alert(this.state.file);
+    console.log("Current State is " + JSON.stringify(this.state));
+    axios.post('http://localhost:3000/transaction', { managerid, category, paymentMethod, amount, description, file })
+      .then((response) => {
+          console.log("Successfully updated");
+          console.log(response);
+      },
+      (error) =>{
+        console.log("Error : ", error);
+      });
   }
 
     render(){
