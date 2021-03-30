@@ -2,13 +2,15 @@ import React,{Component} from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { InputGroup, InputGroupText } from 'reactstrap';
 import axios from 'axios';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 class TopupForm extends Component{
 
     constructor(props) {
     super(props);
     this.state = {
-      managerid: '',
+      managerIncharge: '',
       amount: null,
       description: ''
     };
@@ -22,24 +24,38 @@ class TopupForm extends Component{
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { employeeid, amount, description } = this.state;
-    alert(this.state.managerid);
-    alert(this.state.amount);
-    alert(this.state.description);
+    const { managerIncharge, amount, description } = this.state;
+    // alert(this.state.managerIncharge);
+    // alert(this.state.amount);
+    // alert(this.state.description);
 
-    // axios.post('http://localhost:3000/AddEsxpenseForm', { managerid, amount, description })
-    //   .then((result) => {
-    //     this.props.history.push("/AddExpenseForm")
-    //   });
+    console.log("Current State is " + JSON.stringify(this.state));
+    axios.post('http://localhost:3000/topUpRequest', { managerIncharge, amount, description })
+      .then((response) => {
+          console.log("Successfully updated");
+          console.log(response);
+      },
+      (error) =>{
+        console.log("Error : ", error);
+      });
   }
 
     render(){
-        const { managerid, amount, description } = this.state;
+        // const managerIncharge = [
+        //     { manager: 'manager1' },
+        //     { manager: 'manager2' },
+        //     { manager: 'manager3' },
+        //     { manager: 'manager4' },
+        //     { manager: 'manager5'},
+        //     { manager: "manager6" },
+        //     { manager: 'manager7'},
+        // ];
+        const { managerIncharge, amount, description } = this.state;
     return (
         <Form onSubmit={this.onSubmit} className="container">
             <FormGroup> 
                 <Label for="managerelect">Manager</Label>
-                <Input required type="select" class="form-control" name="managerid" value={managerid} onChange={this.onChange} placeholder="Manager" >
+                <Input required type="select" className="form-control" name="managerIncharge" value={managerIncharge} onChange={this.onChange} placeholder="Manager" >
                     <option aria-label="None" value="" />
                     <option value="id1">Manager1</option>
                     <option value="id2">Manager2</option>
@@ -47,6 +63,14 @@ class TopupForm extends Component{
                     <option value="id4">Manager4</option>
                     <option value="id5">Manager5</option>
                 </Input>
+                {/* <Autocomplete
+                    id="combo-box-demo"
+                    required
+                    options={managerIncharge}
+                    getOptionLabel={(option) => option.manager}
+                    style={{ width: "auto" }}
+                    renderInput={(params) => <TextField {...params} label="Manager" variant="outlined" />}
+                    /> */}
             </FormGroup>
             <FormGroup>
                 <Label for="amount">Amount</Label>

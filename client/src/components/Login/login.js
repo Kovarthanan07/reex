@@ -1,5 +1,4 @@
-import React, { useState, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useEffect, useState, Component } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -9,51 +8,33 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { AuthTokenContext } from '../../context/AuthTokenContext';
 
-function SignIn() {
-  const [loginData, setLoginData] = useState({
-    userId: '',
-    password: '',
-  });
+class SignIn extends Component{
 
-  const [login, logout] = useContext(AuthTokenContext);
-
-  const onChange = (e) =>
-    setLoginData({ ...loginData, [e.target.name]: e.target.value });
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    login(loginData);
-    console.log('Login Success ... ');
-    // localStorage.getItem('token') ? <Redirect to={'/dashboard'} /> : null;
-  };
-
-  if (localStorage.getItem('token')) {
-    return <Redirect to={'/dashboard'} />;
-  }
+  render(){
 
   return (
+     
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-
-      <div className="loginMargin">
-        <Typography component="h1" variant="h5">
+   
+      <div >
+        
+        <Typography component="h1" variant="h5" style={{marginTop:100}}>
           Log in
         </Typography>
-        <form onSubmit={(e) => onSubmit(e)}>
+        <form  noValidate>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="userId"
-            label="User Id"
-            name="userId"
+            id="email"
+            label="Username"
+            name="email"
+            autoComplete="email"
             autoFocus
-            onChange={(e) => onChange(e)}
           />
-
           <TextField
             variant="outlined"
             margin="normal"
@@ -63,25 +44,33 @@ function SignIn() {
             label="Password"
             type="password"
             id="password"
-            onChange={(e) => onChange(e)}
+            autoComplete="current-password"
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button type="submit" fullWidth variant="contained" color="primary">
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            
+          >
             Log in
           </Button>
           <Grid container>
-            <Grid item>
+            <Grid item >
               <Link href="#" variant="body2">
-                {'Have any trouble'}
+                {"Have any trouble"}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
+     
     </Container>
   );
+}
 }
 export default SignIn;

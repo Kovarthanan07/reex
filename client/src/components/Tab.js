@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import ExpenseTable from './ExpenseTable';
 import TopupTable from './TopupTable';
+import {Paper} from '@material-ui/core';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -71,17 +72,18 @@ export default function NavTabs() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{background:"#99c2ff", color:"#fff"}}>
+      <Paper elevation={3} style={{background:"#fff", color:"#1278B8", width:"auto"}}>
         <Tabs
-          variant="fullWidth"
+          indicatorColor="primary"
+          // variant="fullWidth"
           value={value}
           onChange={handleChange}
           aria-label="nav tabs example"
         >
-          <LinkTab label="Expense" href="/expenses" {...a11yProps(0)} />
-          <LinkTab label="Topup" href="/topups" {...a11yProps(1)} />
+          <Tab label="Expense" {...a11yProps(0)} />
+          <Tab label="Topup" {...a11yProps(1)} />
         </Tabs>
-      </AppBar>
+      </Paper>
       <TabPanel value={value} index={0}>
         <ExpenseTable/>
       </TabPanel>

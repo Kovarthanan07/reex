@@ -3,6 +3,8 @@ import './App.css';
 import Dashboard from './components/Employee/Dashboard';
 import Report from './components/Report';
 import History from './components/History';
+import CreateNews from './components/News/CreateNews';
+import NewsPage from './components/NewsPage';
 import {
   BrowserRouter,
   Router,
@@ -24,6 +26,9 @@ function App() {
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/History" component={History} />
+            <Route path="/Report" component={Report}/>
+            <Route path="/CreateNews" component={CreateNews}/>
+            <Route path="/NewsPage" component={NewsPage}/>
           </Switch>
           {/* <Route exact path="/" render={() => <Landing posts={Landing} />} /> */}
           {/* <Route path="/Report" component={Report} />s

@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 export const mainListItems = (
   <div>
-    <Link className="nav-link" to="/"><span className="sr-only"></span>
+    <Link className="nav-link" to="/Dashboard"><span className="sr-only"></span>
       <ListItem >
         <ListItemIcon>
           <DashboardIcon />

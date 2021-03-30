@@ -2,18 +2,20 @@ import React,{Component} from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { InputGroup, InputGroupText } from 'reactstrap';
 import axios from 'axios';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 class AddExpenseForm extends Component{
 
     constructor(props) {
     super(props);
     this.state = {
-      managerid: 'K7 Kovarthanan',
+      managerIncharge: '',
       category: '',
       paymentMethod: '',
       amount: null,
       description: '',
-      file: ''
+      receiptImage: ''
     };
   }
   onChange = (e) => {
@@ -25,15 +27,15 @@ class AddExpenseForm extends Component{
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { managerid, category, paymentMethod, amount, description, file } = this.state;
-    // alert(this.state.managerid);
+    const { managerIncharge, category, paymentMethod, amount, description, receiptImage } = this.state;
+    // alert(this.state.managerIncharge);
     // alert(this.state.amount);
     // alert(this.state.category);
     // alert(this.state.paymentMethod);
     // alert(this.state.description);
     // alert(this.state.file);
     console.log("Current State is " + JSON.stringify(this.state));
-    axios.post('http://localhost:3000/transaction', { managerid, category, paymentMethod, amount, description, file })
+    axios.post('http://localhost:3000/transaction', { managerIncharge, category, paymentMethod, amount, description, receiptImage })
       .then((response) => {
           console.log("Successfully updated");
           console.log(response);
@@ -44,12 +46,22 @@ class AddExpenseForm extends Component{
   }
 
     render(){
-        const { managerid, category, paymentMethod, amount, description, file } = this.state;
+        // const managerIncharge = [
+        //     { manager: 'manager1' },
+        //     { manager: 'manager2' },
+        //     { manager: 'manager3' },
+        //     { manager: 'manager4' },
+        //     { manager: 'manager5'},
+        //     { manager: "manager6" },
+        //     { manager: 'manager7'},
+        // ];
+        const { managerIncharge, category, paymentMethod, amount, description, receiptImage } = this.state;
     return (
-        <Form onSubmit={this.onSubmit} className="container">
+        <Form onSubmit={this.onSubmit} className="container" >
+            
             <FormGroup> 
                 <Label for="managerSelect">To</Label>
-                <Input required type="select" class="form-control" name="managerid" value={managerid} onChange={this.onChange} placeholder="Manager" >
+                <Input required type="select" className="form-control" name="managerIncharge" value={managerIncharge} onChange={this.onChange} placeholder="Manager" >
                     <option aria-label="None" value="" />
                     <option value="id1">Employee1</option>
                     <option value="id2">Employee2</option>
@@ -57,25 +69,31 @@ class AddExpenseForm extends Component{
                     <option value="id4">Employee4</option>
                     <option value="id5">Employee5</option>
                 </Input>
+                {/* <Autocomplete
+                    id="combo-box-demo"
+                    required
+                    options={managerIncharge}
+                    getOptionLabel={(option) => option.manager}
+                    style={{ width: "auto" }}
+                    renderInput={(params) => <TextField {...params} label="Manager" variant="outlined" />}
+                    /> */}
             </FormGroup>
             <FormGroup>
                 <Label for="categorySelect">Category</Label>
-                <Input required type="select" name="category" value={category} onChange={this.onChange} id="expenseTypeSelect">
+                <Input required type="select" name="category" value={category} onChange={this.onChange}>
                     <option aria-label="None" value="" />
-                    <option value="travel">Travel</option>
-                    <option value="food" >Food</option>
-                    <option value="accomodation">Accomodation</option>
-                    <option value="advertisement">Advertisement</option>
-                    <option value="other">Other</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Food" >Food</option>
+                    <option value="Hotel">Accomodation</option>
+                    <option value="Other">Advertisement</option>
                 </Input>
             </FormGroup>
             <FormGroup>
                 <Label for="paymentSelect">Payment Method</Label>
-                <Input required type="select" name="paymentMethod" value={paymentMethod} onChange={this.onChange} id="paymentSelect">
+                <Input required type="select" name="paymentMethod" value={paymentMethod} onChange={this.onChange} >
                     <option aria-label="None" value="" />
-                    <option value="cash" >Cash</option>
-                    <option value="card">Card</option>
-                    <option value="bank">Bank</option>
+                    <option value="Own Cash" >Own Cash</option>
+                    <option value="Card Provided">Card Provided</option>
                 </Input>
             </FormGroup>
             <FormGroup>
@@ -110,8 +128,8 @@ class AddExpenseForm extends Component{
                 <Label for="receiptImage">Attach Receipt</Label>
                 <Input 
                     type="file" 
-                    name="file" 
-                    value={file} 
+                    name="receiptImage" 
+                    value={receiptImage} 
                     onChange={this.onChange} 
                     id="receiptImage" 
                     />
