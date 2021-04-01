@@ -23,7 +23,7 @@ router.post(
     });
 
     try {
-      if (transaction.paymentMethod === 'Own Cash') {
+      if (transaction.paymentMethod === 'Cash') {
         const cashReimbursement = new CashReimbursement({
           transactionId: transaction._id,
           amount: transaction.amount,

@@ -1,45 +1,116 @@
-import * as React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-
-const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'date', headerName: 'DATE', width: 150 },
-  { field: 'category', headerName: 'Category', width: 130 },
-  { field: 'firstName', headerName: 'Emploee Name', width: 160 },
-  {
-    field: 'amount',
-    headerName: 'Amount',
-    type: 'number',
-    width: 130,
-  },
-  {
-    field: 'receipt',
-    headerName: 'View Receipt',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.getValue('firstName') || ''} ${params.getValue('lastName') || ''}`,
-  },
-];
-
-const rows = [
-  { id:1 , date: '01-05-2020', category: 'vehicle', firstName: 'Jon', amount: 35, receipt: {} },
-  { id:2 , date: '02-05-2020', category: 'Food', firstName: 'Cersei', amount: 42, receipt: {} },
-  { id:3 , date: '03-05-2020', category: 'Rent', firstName: 'Jaime', amount: 45, receipt: {} },
-  { id:4 , date: '04-05-2020', category: 'vehicle', firstName: 'Arya', amount: 16, receipt: {} },
-  { id:5 , date: '05-05-2020', category: 'Food', firstName: 'Daenerys', amount: null, receipt: {} },
-  { id:6 , date: '06-05-2020', category: 'vehicle', firstName: null, amount: 150, receipt: {} },
-  { id:7 , date: '07-05-2020', category: 'vehicle', firstName: 'Ferrara', amount: 44, receipt: {} },
-  { id:8 , date: '08-05-2020', category: 'Food', firstName: 'Rossini', amount: 36, receipt: {} },
-  { id:9 , date: '09-05-2020', category: 'Rent', firstName: 'Harvey', amount: 65, receipt: {} },
-];
+import { TransactionContext } from '../context/TransactionContext';
+import { GetUsersContext } from '../context/GetUsersContext';
 
 export default function ExpenseTable() {
+  const columns = [
+    { field: 'submissionDate', headerName: 'Submission Date', width: 161 },
+    { field: 'managerName', headerName: 'Manager Name', width: 151 },
+    { field: 'category', headerName: 'Category', width: 110 },
+    { field: 'paymentMethod', headerName: 'Payment Method', width: 160 },
+    { field: 'transactionDate', headerName: 'Transaction Date', width: 161 },
+    {
+      field: 'amount',
+      headerName: 'Amount',
+      type: 'number',
+      width: 110,
+    },
+    {
+      field: 'status',
+      headerName: 'Status',
+      width: 100,
+    },
+    // {
+    //   field: "",
+    //   headerName: "View Receipt",
+    //   sortable: false,
+    //   width: 100,
+    //   disableClickEventBubbling: true,
+    //   renderCell: () => {
+    //     const onClick = () => {
+
+    //     return <Button onClick={onClick}>Click</Button>;
+    //   }
+    // },
+  ];
+
+  const [transactions, getEmployeeTransactions] = useContext(
+    TransactionContext
+  );
+
+  const [getManagers, managers] = useContext(GetUsersContext);
+
+  useEffect(() => {
+    getManagers();
+  }, []);
+
+  useEffect(() => {
+    console.log('Manager : ', managers);
+  }, [managers]);
+
+  useEffect(() => {
+    getEmployeeTransactions();
+  }, []);
+
+  useEffect(() => {
+    console.log('Transactions : ', transactions);
+  }, [transactions]);
+
+  const getDate = (realDate) => {
+    const datee = new Date(realDate);
+    const year = datee.getUTCFullYear();
+    const month = datee.getUTCMonth();
+    const date = datee.getUTCDate();
+    const s = date + '-' + month + '-' + year;
+    return s;
+  };
+
+  const getManagerName = (id) => {
+    let manager = managers.find((m) => m._id === id);
+    return manager.name;
+  };
+
+  const trialData = [];
+  const [rows, setRows] = useState();
+
+  useEffect(() => {
+    if (transactions && managers) {
+      transactions.map((transaction) => {
+        const data = {
+          submissionDate: getDate(transaction.createdAt),
+          managerName: getManagerName(transaction.managerIncharge),
+          category: transaction.category,
+          paymentMethod: transaction.paymentMethod,
+          transactionDate: getDate(transaction.transactionDate),
+          amount: transaction.amount,
+          status: transaction.status,
+        };
+        trialData.push(data);
+
+        // setRows({ ...rows, data });
+      });
+      console.log('trialData : ', trialData);
+    }
+  }, [transactions, managers]);
+
+  // useEffect(() => {
+  //   setRows(trialData);
+  //   console.log('Rows : ', rows);
+  // }, []);
+
   return (
     <div style={{ height: 400, width: '100%' }}>
       <h3>Expense History</h3>
-      <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
+      {/* <DataGrid rows={rows} columns={columns} pageSize={5} /> */}
+      {/* {rows.length > 0 ? (
+        <DataGrid rows={rows} columns={columns} pageSize={5} />
+      ) : null} */}
+      {/* {rows?.map((row) => {
+        console.log(row);
+        return <DataGrid rows={row} columns={columns} pageSize={5} />;
+      })} */}
+      {/* <p> {rows.length} </p> */}
     </div>
   );
 }

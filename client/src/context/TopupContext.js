@@ -1,12 +1,12 @@
 import React, { useState, createContext } from 'react';
 import axios from 'axios';
 
-export const TransactionContext = createContext();
+export const TopupContext = createContext();
 
-export const TransactionContextProvider = function (props) {
-  const [transactions, setTransactions] = useState();
+export const TopupContextProvider = function (props) {
+  const [topups, setTopups] = useState();
 
-  const getEmployeeTransactions = async () => {
+  const getEmployeeTopups = async () => {
     const token = localStorage.getItem('token');
     const config = {
       headers: {
@@ -15,9 +15,9 @@ export const TransactionContextProvider = function (props) {
       },
     };
     await axios
-      .get('http://localhost:3000/transactionMade', config)
+      .get('http://localhost:3000/topUpRequestSended', config)
       .then((response) => {
-        setTransactions(response.data);
+        setTopups(response.data);
       })
       .catch((err) => {
         console.log('Unable access ...');
@@ -25,10 +25,8 @@ export const TransactionContextProvider = function (props) {
   };
 
   return (
-    <TransactionContext.Provider
-      value={[transactions, getEmployeeTransactions]}
-    >
+    <TopupContext.Provider value={[topups, getEmployeeTopups]}>
       {props.children}
-    </TransactionContext.Provider>
+    </TopupContext.Provider>
   );
 };

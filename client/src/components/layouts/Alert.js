@@ -1,22 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { Alert } from 'reactstrap';
 
-const Alert = ({ alerts }) =>
-  alerts !== null &&
-  alerts.length > 0 &&
-  alerts.map((alert) => (
-    <div key={alert.id} className={' alert alert-${alert.alertType}'}>
-      {alert.msg}
+export const SubmitSuccess = function (props) {
+  return (
+    <div>
+      <Alert color="success">
+        Successfully Submitted. Please close the form
+      </Alert>
     </div>
-  ));
-
-Alert.propTypes = {
-  alerts: PropTypes.array.isRequired,
+  );
 };
 
-const mapStateToProps = (state) => ({
-  alerts: state.alert,
-});
+export const SubmitFailed = function (props) {
+  return (
+    <div>
+      <Alert color="danger">Submission Failed. Please check</Alert>
+    </div>
+  );
+};
 
-export default connect(mapStateToProps)(Alert);
+export const LoginFailed = function (props) {
+  return (
+    <div>
+      <Alert color="danger">Login Failed. Please try again</Alert>
+    </div>
+  );
+};

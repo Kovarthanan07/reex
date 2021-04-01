@@ -4,10 +4,11 @@ import { InputGroup, InputGroupText } from 'reactstrap';
 import { makeStyles } from '@material-ui/core/styles';
 import { GetUsersContext } from '../../context/GetUsersContext';
 import axios from 'axios';
-import mongoose from 'mongoose';
+import { SubmitSuccess, SubmitFailed } from '../layouts/Alert';
 
 function AddExpenseForm(props) {
   const [getManagers, managers] = useContext(GetUsersContext);
+  const [submissionStatus, setSubmissionStatus] = useState('');
 
   const token = localStorage.getItem('token');
 
@@ -16,7 +17,7 @@ function AddExpenseForm(props) {
   }, []);
 
   useEffect(() => {
-    console.log('Manager : ', managers);
+    // console.log('Manager : ', managers);
   }, [managers]);
 
   const useStyles = makeStyles((theme) => ({
@@ -60,10 +61,10 @@ function AddExpenseForm(props) {
       });
 
       axios
-        .post('http://localhost:3000/transaction', config, dataa)
-        .then((res) => res.json())
+        .post('http://localhost:3000/transaction', dataa, config)
+        .then((res) => setSubmissionStatus('success'))
         .catch((err) => {
-          console.log(err);
+          setSubmissionStatus('fail');
         });
     }
   }, [receiptUrl]);
@@ -104,7 +105,6 @@ function AddExpenseForm(props) {
           type="select"
           className="form-control"
           name="managerIncharge"
-          //   value={formData.managerIncharge}
           placeholder="Manager"
           onChange={(e) => setManagerIncharge(e.target.value)}
         >
@@ -123,7 +123,6 @@ function AddExpenseForm(props) {
           required
           type="select"
           name="category"
-          //   value={formData.category}
           onChange={(e) => setCategory(e.target.value)}
         >
           <option aria-label="None" value="" />
@@ -139,7 +138,6 @@ function AddExpenseForm(props) {
           required
           type="date"
           name="transactionDate"
-          //   value={formData.transactionDate}
           onChange={(e) => setTransactionDate(e.target.value)}
         ></Input>
       </FormGroup>
@@ -149,12 +147,11 @@ function AddExpenseForm(props) {
           required
           type="select"
           name="paymentMethod"
-          //   value={formData.paymentMethod}
           onChange={(e) => setPaymentMethod(e.target.value)}
         >
           <option aria-label="None" value="" />
-          <option value="Own Cash">Own Cash</option>
-          <option value="Card Provided">Card Provided</option>
+          <option value="Cash">Cash</option>
+          <option value="Card">Card</option>
         </Input>
       </FormGroup>
       <FormGroup>
@@ -165,10 +162,9 @@ function AddExpenseForm(props) {
             placeholder="Amount"
             required
             name="amount"
-            // value={formData.amount}
             onChange={(e) => setAmount(e.target.value)}
             min={0}
-            max={10000}
+            max={100000}
             type="number"
             step="1"
           />
@@ -180,7 +176,6 @@ function AddExpenseForm(props) {
         <Input
           type="textarea"
           name="description"
-          //   value={formData.description}
           onChange={(e) => setDescription(e.target.value)}
           id="exampleText"
         />
@@ -190,13 +185,12 @@ function AddExpenseForm(props) {
         <Input
           type="file"
           name="receiptImage"
-          //value={formData.receiptImage}
           onChange={(e) => setReceiptImage(e.target.files[0])}
           id="receiptImage"
         />
         <FormText color="muted">
-          This is some placeholder block-level help text for the above input.
-          It's a bit lighter and easily wraps to a new line.
+          {submissionStatus === 'success' ? <SubmitSuccess /> : null}
+          {submissionStatus === 'fail' ? <SubmitFailed /> : null}
         </FormText>
       </FormGroup>
       <div className="SubmitBtn">

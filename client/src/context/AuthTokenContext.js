@@ -4,6 +4,7 @@ import axios from 'axios';
 export const AuthTokenContext = createContext();
 
 export const AuthTokenContextProvider = function (props) {
+  const [loginStatus, setLoginStatus] = useState('');
   const [authData, setAuthData] = useState({
     user: {},
     token: '',
@@ -29,8 +30,9 @@ export const AuthTokenContextProvider = function (props) {
         user,
         token,
       });
+      setLoginStatus('success');
     } catch (error) {
-      console.log('Unable to Login ...');
+      setLoginStatus('fail');
     }
   };
 
@@ -44,7 +46,7 @@ export const AuthTokenContextProvider = function (props) {
   };
 
   return (
-    <AuthTokenContext.Provider value={[login, logout]}>
+    <AuthTokenContext.Provider value={[login, logout, loginStatus]}>
       {props.children}
     </AuthTokenContext.Provider>
   );

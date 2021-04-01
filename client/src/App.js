@@ -16,29 +16,35 @@ import Landing from './components/landing';
 import Login from './components/Login/login';
 import { AuthTokenContextProvider } from './context/AuthTokenContext';
 import { GetUsersContextProvider } from './context/GetUsersContext';
+import { TransactionContextProvider } from './context/TransactionContext';
+import { TopupContextProvider } from './context/TopupContext';
 
 function App() {
   return (
     <React.Fragment>
       <AuthTokenContextProvider>
-        <GetUsersContextProvider>
-          <BrowserRouter>
-            <Route exact path="/" component={Landing} />
-            <Switch>
-              <Route exact path="/dashboard" component={Dashboard} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/History" component={History} />
-              <Route path="/Report" component={Report} />
-              <Route path="/CreateNews" component={CreateNews} />
-              <Route path="/NewsPage" component={NewsPage} />
-            </Switch>
-            {/* <Route exact path="/" render={() => <Landing posts={Landing} />} /> */}
-            {/* <Route path="/Report" component={Report} />s
+        <TransactionContextProvider>
+          <TopupContextProvider>
+            <GetUsersContextProvider>
+              <BrowserRouter>
+                <Route exact path="/" component={Landing} />
+                <Switch>
+                  <Route exact path="/dashboard" component={Dashboard} />
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/History" component={History} />
+                  <Route path="/Report" component={Report} />
+                  <Route path="/CreateNews" component={CreateNews} />
+                  <Route path="/NewsPage" component={NewsPage} />
+                </Switch>
+                {/* <Route exact path="/" render={() => <Landing posts={Landing} />} /> */}
+                {/* <Route path="/Report" component={Report} />s
             <Route path="/History" component={History} />
             <Route path="/Dashboard" component={Dashboard} />
             <Route path="/Login" component={Login} /> */}
-          </BrowserRouter>
-        </GetUsersContextProvider>
+              </BrowserRouter>
+            </GetUsersContextProvider>
+          </TopupContextProvider>
+        </TransactionContextProvider>
       </AuthTokenContextProvider>
     </React.Fragment>
   );
