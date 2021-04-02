@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import axios from 'axios';
 
 export const TransactionContext = createContext();
@@ -14,6 +14,7 @@ export const TransactionContextProvider = function (props) {
         Authorization: `Bearer ${token}`,
       },
     };
+
     await axios
       .get('http://localhost:3000/transactionMade', config)
       .then((response) => {

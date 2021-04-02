@@ -1,9 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { DataGrid } from '@material-ui/data-grid';
-import { TransactionContext } from '../context/TransactionContext';
-import { GetUsersContext } from '../context/GetUsersContext';
+import { Button } from 'reactstrap';
+import {
+  DataGrid,
+  ColDef,
+  ValueGetterParams,
+  CellParams,
+  GridApi,
+} from '@material-ui/data-grid';
 
-export default function ExpenseTable() {
+export default function ExpenseTable(props) {
+  const { managers, transactions } = props;
   const columns = [
     { field: 'submissionDate', headerName: 'Submission Date', width: 161 },
     { field: 'managerName', headerName: 'Manager Name', width: 151 },
@@ -13,7 +19,7 @@ export default function ExpenseTable() {
     {
       field: 'amount',
       headerName: 'Amount',
-      type: 'number',
+      // type: 'number',
       width: 110,
     },
     {
@@ -21,49 +27,50 @@ export default function ExpenseTable() {
       headerName: 'Status',
       width: 100,
     },
-    // {
-    //   field: "",
-    //   headerName: "View Receipt",
-    //   sortable: false,
-    //   width: 100,
-    //   disableClickEventBubbling: true,
-    //   renderCell: () => {
-    //     const onClick = () => {
+    {
+      field: 'receiptUrl',
+      headerName: 'receiptUrl',
+      width: 0,
+      hide: true,
+    },
+    {
+      field: '',
+      headerName: 'Receipt',
+      sortable: false,
+      width: 120,
+      disableClickEventBubbling: true,
+      renderCell: (params: CellParams) => {
+        const onClick = () => {
+          const api: GridApi = params.api;
+          const fields = api
+            .getAllColumns()
+            .map((c) => c.field)
+            .filter((c) => c !== '__check__' && !!c);
+          const thisRow = {};
 
-    //     return <Button onClick={onClick}>Click</Button>;
-    //   }
-    // },
+          fields.forEach((f) => {
+            thisRow[f] = params.getValue(f);
+          });
+
+          return window.open(thisRow.receiptUrl, '_blank');
+        };
+
+        return (
+          <Button color="primary" onClick={onClick}>
+            View
+          </Button>
+        );
+      },
+    },
   ];
-
-  const [transactions, getEmployeeTransactions] = useContext(
-    TransactionContext
-  );
-
-  const [getManagers, managers] = useContext(GetUsersContext);
-
-  useEffect(() => {
-    getManagers();
-  }, []);
-
-  useEffect(() => {
-    console.log('Manager : ', managers);
-  }, [managers]);
-
-  useEffect(() => {
-    getEmployeeTransactions();
-  }, []);
-
-  useEffect(() => {
-    console.log('Transactions : ', transactions);
-  }, [transactions]);
 
   const getDate = (realDate) => {
     const datee = new Date(realDate);
     const year = datee.getUTCFullYear();
     const month = datee.getUTCMonth();
     const date = datee.getUTCDate();
-    const s = date + '-' + month + '-' + year;
-    return s;
+    const correctDate = date + '-' + month + '-' + year;
+    return correctDate;
   };
 
   const getManagerName = (id) => {
@@ -71,46 +78,30 @@ export default function ExpenseTable() {
     return manager.name;
   };
 
-  const trialData = [];
-  const [rows, setRows] = useState();
-
-  useEffect(() => {
-    if (transactions && managers) {
-      transactions.map((transaction) => {
-        const data = {
-          submissionDate: getDate(transaction.createdAt),
-          managerName: getManagerName(transaction.managerIncharge),
-          category: transaction.category,
-          paymentMethod: transaction.paymentMethod,
-          transactionDate: getDate(transaction.transactionDate),
-          amount: transaction.amount,
-          status: transaction.status,
-        };
-        trialData.push(data);
-
-        // setRows({ ...rows, data });
-      });
-      console.log('trialData : ', trialData);
-    }
-  }, [transactions, managers]);
-
-  // useEffect(() => {
-  //   setRows(trialData);
-  //   console.log('Rows : ', rows);
-  // }, []);
+  const details = [];
+  if (transactions && managers) {
+    transactions.map((transaction) => {
+      const data = {
+        id: transaction._id,
+        submissionDate: getDate(transaction.createdAt),
+        managerName: getManagerName(transaction.managerIncharge),
+        category: transaction.category,
+        paymentMethod: transaction.paymentMethod,
+        transactionDate: getDate(transaction.transactionDate),
+        amount: transaction.amount,
+        status: transaction.status,
+        receiptUrl: transaction.receiptUrl,
+      };
+      details.push(data);
+    });
+  }
 
   return (
     <div style={{ height: 400, width: '100%' }}>
       <h3>Expense History</h3>
-      {/* <DataGrid rows={rows} columns={columns} pageSize={5} /> */}
-      {/* {rows.length > 0 ? (
-        <DataGrid rows={rows} columns={columns} pageSize={5} />
-      ) : null} */}
-      {/* {rows?.map((row) => {
-        console.log(row);
-        return <DataGrid rows={row} columns={columns} pageSize={5} />;
-      })} */}
-      {/* <p> {rows.length} </p> */}
+      {details.length > 0 ? (
+        <DataGrid rows={details} columns={columns} pageSize={5} />
+      ) : null}
     </div>
   );
 }

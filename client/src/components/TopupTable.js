@@ -2,99 +2,59 @@ import React, { useState, useEffect, useContext } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { TopupContext } from '../context/TopupContext';
 
-const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'status', headerName: 'Status', width: 160 },
-  { field: 'date', headerName: 'DATE', width: 150 },
-  { field: 'firstName', headerName: 'Emploee Name', width: 160 },
-  {
-    field: 'amount',
-    headerName: 'Amount',
-    type: 'number',
-    width: 130,
-  },
-];
+const rows = [];
 
-const rows = [
-  {
-    id: 1,
-    status: 'Approved',
-    date: '01-05-2020',
-    firstName: 'Jon',
-    amount: 35,
-  },
-  {
-    id: 2,
-    status: 'Declined',
-    date: '02-05-2020',
-    firstName: 'Cersei',
-    amount: 42,
-  },
-  {
-    id: 3,
-    status: 'Approved',
-    date: '03-05-2020',
-    firstName: 'Jaime',
-    amount: 45,
-  },
-  {
-    id: 4,
-    status: 'Declined',
-    date: '04-05-2020',
-    firstName: 'Arya',
-    amount: 16,
-  },
-  {
-    id: 5,
-    status: 'Approved',
-    date: '05-05-2020',
-    firstName: 'Daenerys',
-    amount: null,
-  },
-  {
-    id: 6,
-    status: 'Approved',
-    date: '06-05-2020',
-    firstName: null,
-    amount: 150,
-  },
-  {
-    id: 7,
-    status: 'Approved',
-    date: '07-05-2020',
-    firstName: 'Ferrara',
-    amount: 44,
-  },
-  {
-    id: 8,
-    status: 'Declined',
-    date: '08-05-2020',
-    firstName: 'Rossini',
-    amount: 36,
-  },
-  {
-    id: 9,
-    status: 'Declined',
-    date: '09-05-2020',
-    firstName: 'Harvey',
-    amount: 65,
-  },
-];
+export default function TopupTable(props) {
+  const { managers, topups } = props;
 
-export default function TopupTable() {
-  const [topups, getEmployeeTopups] = useContext(TopupContext);
+  const columns = [
+    { field: 'createdAt', headerName: 'Requested Date', width: 160 },
+    { field: 'managerName', headerName: 'Manager Name', width: 151 },
+    {
+      field: 'amount',
+      headerName: 'Amount',
+      // type: 'number',
+      width: 130,
+    },
+    {
+      field: 'status',
+      headerName: 'Status',
+      width: 150,
+    },
+  ];
 
-  useEffect(() => {
-    getEmployeeTopups();
-  }, []);
+  const getDate = (realDate) => {
+    const datee = new Date(realDate);
+    const year = datee.getUTCFullYear();
+    const month = datee.getUTCMonth();
+    const date = datee.getUTCDate();
+    const correctDate = date + '-' + month + '-' + year;
+    return correctDate;
+  };
 
-  useEffect(() => {
-    console.log('Topups : ', topups);
-  }, [topups]);
+  const getManagerName = (id) => {
+    let manager = managers.find((m) => m._id === id);
+    return manager.name;
+  };
+
+  const details = [];
+  if (topups && managers) {
+    topups.map((topup) => {
+      const data = {
+        id: topup._id,
+        createdAt: getDate(topup.createdAt),
+        managerName: getManagerName(topup.requestTo),
+        amount: topup.amount,
+        status: topup.status,
+      };
+      details.push(data);
+    });
+  }
+
   return (
     <div style={{ height: 400, width: '100%' }}>
       <h3>Topup-Request History</h3>
-      <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
+      <DataGrid rows={details} columns={columns} pageSize={5} />
     </div>
   );
 }
