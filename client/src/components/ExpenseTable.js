@@ -1,45 +1,107 @@
-import * as React from 'react';
-import { DataGrid } from '@material-ui/data-grid';
+import React, { useState, useEffect, useContext } from 'react';
+import { Button } from 'reactstrap';
+import {
+  DataGrid,
+  ColDef,
+  ValueGetterParams,
+  CellParams,
+  GridApi,
+} from '@material-ui/data-grid';
 
-const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'date', headerName: 'DATE', width: 150 },
-  { field: 'category', headerName: 'Category', width: 130 },
-  { field: 'firstName', headerName: 'Emploee Name', width: 160 },
-  {
-    field: 'amount',
-    headerName: 'Amount',
-    type: 'number',
-    width: 130,
-  },
-  {
-    field: 'receipt',
-    headerName: 'View Receipt',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.getValue('firstName') || ''} ${params.getValue('lastName') || ''}`,
-  },
-];
+export default function ExpenseTable(props) {
+  const { managers, transactions } = props;
+  const columns = [
+    { field: 'submissionDate', headerName: 'Submission Date', width: 161 },
+    { field: 'managerName', headerName: 'Manager Name', width: 151 },
+    { field: 'category', headerName: 'Category', width: 110 },
+    { field: 'paymentMethod', headerName: 'Payment Method', width: 160 },
+    { field: 'transactionDate', headerName: 'Transaction Date', width: 161 },
+    {
+      field: 'amount',
+      headerName: 'Amount',
+      // type: 'number',
+      width: 110,
+    },
+    {
+      field: 'status',
+      headerName: 'Status',
+      width: 100,
+    },
+    {
+      field: 'receiptUrl',
+      headerName: 'receiptUrl',
+      width: 0,
+      hide: true,
+    },
+    {
+      field: '',
+      headerName: 'Receipt',
+      sortable: false,
+      width: 120,
+      disableClickEventBubbling: true,
+      renderCell: (params: CellParams) => {
+        const onClick = () => {
+          const api: GridApi = params.api;
+          const fields = api
+            .getAllColumns()
+            .map((c) => c.field)
+            .filter((c) => c !== '__check__' && !!c);
+          const thisRow = {};
 
-const rows = [
-  { id:1 , date: '01-05-2020', category: 'vehicle', firstName: 'Jon', amount: 35, receipt: {} },
-  { id:2 , date: '02-05-2020', category: 'Food', firstName: 'Cersei', amount: 42, receipt: {} },
-  { id:3 , date: '03-05-2020', category: 'Rent', firstName: 'Jaime', amount: 45, receipt: {} },
-  { id:4 , date: '04-05-2020', category: 'vehicle', firstName: 'Arya', amount: 16, receipt: {} },
-  { id:5 , date: '05-05-2020', category: 'Food', firstName: 'Daenerys', amount: null, receipt: {} },
-  { id:6 , date: '06-05-2020', category: 'vehicle', firstName: null, amount: 150, receipt: {} },
-  { id:7 , date: '07-05-2020', category: 'vehicle', firstName: 'Ferrara', amount: 44, receipt: {} },
-  { id:8 , date: '08-05-2020', category: 'Food', firstName: 'Rossini', amount: 36, receipt: {} },
-  { id:9 , date: '09-05-2020', category: 'Rent', firstName: 'Harvey', amount: 65, receipt: {} },
-];
+          fields.forEach((f) => {
+            thisRow[f] = params.getValue(f);
+          });
 
-export default function ExpenseTable() {
+          return window.open(thisRow.receiptUrl, '_blank');
+        };
+
+        return (
+          <Button color="primary" onClick={onClick}>
+            View
+          </Button>
+        );
+      },
+    },
+  ];
+
+  const getDate = (realDate) => {
+    const datee = new Date(realDate);
+    const year = datee.getUTCFullYear();
+    const month = datee.getUTCMonth();
+    const date = datee.getUTCDate();
+    const correctDate = date + '-' + month + '-' + year;
+    return correctDate;
+  };
+
+  const getManagerName = (id) => {
+    let manager = managers.find((m) => m._id === id);
+    return manager.name;
+  };
+
+  const details = [];
+  if (transactions && managers) {
+    transactions.map((transaction) => {
+      const data = {
+        id: transaction._id,
+        submissionDate: getDate(transaction.createdAt),
+        managerName: getManagerName(transaction.managerIncharge),
+        category: transaction.category,
+        paymentMethod: transaction.paymentMethod,
+        transactionDate: getDate(transaction.transactionDate),
+        amount: transaction.amount,
+        status: transaction.status,
+        receiptUrl: transaction.receiptUrl,
+      };
+      details.push(data);
+    });
+  }
+
   return (
     <div style={{ height: 400, width: '100%' }}>
       <h3>Expense History</h3>
-      <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
+      {details.length > 0 ? (
+        <DataGrid rows={details} columns={columns} pageSize={5} />
+      ) : null}
     </div>
   );
 }

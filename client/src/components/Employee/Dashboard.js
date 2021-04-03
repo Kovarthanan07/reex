@@ -11,21 +11,26 @@ import Chart from '../Chart';
 import Deposit from '../Deposit'
 import Orders from '../Orders';
 import Sidenav from '../SideNav/Sidenav';
-import AddExpense from '../Employee/AddExpense';
-import Topup from '../Employee/Topup';
+import AddExpense from './AddExpense';
+import Topup from './Topup';
+import Copyright from '../Footer/Footer';
+// import AOS from 'aos';
+// import 'aos/dist/aos.css'; // You can also use <link> for styles
+// // ..
+// AOS.init();
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" to="/">
-        The NANs
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+// function Copyright() {
+//   return (
+//     <Typography variant="body2" color="textSecondary" align="center">
+//       {'Copyright © '}
+//       <Link color="inherit" to="/">
+//         The NANs
+//       </Link>{' '}
+//       {new Date().getFullYear()}
+//       {'.'}
+//     </Typography>
+//   );
+// }
 
 const drawerWidth = 240;
 
@@ -124,6 +129,7 @@ export default function Dashboard() {
       <Sidenav/>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
+        
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={8} lg={9}>

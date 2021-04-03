@@ -1,87 +1,100 @@
-import React,{Component} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { InputGroup, InputGroupText } from 'reactstrap';
 import axios from 'axios';
+import { GetUsersContext } from '../../context/GetUsersContext';
+import { SubmitSuccess, SubmitFailed } from '../layouts/Alert';
 
-class TopupForm extends Component{
+function TopupForm(props) {
+  const [formData, setFormData] = useState();
+  const [submissionStatus, setSubmissionStatus] = useState('');
+  const [getManagers, managers] = useContext(GetUsersContext);
 
-    constructor(props) {
-    super(props);
-    this.state = {
-      managerid: '',
-      amount: null,
-      description: ''
-    };
-  }
-  onChange = (e) => {
-    const state = this.state
-    state[e.target.name] = e.target.value;
-    this.setState(state);
-  }
+  const token = localStorage.getItem('token');
 
-  onSubmit = (e) => {
+  useEffect(() => {
+    getManagers();
+  }, []);
+
+  useEffect(() => {
+    console.log('Manager : ', managers);
+  }, [managers]);
+
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = (e) => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-    const { employeeid, amount, description } = this.state;
-    alert(this.state.managerid);
-    alert(this.state.amount);
-    alert(this.state.description);
-
-    // axios.post('http://localhost:3000/AddEsxpenseForm', { managerid, amount, description })
-    //   .then((result) => {
-    //     this.props.history.push("/AddExpenseForm")
-    //   });
-  }
-
-    render(){
-        const { managerid, amount, description } = this.state;
-    return (
-        <Form onSubmit={this.onSubmit} className="container">
-            <FormGroup> 
-                <Label for="managerelect">Manager</Label>
-                <Input required type="select" class="form-control" name="managerid" value={managerid} onChange={this.onChange} placeholder="Manager" >
-                    <option aria-label="None" value="" />
-                    <option value="id1">Manager1</option>
-                    <option value="id2">Manager2</option>
-                    <option value="id3">Manager3</option>
-                    <option value="id4">Manager4</option>
-                    <option value="id5">Manager5</option>
-                </Input>
-            </FormGroup>
-            <FormGroup>
-                <Label for="amount">Amount</Label>
-                <InputGroup>
-                    <InputGroupText>Rs.</InputGroupText>
-                    <Input 
-                        placeholder="Amount" 
-                        required
-                        name="amount" 
-                        value={amount} 
-                        onChange={this.onChange}
-                        min={0} 
-                        max={10000} 
-                        type="number" 
-                        step="1" 
-                    />
-                    <InputGroupText>.00</InputGroupText>
-                </InputGroup>
-            </FormGroup>
-            <FormGroup>
-                <Label for="exampleText">Description</Label>
-                <Input 
-                    type="textarea" 
-                    name="description" 
-                    value={description} 
-                    onChange={this.onChange}  
-                    id="exampleText" 
-                    />
-            </FormGroup>
-            <div className="SubmitBtn">
-                <Button type="sunbmit">Submit</Button>
-            </div>
-        </Form>
-    );
-}
+    axios
+      .post('http://localhost:3000/topUpRequest', formData, config)
+      .then((res) => setSubmissionStatus('success'))
+      .catch((err) => {
+        setSubmissionStatus('fail');
+      });
+    console.log('Token : ', token);
+    console.log(formData);
+  };
+  return (
+    <Form onSubmit={(e) => onSubmit(e)} className="container">
+      <FormGroup>
+        {submissionStatus === 'success' ? <SubmitSuccess /> : null}
+        {submissionStatus === 'fail' ? <SubmitFailed /> : null}
+        <Label for="managerelect">Manager</Label>
+        <Input
+          required
+          type="select"
+          className="form-control"
+          name="requestTo"
+          onChange={(e) => onChange(e)}
+          placeholder="Manager"
+        >
+          <option aria-label="None" value="" />
+          {managers?.map((manager) => (
+            <option key={manager._id} value={manager._id}>
+              {manager.userId} - {manager.name}
+            </option>
+          ))}
+        </Input>
+      </FormGroup>
+      <FormGroup>
+        <Label for="amount">Amount</Label>
+        <InputGroup>
+          <InputGroupText>Rs.</InputGroupText>
+          <Input
+            placeholder="Amount"
+            required
+            name="amount"
+            onChange={(e) => onChange(e)}
+            min={0}
+            max={100000}
+            type="number"
+            step="1"
+          />
+          <InputGroupText>.00</InputGroupText>
+        </InputGroup>
+      </FormGroup>
+      <FormGroup>
+        <Label for="exampleText">Description</Label>
+        <Input
+          type="textarea"
+          name="description"
+          onChange={(e) => onChange(e)}
+          id="exampleText"
+        />
+      </FormGroup>
+      <div className="SubmitBtn">
+        <Button type="sunbmit">Submit</Button>
+      </div>
+    </Form>
+  );
 }
 
 export default TopupForm;

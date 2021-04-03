@@ -1,4 +1,5 @@
-import React, { useEffect, useState, Component } from 'react';
+import React, { useState, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -8,33 +9,57 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import { AuthTokenContext } from '../../context/AuthTokenContext';
 
-class SignIn extends Component{
+function SignIn(props) {
+  const [loginData, setLoginData] = useState({
+    userId: '',
+    password: '',
+  });
 
-  render(){
+  const [login, logout] = useContext(AuthTokenContext);
+
+  const onChange = (e) =>
+    setLoginData({ ...loginData, [e.target.name]: e.target.value });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    login(loginData);
+    // props.history.push('dashboard');
+    console.log('Login Success ... ');
+    // localStorage.getItem('token') ? <Redirect to={'/dashboard'} /> : null;
+  };
+
+  // var currentUser = JSON.parse(localStorage.getItem('user'));
+  // if(currentUser.role === 'admin'){
+  //   return <Redirect to={'/Dashboard'} />;
+  // }
+  
+  // if (localStorage.getItem('token')) {
+  //   return <Redirect to={'/dashboard'} />;
+  // }
 
   return (
-     
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-   
-      <div >
-        
+
+      <div className="loginMargin">
         <Typography component="h1" variant="h5">
           Log in
         </Typography>
-        <form  noValidate>
+        <form onSubmit={(e) => onSubmit(e)}>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Username"
-            name="email"
-            autoComplete="email"
+            id="userId"
+            label="User Id"
+            name="userId"
             autoFocus
+            onChange={(e) => onChange(e)}
           />
+
           <TextField
             variant="outlined"
             margin="normal"
@@ -44,33 +69,25 @@ class SignIn extends Component{
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
+            onChange={(e) => onChange(e)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            
-          >
+          <Button type="submit" fullWidth variant="contained" color="primary">
             Log in
           </Button>
           <Grid container>
-            <Grid item >
+            <Grid item>
               <Link href="#" variant="body2">
-                {"Have any trouble"}
+                {'Have any trouble'}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-     
     </Container>
   );
-}
 }
 export default SignIn;

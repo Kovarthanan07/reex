@@ -1,61 +1,56 @@
-import React, {useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import axios from 'axios';
 import Dashboard from './components/Employee/Dashboard';
 import Report from './components/Report';
 import History from './components/History';
-import { BrowserRouter, Route } from "react-router-dom";
+import CreateNews from './components/News/CreateNews';
+import Topup from './components/Manager/Topupreq';
+import Transaction from './components/Manager/Transactionreq';
+import NewsPage from './components/NewsPage';
+import CreateUser from './components/Admin/CreateUser';
+import Reimbursement from './components/Manager/Reimbursement';
+import {
+  BrowserRouter,
+  Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 import Landing from './components/landing';
 import Login from './components/Login/login';
+import { AuthTokenContextProvider } from './context/AuthTokenContext';
+import ProtectedRouter from './components/protected';
+import { GetUsersContextProvider } from './context/GetUsersContext';
+import { TransactionContextProvider } from './context/TransactionContext';
+import { TopupContextProvider } from './context/TopupContext';
 
 function App() {
-// class App extends React.Component {
-//   constructor(props){
-//     super(props);
-//     this.state={apiResponse:""};
-//   }
-
-//   callAPI(){
-//     fetch("http:/localhost:3000/AddeExpense")
-//     .then(res => res.text())
-//     .then(res => this.setState({apiResponse: res}));
-//   }
-
-//   componentWillMount(){
-//     this.callAPI();
-//   }
-
-//   // const [posts,setPosts] = useState([])
-//   // useEffect(() => {
-//   //   axios
-//   //   .get('http://localhost:3000/transaction')
-//   //   .then(res => setPosts(res.data))
-//   //   .catch(error => console.log(error));
-//   // });
-
-// render(){
-
-
-  // const [posts,setPosts] = useState([])
-  // useEffect(() => {
-  //   axios
-  //   .get('http://localhost:8000/AddExpenseForm')
-  //   .then(res => setPosts(res.data))
-  //   .catch(error => console.log(error));
-  // });
-
   return (
-    <div className="App">
-      <React.Fragment>
-      <BrowserRouter>
-      <Route exact path="/" render={() => <Landing posts={Landing}/>}/>
-      <Route path="/Report" component={Report}/>
-      <Route path="/History" component={History}/>
-      <Route path="/Dashboard" component={Dashboard}/>
-      <Route path="/Login" component={Login}/>
-      </BrowserRouter>
+    <React.Fragment>
+      <AuthTokenContextProvider>
+      <TransactionContextProvider>
+          <TopupContextProvider>
+            <GetUsersContextProvider>
+              <BrowserRouter> 
+                <Switch>
+                  <Route exact path="/" component={Landing} />
+                  <Route exact path="/login" component={Login} />
+                </Switch>
+                <ProtectedRouter exact path="/Dashboard" component={Dashboard} />
+                <ProtectedRouter exact path="/CreateUser" component={CreateUser} />
+                <ProtectedRouter exact path="/Report" component={Report} />
+                <ProtectedRouter exact path="/History" component={History} />
+                <ProtectedRouter exact path="/Report" component={Report} />
+                <ProtectedRouter exact path="/NewsPage" component={NewsPage} />
+                <ProtectedRouter exact path="/Topup" component={Topup} />
+                <ProtectedRouter exact path="/Transaction" component={Transaction} />
+                <ProtectedRouter exact path="/Reimbursement" component={Reimbursement} />
+              </BrowserRouter>
+            </GetUsersContextProvider>
+          </TopupContextProvider>
+        </TransactionContextProvider>
+      </AuthTokenContextProvider>
     </React.Fragment>
-    </div>
   );
 }
 

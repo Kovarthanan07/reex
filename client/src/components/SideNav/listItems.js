@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 export const mainListItems = (
   <div>
-    <Link className="nav-link" to="/"><span className="sr-only"></span>
+    <Link className="nav-link" to="/Dashboard"><span className="sr-only"></span>
       <ListItem >
         <ListItemIcon>
           <DashboardIcon />
@@ -37,12 +37,28 @@ export const mainListItems = (
         <ListItemText primary="History" />
       </ListItem>
     </Link>
-    <Link className="nav-link" to="/News">
+    <Link className="nav-link" to="/NewsPage">
       <ListItem>
         <ListItemIcon>
           <LibraryBooksIcon />
         </ListItemIcon>
         <ListItemText primary="News" />
+      </ListItem>
+    </Link>
+    <Link className="nav-link" to="/Topup">
+      <ListItem>
+        <ListItemIcon>
+          <LibraryBooksIcon />
+        </ListItemIcon>
+        <ListItemText primary="Topup Request" />
+      </ListItem>
+    </Link>
+    <Link className="nav-link" to="/Transaction">
+      <ListItem>
+        <ListItemIcon>
+          <LibraryBooksIcon />
+        </ListItemIcon>
+        <ListItemText primary="Transaction Request" />
       </ListItem>
     </Link>
     <Link className="nav-link" to="/Reimbursement">
@@ -53,29 +69,5 @@ export const mainListItems = (
         <ListItemText primary="Reimbursement" />
       </ListItem>
     </Link>
-  </div>
-);
-
-export const secondaryListItems = (
-  <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItem>
   </div>
 );

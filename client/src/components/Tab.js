@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,6 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import ExpenseTable from './ExpenseTable';
 import TopupTable from './TopupTable';
+import { Paper } from '@material-ui/core';
+import { TransactionContext } from '../context/TransactionContext';
+import { TopupContext } from '../context/TopupContext';
+import { GetUsersContext } from '../context/GetUsersContext';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -62,6 +66,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NavTabs() {
+  const [transactions, getEmployeeTransactions] = useContext(
+    TransactionContext
+  );
+
+  const [topups, getEmployeeTopups] = useContext(TopupContext);
+
+  const [getManagers, managers] = useContext(GetUsersContext);
+
+  useEffect(async () => {
+    await getEmployeeTopups();
+  }, []);
+
+  useEffect(async () => {
+    await getManagers();
+  }, []);
+
+  useEffect(async () => {
+    await getEmployeeTransactions();
+  }, []);
+
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -71,22 +95,26 @@ export default function NavTabs() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{background:"#99c2ff", color:"#fff"}}>
+      <Paper
+        elevation={3}
+        style={{ background: '#fff', color: '#1278B8', width: 'auto' }}
+      >
         <Tabs
+          indicatorColor="primary"
           variant="fullWidth"
           value={value}
           onChange={handleChange}
           aria-label="nav tabs example"
         >
-          <LinkTab label="Expense" href="/expenses" {...a11yProps(0)} />
-          <LinkTab label="Topup" href="/topups" {...a11yProps(1)} />
+          <Tab label="Expense" {...a11yProps(0)} />
+          <Tab label="Topup" {...a11yProps(1)} />
         </Tabs>
-      </AppBar>
+      </Paper>
       <TabPanel value={value} index={0}>
-        <ExpenseTable/>
+        <ExpenseTable managers={managers} transactions={transactions} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <TopupTable/>
+        <TopupTable managers={managers} topups={topups} />
       </TabPanel>
     </div>
   );

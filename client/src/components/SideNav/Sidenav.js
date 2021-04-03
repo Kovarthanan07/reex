@@ -13,7 +13,8 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
+import { mainListItems} from './listItems';
+import ProfileCircle from '../ProfileCircle';
 
 const drawerWidth = 240;
 
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: '0 8px',
-    ...theme.mixins.toolbar,
+    
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   appBarShift: {
+    backgroundColor: "#1278B8",
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
@@ -110,7 +112,7 @@ export default function Sidenav() {
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+        <AppBar style={{backgroundColor:"#1278B8"}} position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
           <Toolbar className={classes.toolbar}>
             <IconButton
               edge="start"
@@ -129,6 +131,11 @@ export default function Sidenav() {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+            <Divider/>
+            <Divider/>
+            <IconButton color="inherit">
+              <ProfileCircle/>
+            </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -146,7 +153,6 @@ export default function Sidenav() {
           <Divider />
           <List>{mainListItems}</List>
           <Divider />
-          <List>{secondaryListItems}</List>
         </Drawer>
         
       </div>
