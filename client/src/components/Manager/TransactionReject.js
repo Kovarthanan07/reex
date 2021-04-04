@@ -1,46 +1,82 @@
 import React, { useState } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 
-const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'date', headerName: 'DATE', width: 150 },
-  { field: 'category', headerName: 'Category', width: 130 },
-  { field: 'firstName', headerName: 'Emploee Name', width: 160 },
-  {
-    field: 'amount',
-    headerName: 'Amount',
-    type: 'number',
-    width: 130,
-  },
-  {
-    field: 'receipt',
-    headerName: 'View Receipt',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.getValue('firstName') || ''} ${params.getValue('lastName') || ''}`,
-  },
-];
+export default function TopupReject(props) {
+  const { transactions, employees } = props;
+  const columns = [
+    { field: 'submissionDate', headerName: 'Submission Date', width: 161 },
+    { field: 'employeeName', headerName: 'Employee Name', width: 165 },
+    { field: 'category', headerName: 'Category', width: 110 },
+    { field: 'paymentMethod', headerName: 'Payment Method', width: 160 },
+    { field: 'transactionDate', headerName: 'Transaction Date', width: 161 },
+    { field: 'updatedDate', headerName: 'Updated Date', width: 151 },
+    {
+      field: 'amount',
+      headerName: 'Amount',
+      // type: 'number',
+      width: 110,
+    },
+    {
+      field: 'status',
+      headerName: 'Status',
+      width: 100,
+    },
+    {
+      field: 'receiptUrl',
+      headerName: 'receiptUrl',
+      width: 0,
+      hide: true,
+    },
+  ];
 
-const rows = [
-  { id:1 , date: '01-05-2020', category: 'vehicle', firstName: 'Jon', amount: 35, receipt: {} },
-  { id:2 , date: '02-05-2020', category: 'Food', firstName: 'Cersei', amount: 42, receipt: {} },
-  { id:3 , date: '03-05-2020', category: 'Rent', firstName: 'Jaime', amount: 45, receipt: {} },
-  { id:4 , date: '04-05-2020', category: 'vehicle', firstName: 'Arya', amount: 16, receipt: {} },
-  { id:5 , date: '05-05-2020', category: 'Food', firstName: 'Daenerys', amount: null, receipt: {} },
-  { id:6 , date: '06-05-2020', category: 'vehicle', firstName: null, amount: 150, receipt: {} },
-  { id:7 , date: '07-05-2020', category: 'vehicle', firstName: 'Ferrara', amount: 44, receipt: {} },
-  { id:8 , date: '08-05-2020', category: 'Food', firstName: 'Rossini', amount: 36, receipt: {} },
-  { id:9 , date: '09-05-2020', category: 'Rent', firstName: 'Harvey', amount: 65, receipt: {} },
-];
+  const getDate = (realDate) => {
+    const datee = new Date(realDate);
+    const year = datee.getUTCFullYear();
+    const month = datee.getUTCMonth();
+    const date = datee.getUTCDate();
+    const correctDate = date + '-' + month + '-' + year;
+    return correctDate;
+  };
 
-export default function TopupReject() {
+  const getEmployeeName = (id) => {
+    let employee = employees.find((m) => m._id === id);
+    return employee.name;
+  };
+
+  const getEmployeeId = (id) => {
+    let employee = employees.find((m) => m._id === id);
+    return employee.userId;
+  };
+
+  const rows = [];
+
+  if (transactions && employees) {
+    const pendingTransactions = transactions.filter((transaction) => {
+      return transaction.status === 'Rejected';
+    });
+
+    pendingTransactions.reverse().map((pendingTransaction) => {
+      const data = {
+        id: pendingTransaction._id,
+        submissionDate: getDate(pendingTransaction.createdAt),
+        employeeName: getEmployeeName(pendingTransaction.transactionBy),
+        category: pendingTransaction.category,
+        paymentMethod: pendingTransaction.paymentMethod,
+        transactionDate: getDate(pendingTransaction.transactionDate),
+        updatedDate: getDate(pendingTransaction.updatedAt),
+        amount: pendingTransaction.amount,
+        status: pendingTransaction.status,
+        receiptUrl: pendingTransaction.receiptUrl,
+      };
+      rows.push(data);
+      // console.log('Rows : ', rows);
+    });
+  }
+
   return (
     <div style={{ height: 400, width: '100%' }}>
-      <h3>Transaction Rejects</h3>
-      <DataGrid rows={rows} columns={columns} pageSize={5}  />
-      
+      <h3>Transactions Rejected</h3>
+      <DataGrid rows={rows} columns={columns} pageSize={5} />
     </div>
   );
 }

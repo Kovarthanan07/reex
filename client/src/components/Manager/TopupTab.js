@@ -66,8 +66,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NavTabs() {
-  const [topups, getManagerTopups] = useContext(TopupContext);
-  const [getEmployees, employees] = useContext(GetUsersContext);
+  const { topups, getManagerTopups } = useContext(TopupContext);
+
+  const { employees, getEmployees } = useContext(GetUsersContext);
 
   useEffect(async () => {
     await getManagerTopups();
@@ -103,13 +104,13 @@ export default function NavTabs() {
         </Tabs>
       </Paper>
       <TabPanel value={value} index={0}>
-        <TopupPending />
+        <TopupPending topups={topups} employees={employees} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <TopupAccept />
+        <TopupAccept topups={topups} employees={employees} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <TopupReject />
+        <TopupReject topups={topups} employees={employees} />
       </TabPanel>
     </div>
   );

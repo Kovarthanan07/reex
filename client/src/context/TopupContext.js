@@ -44,7 +44,7 @@ export const TopupContextProvider = function (props) {
 
   return (
     <TopupContext.Provider
-      value={[topups, getEmployeeTopups, getManagerTopups]}
+      value={{ topups, getEmployeeTopups, getManagerTopups }}
     >
       {props.children}
     </TopupContext.Provider>
