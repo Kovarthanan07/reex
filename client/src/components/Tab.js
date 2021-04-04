@@ -66,13 +66,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NavTabs() {
-  const [transactions, getEmployeeTransactions] = useContext(
+  const { transactions, getEmployeeTransactions } = useContext(
     TransactionContext
   );
 
-  const [topups, getEmployeeTopups] = useContext(TopupContext);
+  const { topups, getEmployeeTopups } = useContext(TopupContext);
 
-  const [getManagers, managers] = useContext(GetUsersContext);
+  const { getManagers, managers } = useContext(GetUsersContext);
 
   useEffect(async () => {
     await getEmployeeTopups();

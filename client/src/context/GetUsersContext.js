@@ -45,7 +45,7 @@ export const GetUsersContextProvider = function (props) {
 
   return (
     <GetUsersContext.Provider
-      value={[getManagers, managers, employees, getEmployees]}
+      value={{ getManagers, managers, employees, getEmployees }}
     >
       {props.children}
     </GetUsersContext.Provider>
