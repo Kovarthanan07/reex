@@ -13,7 +13,8 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
+import { mainListItems} from './listItems';
+import ProfileCircle from '../ProfileCircle';
 
 const drawerWidth = 240;
 
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: '0 8px',
-    ...theme.mixins.toolbar,
+    
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -130,6 +131,11 @@ export default function Sidenav() {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+            <Divider/>
+            <Divider/>
+            <IconButton color="inherit">
+              <ProfileCircle/>
+            </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -147,7 +153,6 @@ export default function Sidenav() {
           <Divider />
           <List>{mainListItems}</List>
           <Divider />
-          <List>{secondaryListItems}</List>
         </Drawer>
         
       </div>

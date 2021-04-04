@@ -1,10 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Sidenav from './SideNav/Sidenav';
-import ExpenseTable from './ExpenseTable';
-import TopupTable from './TopupTable';
-import News from './News/News';
+import Sidenav from '../SideNav/Sidenav';
+import ExpenseTable from '../ExpenseTable';
+import TopupTable from '../TopupTable';
+import Tab from '../Tab';
 
 import clsx from 'clsx';    
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -24,21 +24,9 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './SideNav/listItems';
-import Footer from './Footer/Footer';
-
-function Copyright() {
-    return (
-      <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
-        <Link color="inherit" to="/">
-          The NANs
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
+import { mainListItems, secondaryListItems } from '../SideNav/listItems';
+import Footer from '../Footer/Footer';
+import ReimburseRequests from './ReimburseRequests';
 
 const drawerWidth = 240;
 
@@ -121,7 +109,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NewsPage() {
+export default function History() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const handleDrawerOpen = () => {
@@ -139,9 +127,9 @@ export default function NewsPage() {
         <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <News/>
+          <ReimburseRequests/>
           <Box pt={4}>
-            <Copyright />
+            <Footer />
           </Box>
         </Container>
       </main>
