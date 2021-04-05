@@ -32,7 +32,7 @@ import Copyright from '../Footer/Footer';
 //   );
 // }
 
-const drawerWidth = 240;
+const drawerWidth = '240';
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -28,12 +28,12 @@ function ListItems(props) {
               <ListItemText primary="Dashboard" />
             </ListItem>
           </Link>
-          <Link className="nav-link" to="/Report">
+          <Link className="nav-link" to="/NewsPage">
             <ListItem>
               <ListItemIcon>
                 <BarChartIcon />
               </ListItemIcon>
-              <ListItemText primary="Report" />
+              <ListItemText primary="NewsPage" />
             </ListItem>
           </Link>
           <Link className="nav-link" to="/History">
@@ -44,12 +44,12 @@ function ListItems(props) {
               <ListItemText primary="History" />
             </ListItem>
           </Link>
-          <Link className="nav-link" to="/NewsPage">
+          <Link className="nav-link" to="/Report">
             <ListItem>
               <ListItemIcon>
                 <LibraryBooksIcon />
               </ListItemIcon>
-              <ListItemText primary="News" />
+              <ListItemText primary="Report" />
             </ListItem>
           </Link>
           <Link className="nav-link" to="/Reimbursement">
@@ -72,29 +72,46 @@ function ListItems(props) {
               <ListItemText primary="Dashboard" />
             </ListItem>
           </Link>
-          <Link className="nav-link" to="/Report">
+          <Link className="nav-link" to="/NewsPage">
             <ListItem>
               <ListItemIcon>
                 <BarChartIcon />
               </ListItemIcon>
-              <ListItemText primary="Report" />
+              <ListItemText primary="NewsPage" />
             </ListItem>
           </Link>
           <Link className="nav-link" to="/Topup">
+            <span className="sr-only"></span>
             <ListItem>
               <ListItemIcon>
-                <LibraryBooksIcon />
+                <DashboardIcon />
               </ListItemIcon>
-              <ListItemText primary="Topup Request" />
+              <ListItemText primary="Topup" />
             </ListItem>
           </Link>
-
           <Link className="nav-link" to="/Transaction">
+            <span className="sr-only"></span>
+            <ListItem>
+              <ListItemIcon>
+                <DashboardIcon />
+              </ListItemIcon>
+              <ListItemText primary="Transaction" />
+            </ListItem>
+          </Link>
+          <Link className="nav-link" to="/Report">
             <ListItem>
               <ListItemIcon>
                 <LibraryBooksIcon />
               </ListItemIcon>
-              <ListItemText primary="Transaction Request" />
+              <ListItemText primary="Report" />
+            </ListItem>
+          </Link>
+          <Link className="nav-link" to="/Reimbursement">
+            <ListItem>
+              <ListItemIcon>
+                <LibraryBooksIcon />
+              </ListItemIcon>
+              <ListItemText primary="Reimbursement" />
             </ListItem>
           </Link>
         </div>
@@ -109,12 +126,20 @@ function ListItems(props) {
               <ListItemText primary="Dashboard" />
             </ListItem>
           </Link>
-          <Link className="nav-link" to="/Report">
+          <Link className="nav-link" to="/NewsPage">
             <ListItem>
               <ListItemIcon>
                 <BarChartIcon />
               </ListItemIcon>
-              <ListItemText primary="Report" />
+              <ListItemText primary="NewsPage" />
+            </ListItem>
+          </Link>
+          <Link className="nav-link" to="/Staffs">
+            <ListItem>
+              <ListItemIcon>
+                <BarChartIcon />
+              </ListItemIcon>
+              <ListItemText primary="Staffs" />
             </ListItem>
           </Link>
         </div>

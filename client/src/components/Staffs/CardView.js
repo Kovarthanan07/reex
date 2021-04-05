@@ -37,7 +37,9 @@ function App() {
             <Grid item xs={false} sm={1} />
               <Grid item xs={12} sm={10}>
                 <Container maxWidth="xl">
+                <div data-aos="zoom-in">
                   <Content />
+                  </div>
                 </Container>
               </Grid>
             <Grid item xs={false} sm={1} />

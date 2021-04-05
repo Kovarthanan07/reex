@@ -8,7 +8,7 @@ import { } from "@material-ui/core";
 import { Row } from "react-bootstrap";
 
 const CoffeCard = (props) => {
-  const { title, status, payment, career, imageUrl, view, date } = props;
+  const { name, role, dateOfBirth, gender, profilePicture, userId, email,mobileNumber } = props;
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -24,18 +24,16 @@ const CoffeCard = (props) => {
     },
     img: {
       margin: "auto",
-      display: "",
       maxWidth: "100%",
       maxHeight: "100%",
     },
-    status: {
-      color: payment
-    }
+    // status: {
+    //   color: payment
+    // }
   }));
   const classes = useStyles();
 
   return (
-    <div data-aos="zoom-in">
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <Grid container spacing={2}>
@@ -43,7 +41,7 @@ const CoffeCard = (props) => {
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
                   <Typography gutterBottom variant="h6">
-                    {title}
+                    {name}
                   </Typography>
                   <Grid
                     className="tags"
@@ -54,7 +52,7 @@ const CoffeCard = (props) => {
                   >
                     <Row>
                       <img
-                        src={imageUrl}
+                        src={profilePicture}
                         alt="profile pic"
                         style={{
                           width: "auto",
@@ -64,12 +62,14 @@ const CoffeCard = (props) => {
                       />
                       <div
                         style={{
-                          fontSize: 10,
+                          fontSize: 15,
                           width: 100,
                           marginLeft: 10,
                         }}>
-                          The NANs.
-                        <div>
+                          {email}
+                          <br/>
+                          {mobileNumber}
+                        {/* <div>
                           <Row>
                             <i
                               className="fas fa-star"
@@ -83,13 +83,20 @@ const CoffeCard = (props) => {
                             ></i>
                             <span style={{ color: "#f6830f", marginRight: 3 }}>4.9</span>(3456 )
                           </Row>
+                        </div> */}
+                        <div
+                          style={{
+                            fontSize: 10,
+                            width: 100,
+                          }}>
+                            {gender}
                         </div>
-                      </div>
+                      </div> 
                     </Row>
                   </Grid>
                   <br />
                   <Typography variant="body2" gutterBottom>
-                    <div className={classes.status}> {status}</div>
+                    <div className={classes.status}> {role}</div>
                   </Typography>
                 </Grid>
 
@@ -101,11 +108,11 @@ const CoffeCard = (props) => {
                   <br />
 
                 <Typography variant="h6" style={{ color: "gray", display: "flex", justifyContent: "center" }}>
-                  {view}
+                  ID: {userId}
                 </Typography>
 
                 <Typography variant="subtitle2" style={{ display: "flex", justifyContent: "center" }}>
-                  {date}
+                  DOB: {dateOfBirth}
                 </Typography>
                   <br />
                 <Grid align="center">
@@ -115,7 +122,7 @@ const CoffeCard = (props) => {
                   </Button>{" "}
                   <Button size="small" style={{ color: "red" }}>
                     {" "}
-                    Cancel{" "}
+                    DELETE{" "}
                   </Button>
                 </Grid>
               </Grid>
@@ -123,7 +130,6 @@ const CoffeCard = (props) => {
           </Grid>
         </Paper>
       </div>
-    </div>
   );
 };
 

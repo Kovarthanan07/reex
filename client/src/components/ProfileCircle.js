@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect, useHistory,Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
@@ -60,7 +60,7 @@ export default function ProfileCircle(props) {
 
           <p>{currentUser.name}</p>
           <p>{currentUser.role}</p>
-          <Button>Edit profile</Button>
+          <Button><Link to="/EditProfile" style={{textDecoration:"none"}}>Edit profile</Link></Button>
           <br />
           <button
             onClick={() => {

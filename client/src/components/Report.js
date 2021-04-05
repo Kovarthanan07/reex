@@ -1,25 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Sidenav from './SideNav/Sidenav';
-<<<<<<< HEAD
 import clsx from 'clsx';
-=======
-
-import clsx from 'clsx';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
->>>>>>> caab403494e60dd13ba4b30b5c7678125225d4fd
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
-<<<<<<< HEAD
-=======
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './SideNav/ListItems';
->>>>>>> caab403494e60dd13ba4b30b5c7678125225d4fd
 
 function Copyright() {
   return (
