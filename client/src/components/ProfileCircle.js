@@ -5,7 +5,9 @@ import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 import { Paper } from '@material-ui/core';
+
 
 const useStyles = makeStyles((theme) => ({
   typography: {
@@ -13,7 +15,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProfileCircle(props) {
+
+export default function ProfileCircle(props) 
+export default function ProfileCircle() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -28,6 +32,7 @@ export default function ProfileCircle(props) {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
   var currentUser = JSON.parse(localStorage.getItem('user'));
+
 
   return (
     <div >
@@ -50,6 +55,7 @@ export default function ProfileCircle(props) {
         }}
       >
         <Typography style={{width:150, padding: 15}} className={classes.typography}>
+
           {/* {currentUser.role===null ? currentUser.role='other' : currentUser.role=currentUser.role} */}
           
             <p>{currentUser.name}</p>
@@ -61,6 +67,7 @@ export default function ProfileCircle(props) {
                 localStorage.removeItem('token');
                 return <Redirect to={'/login'} />
             }} className="btn btn-primary" >Logout</button>
+
         </Typography>
       </Popover>
     </div>

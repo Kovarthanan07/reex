@@ -18,6 +18,7 @@ function ListItems(props)  {
   const {authData} = useContext(AuthTokenContext);
   return(
   <div>
+
     {currentUser.role=== "employee" ?
     <div>
       <Link className="nav-link" to="/Dashboard"><span className="sr-only"></span>
@@ -38,6 +39,7 @@ function ListItems(props)  {
       </Link>
       <Link className="nav-link" to="/History">
       <ListItem>
+
         <ListItemIcon>
           <HistoryIcon />
         </ListItemIcon>
@@ -60,6 +62,7 @@ function ListItems(props)  {
         <ListItemText primary="Reimbursement" />
       </ListItem>
     </Link>
+
     </div> : currentUser.role==="manager" ?
     <div>
       <Link className="nav-link" to="/Dashboard"><span className="sr-only"></span>
@@ -79,6 +82,7 @@ function ListItems(props)  {
         </ListItem>
       </Link>
       <Link className="nav-link" to="/Topup">
+
       <ListItem>
         <ListItemIcon>
           <LibraryBooksIcon />
@@ -86,7 +90,9 @@ function ListItems(props)  {
         <ListItemText primary="Topup Request" />
       </ListItem>
     </Link>
+
     <Link className="nav-link" to="/Transaction">
+
       <ListItem>
         <ListItemIcon>
           <LibraryBooksIcon />
@@ -121,6 +127,8 @@ function ListItems(props)  {
     </div>
     }
   </div>
+
   );
 };
 export default ListItems ;
+

@@ -14,6 +14,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListItems from './ListItems';
+
+import { mainListItems} from './listItems';
+
 import ProfileCircle from '../ProfileCircle';
 
 const drawerWidth = 240;
