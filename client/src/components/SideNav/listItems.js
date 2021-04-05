@@ -112,14 +112,6 @@ function ListItems(props)  {
           <ListItemText primary="Report" />
         </ListItem>
       </Link>
-      <Link className="nav-link" to="/staffs">
-        <ListItem >
-          <ListItemIcon>
-            <BarChartIcon />
-          </ListItemIcon>
-          <ListItemText primary="Staffs" />
-        </ListItem>
-      </Link>
     </div> : currentUser.role=== null || currentUser.role==='' ?
     <div>
        <Redirect to={'/login'} />;
