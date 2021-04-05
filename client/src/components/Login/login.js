@@ -27,6 +27,7 @@ function SignIn(props) {
     e.preventDefault();
     login(loginData);
     // props.history.push('dashboard');
+    props.history.push('/Dashboard');
     console.log('Login Success ... ');
     // localStorage.getItem('token') ? <Redirect to={'/dashboard'} /> : null;
   };
@@ -36,12 +37,18 @@ function SignIn(props) {
   //   return <Redirect to={'/Dashboard'} />;
   // }
 
+<<<<<<< HEAD
   // if (localStorage.getItem('token')) {
   //   return <Redirect to={'/dashboard'} />;
   // }
   // if (localStorage.getItem('token')) {
   //   return <Redirect to={'/dashboard'} />;
   // }
+=======
+  if (localStorage.getItem('token')) {
+    return <Redirect to={'/dashboard'} />;
+  }
+>>>>>>> caab403494e60dd13ba4b30b5c7678125225d4fd
 
   return (
     <Container component="main" maxWidth="xs">

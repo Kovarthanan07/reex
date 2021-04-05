@@ -1,9 +1,29 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Sidenav from '../SideNav/Sidenav';
+<<<<<<< HEAD
 import clsx from 'clsx';
+=======
+import ExpenseTable from '../ExpenseTable';
+import TopupTable from '../TopupTable';
+import Tab from '../Tab';
+
+import clsx from 'clsx';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Drawer from '@material-ui/core/Drawer';
+>>>>>>> caab403494e60dd13ba4b30b5c7678125225d4fd
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
+<<<<<<< HEAD
+=======
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Link from '@material-ui/core/Link';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+// import { mainListItems, secondaryListItems } from '../SideNav/ListItems';
+>>>>>>> caab403494e60dd13ba4b30b5c7678125225d4fd
 import Footer from '../Footer/Footer';
 import ReimburseRequests from './ReimburseRequests';
 
@@ -89,31 +109,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function History() {
-    const classes = useStyles();
-    const [open, setOpen] = React.useState(true);
-    const handleDrawerOpen = () => {
-      setOpen(true);
-    };
-    const handleDrawerClose = () => {
-      setOpen(false);
-    };
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
-
     <div className={classes.root}>
-        <Sidenav/>
-        <main className={classes.content}>
+      <Sidenav />
+      <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <ReimburseRequests/>
+          <ReimburseRequests />
           <Box pt={4}>
             <Footer />
           </Box>
         </Container>
       </main>
     </div>
-
-    
   );
 }

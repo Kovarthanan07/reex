@@ -2,24 +2,39 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Sidenav from './SideNav/Sidenav';
 import News from './News/News';
+<<<<<<< HEAD
 import clsx from 'clsx';
+=======
+
+import clsx from 'clsx';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Drawer from '@material-ui/core/Drawer';
+>>>>>>> caab403494e60dd13ba4b30b5c7678125225d4fd
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+<<<<<<< HEAD
+=======
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import { mainListItems, secondaryListItems } from './SideNav/ListItems';
+import Footer from './Footer/Footer';
+>>>>>>> caab403494e60dd13ba4b30b5c7678125225d4fd
 
 function Copyright() {
-    return (
-      <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
-        <Link color="inherit" to="/">
-          The NANs
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" to="/">
+        The NANs
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
 const drawerWidth = 240;
 
@@ -103,31 +118,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NewsPage() {
-    const classes = useStyles();
-    const [open, setOpen] = React.useState(true);
-    const handleDrawerOpen = () => {
-      setOpen(true);
-    };
-    const handleDrawerClose = () => {
-      setOpen(false);
-    };
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
-
     <div className={classes.root}>
-        <Sidenav/>
-        <main className={classes.content}>
+      <Sidenav />
+      <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <News/>
+          <News />
           <Box pt={4}>
             <Copyright />
           </Box>
         </Container>
       </main>
     </div>
-
-    
   );
 }
