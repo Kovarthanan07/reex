@@ -27,7 +27,6 @@ function SignIn(props) {
     e.preventDefault();
     login(loginData);
     // props.history.push('dashboard');
-    props.history.push('/Dashboard');
     console.log('Login Success ... ');
     // localStorage.getItem('token') ? <Redirect to={'/dashboard'} /> : null;
   };
@@ -37,9 +36,12 @@ function SignIn(props) {
   //   return <Redirect to={'/Dashboard'} />;
   // }
 
-  if (localStorage.getItem('token')) {
-    return <Redirect to={'/dashboard'} />;
-  }
+  // if (localStorage.getItem('token')) {
+  //   return <Redirect to={'/dashboard'} />;
+  // }
+  // if (localStorage.getItem('token')) {
+  //   return <Redirect to={'/dashboard'} />;
+  // }
 
   return (
     <Container component="main" maxWidth="xs">

@@ -1,11 +1,27 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Sidenav from '../SideNav/Sidenav';
-import clsx from 'clsx';
+import clsx from 'clsx';    
 import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import Link from '@material-ui/core/Link';
 import Footer from '../Footer/Footer';
-import ReimburseRequests from './ReimburseRequests';
+import CardView from './CardView';
+import Content from './Content';
+
+function Copyright() {
+    return (
+      <Typography variant="body2" color="textSecondary" align="center">
+        {'Copyright © '}
+        <Link color="inherit" to="/">
+          The NANs
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+  }
 
 const drawerWidth = 240;
 
@@ -106,9 +122,10 @@ export default function History() {
         <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <ReimburseRequests/>
+          <CardView/>
+          <Content/>
           <Box pt={4}>
-            <Footer />
+            <Copyright />
           </Box>
         </Container>
       </main>

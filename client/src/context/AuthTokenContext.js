@@ -1,11 +1,9 @@
 import React, { useState, createContext } from 'react';
 import axios from 'axios';
-import { Redirect, useHistory } from 'react-router-dom';
 
 export const AuthTokenContext = createContext();
 
 export const AuthTokenContextProvider = function (props) {
-  const history = useHistory();
   const [loginStatus, setLoginStatus] = useState('');
   const [authData, setAuthData] = useState({
     user: {},
@@ -32,7 +30,6 @@ export const AuthTokenContextProvider = function (props) {
         user,
         token,
       });
-
       setLoginStatus('success');
     } catch (error) {
       setLoginStatus('fail');
@@ -42,7 +39,7 @@ export const AuthTokenContextProvider = function (props) {
   const logout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    setAuthData({
+    this.setAuthData({
       user: {},
       token: '',
     });

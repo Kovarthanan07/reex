@@ -1,32 +1,28 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom'
 
-export const ProtectedRouterAdmin = ({ component: Component, ...rest }) => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  const token = localStorage.getItem('token');
-  return (
-    <Route
-      {...rest}
-      render={(props) => {
-        if (user) {
-          if (user.role === 'admin') {
-            return <Component {...props} />;
-          }
-        } else {
-          return (
-            <Redirect
-              to={{
-                pathname: '/login',
-                state: {
-                  from: props.location,
-                },
-              }}
-            />
-          );
-        }
-      }}
-    />
-  );
-};
+const ProtectedRouter = ({component, ...rest}) => {
+    var RenderComponents = component;
+    var currentUser = JSON.parse(localStorage.getItem('user'));
+    console.log(RenderComponents);
+    return(
+        <Route
+            {...rest}
+            render = {
+                props => {
+                    return currentUser ? (
+                        <RenderComponents {...props} />
+                    ) : (
+                        <Redirect 
+                            to = {{
+                                pathname: '/Login'
+                            }}
+                        />
+                    )
+                }
+            }
+        />
+    )
+}
 
-export default ProtectedRouterAdmin;
+export default ProtectedRouter;
