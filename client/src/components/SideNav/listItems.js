@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -9,28 +9,37 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import HistoryIcon from '@material-ui/icons/History';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import MobileFriendlyIcon from '@material-ui/icons/MobileFriendly';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import {AuthTokenContext} from '../../context/AuthTokenContext';
 
-export const mainListItems = (
+
+function ListItems(props)  {
+  const currentUser = JSON.parse(localStorage.getItem('user'));
+  const {authData} = useContext(AuthTokenContext);
+  return(
   <div>
-    <Link className="nav-link" to="/Dashboard"><span className="sr-only"></span>
-      <ListItem >
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="Dashboard" />
-      </ListItem>
-    </Link>
-    <Link className="nav-link" to="/Report">
-      <ListItem >
-        <ListItemIcon>
-          <BarChartIcon />
-        </ListItemIcon>
-        <ListItemText primary="Report" />
-      </ListItem>
-    </Link>
-    <Link className="nav-link" to="/History">
+
+    {currentUser.role=== "employee" ?
+    <div>
+      <Link className="nav-link" to="/Dashboard"><span className="sr-only"></span>
+        <ListItem >
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+        </ListItem>
+      </Link>
+      <Link className="nav-link" to="/Report">
+        <ListItem >
+          <ListItemIcon>
+            <BarChartIcon />
+          </ListItemIcon>
+          <ListItemText primary="Report" />
+        </ListItem>
+      </Link>
+      <Link className="nav-link" to="/History">
       <ListItem>
+
         <ListItemIcon>
           <HistoryIcon />
         </ListItemIcon>
@@ -45,22 +54,6 @@ export const mainListItems = (
         <ListItemText primary="News" />
       </ListItem>
     </Link>
-    <Link className="nav-link" to="/Topup">
-      <ListItem>
-        <ListItemIcon>
-          <LibraryBooksIcon />
-        </ListItemIcon>
-        <ListItemText primary="Topup Request" />
-      </ListItem>
-    </Link>
-    <Link className="nav-link" to="/Transaction">
-      <ListItem>
-        <ListItemIcon>
-          <LibraryBooksIcon />
-        </ListItemIcon>
-        <ListItemText primary="Transaction Request" />
-      </ListItem>
-    </Link>
     <Link className="nav-link" to="/Reimbursement">
       <ListItem>
         <ListItemIcon>
@@ -69,5 +62,73 @@ export const mainListItems = (
         <ListItemText primary="Reimbursement" />
       </ListItem>
     </Link>
+
+    </div> : currentUser.role==="manager" ?
+    <div>
+      <Link className="nav-link" to="/Dashboard"><span className="sr-only"></span>
+        <ListItem >
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+        </ListItem>
+      </Link>
+      <Link className="nav-link" to="/Report">
+        <ListItem >
+          <ListItemIcon>
+            <BarChartIcon />
+          </ListItemIcon>
+          <ListItemText primary="Report" />
+        </ListItem>
+      </Link>
+      <Link className="nav-link" to="/Topup">
+
+      <ListItem>
+        <ListItemIcon>
+          <LibraryBooksIcon />
+        </ListItemIcon>
+        <ListItemText primary="Topup Request" />
+      </ListItem>
+    </Link>
+
+    <Link className="nav-link" to="/Transaction">
+
+      <ListItem>
+        <ListItemIcon>
+          <LibraryBooksIcon />
+        </ListItemIcon>
+        <ListItemText primary="Transaction Request" />
+      </ListItem>
+    </Link>
+    </div> :  currentUser.role==="admin" ?
+    <div>
+      <Link className="nav-link" to="/Dashboard"><span className="sr-only"></span>
+        <ListItem >
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+        </ListItem>
+      </Link>
+      <Link className="nav-link" to="/Report">
+        <ListItem >
+          <ListItemIcon>
+            <BarChartIcon />
+          </ListItemIcon>
+          <ListItemText primary="Report" />
+        </ListItem>
+      </Link>
+    </div> : currentUser.role=== null || currentUser.role==='' ?
+    <div>
+       <Redirect to={'/login'} />;
+    </div> :
+    <div>
+      <p>Please login</p>
+    </div>
+    }
   </div>
-);
+
+  );
+};
+export default ListItems ;
+
