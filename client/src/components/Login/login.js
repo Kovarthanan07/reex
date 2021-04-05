@@ -28,7 +28,7 @@ function SignIn(props) {
     login(loginData);
     // props.history.push('dashboard');
     console.log('Login Success ... ');
-    // localStorage.getItem('token') ? <Redirect to={'/dashboard'} /> : null;
+    localStorage.getItem('token') ? <Redirect to={'/dashboard'} /> : null;
   };
 
   // var currentUser = JSON.parse(localStorage.getItem('user'));
