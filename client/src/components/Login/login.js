@@ -40,6 +40,7 @@ function SignIn(props) {
   if (localStorage.getItem('token')) {
     return <Redirect to={'/dashboard'} />;
   }
+  
 
   return (
     <Container component="main" maxWidth="xs">

@@ -9,6 +9,8 @@ import Transaction from './components/Manager/Transactionreq';
 import NewsPage from './components/NewsPage';
 import CreateUser from './components/Admin/CreateUser';
 import Reimbursement from './components/Manager/Reimbursement';
+import Staffs from './components/Staffs/Staffs';
+import EditProfile from './components/EditProfile';
 import {
   BrowserRouter,
   Router,
@@ -54,12 +56,17 @@ function App() {
                     path="/NewsPage"
                     component={NewsPage}
                   />
+                  <ProtectedRouter
+                    exact
+                    path="/EditProfile"
+                    component={EditProfile}
+                  />
 
                   {/* Admin Routes */}
                   <ProtectedRouterAdmin
                     exact
                     path="/Staffs"
-                    component={CreateUser}
+                    component={Staffs}
                   />
 
                   {/* Employee & Manager Routes */}
