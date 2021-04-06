@@ -25,6 +25,13 @@ const EditProfileForm = (props) => {
             branch: '',
             accountNumber: ''
         },
+        validationSchema: yup.object({
+            password: yup.string()
+                .required("Password is required"),
+            confirmPassword: yup.string()
+                .oneOf([yup.ref('password'), null], "Password and confirm password must be same")
+                .required("Confirm Password List is required")
+        }),
         // validate,
         onSubmit: (user) => {
             console.log(user);
@@ -145,16 +152,48 @@ const EditProfileForm = (props) => {
                                         />
                                     </div>
                                 </Col>
-                                <Col xs={12} sm={6}>
+                                <Col xs={12} sm={4}>
                                     <div className="form-group">
-                                        <label>New Password:</label>
+                                        <label>Old Password:</label>
                                         <input
                                             className="form-control"
-                                            type="text"
+                                            type="password"
                                             name="password"
                                             onChange={formik.handleChange}
                                             value={formik.values.password}
                                         />
+                                        {formik.errors.password ?
+                                            <div className="text-danger">{formik.errors.password}</div>
+                                            : null
+                                        }
+                                    </div>
+                                </Col>
+                                <Col xs={12} sm={4}>
+                                    <div className="form-group">
+                                        <label>New Password:</label>
+                                        <input
+                                            className="form-control"
+                                            type="password"
+                                            name="password"
+                                            onChange={formik.handleChange}
+                                            value={formik.values.newpassword}
+                                        />
+                                    </div>
+                                </Col>
+                                <Col xs={12} sm={4}>
+                                    <div className="form-group">
+                                        <label>Confirm Password:</label>
+                                        <input
+                                            className="form-control"
+                                            type="password"
+                                            name="password"
+                                            onChange={formik.handleChange}
+                                            value={formik.values.confirmPassword}
+                                        />
+                                        {formik.errors.confirmPassword ?
+                                            <div className="text-danger">{formik.errors.confirmPassword}</div>
+                                            : null
+                                        }
                                     </div>
                                 </Col>
                             </Row>
