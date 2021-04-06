@@ -14,6 +14,11 @@ import Sidenav from '../SideNav/Sidenav';
 import AddExpense from './AddExpense';
 import Topup from './Topup';
 import Copyright from '../Footer/Footer';
+import TotalExpenses from './TotalExpenses';
+import TotalTopup from './TotalTopup';
+import TotalNumber from './TotalNumber';
+import NewsButton from '../Admin/NewsButton';
+import CreateUserButton from '../Admin/CreateUserButton';
 // import AOS from 'aos';
 // import 'aos/dist/aos.css'; // You can also use <link> for styles
 // // ..
@@ -109,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   fixedHeight: {
-    height: 200,
+    height: 240,
   },
 }));
 
@@ -135,7 +140,7 @@ export default function Dashboard() {
             <Grid item xs={12} md={4} lg={4}>
               <Paper className={fixedHeightPaper}>
                 {currentUser.role==='employee' ? 
-                  <Deposit /> : currentUser.role==='manager' ? 
+                  <TotalExpenses /> : currentUser.role==='manager' ? 
                   <Chart/> : currentUser.role==='admin' ? 
                   <Orders/> : null
                 }
@@ -144,7 +149,7 @@ export default function Dashboard() {
             <Grid item xs={12} md={4} lg={4}>
               <Paper className={fixedHeightPaper}>
                 {currentUser.role==='employee' ? 
-                  <Chart /> : currentUser.role==='manager' ? 
+                  <TotalTopup /> : currentUser.role==='manager' ? 
                   <Deposit/> : currentUser.role==='admin' ? 
                   <Orders/> : null
                 }
@@ -153,7 +158,7 @@ export default function Dashboard() {
             <Grid item xs={12} md={4} lg={4}>
               <Paper className={fixedHeightPaper}>
                 {currentUser.role==='employee' ? 
-                  <Chart /> : currentUser.role==='manager' ? 
+                  <TotalNumber /> : currentUser.role==='manager' ? 
                   <Orders/> : currentUser.role==='admin' ? 
                   <Deposit/> : null
                 }
@@ -168,12 +173,22 @@ export default function Dashboard() {
                 }
               </Paper>
             </Grid>
-            <Grid item xs={12} md={4} lg={6}>
+            <Grid item xs={12} md={4} lg={3}>
               <Paper className={classes.paper}>
-                <AddExpense />
+              {currentUser.role==='employee' ? 
+                  <AddExpense /> : currentUser.role==='manager' ? 
+                  <Chart/> : currentUser.role==='admin' ? 
+                  <CreateUserButton/> : null
+                }
               </Paper>
+              </Grid>
+              <Grid item xs={12} md={4} lg={3}>
               <Paper className={classes.paper}>
-                <Topup />
+              {currentUser.role==='employee' ? 
+                  <Topup /> : currentUser.role==='manager' ? 
+                  <Chart/> : currentUser.role==='admin' ? 
+                  <NewsButton/> : null
+                }
               </Paper>
             </Grid>
           </Grid>

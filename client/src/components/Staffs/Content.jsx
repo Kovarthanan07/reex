@@ -40,7 +40,7 @@ const Content = () => {
 
   const getCoffeMakerCard = (coffeMakerObj) => {
     return (
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={4}>
         <CoffeCard {...coffeMakerObj} />
       </Grid>
     );
@@ -48,7 +48,7 @@ const Content = () => {
 
   return (
     <div>
-      <Grid container spacing={1}>
+      <Grid container spacing={2}>
         {usersDetails.map((coffeMakerObj) => getCoffeMakerCard(coffeMakerObj))}
       </Grid>
     </div>

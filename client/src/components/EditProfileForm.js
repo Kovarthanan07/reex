@@ -249,7 +249,7 @@ const EditProfileForm = (props) => {
                                     </div>
                                 </Col>
                             </Row>
-                            <button className="btn btn-primary">Submit</button>
+                            <button className="btn btn-primary">Update Profile</button>
                         </form>
                     </Paper>
                 </div>
