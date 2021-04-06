@@ -65,26 +65,17 @@ function App() {
                       component={EditProfile}
                     />
 
-<<<<<<< HEAD
-                  {/* Admin Routes */}
-                  <ProtectedRouterAdmin
-                    exact
-                    path="/Staffs"
-                    component={Staffs}
-                  />
-                  <ProtectedRouterAdmin
-                    exact
-                    path="/CreateUser"
-                    component={CreateUser}
-                  />
-=======
                     {/* Admin Routes */}
                     <ProtectedRouterAdmin
                       exact
                       path="/Staffs"
                       component={Staffs}
                     />
->>>>>>> fb5b78fdad957c5fa9a196abdc6ca699990eac79
+                    <ProtectedRouterAdmin
+                      exact
+                      path="/CreateUser"
+                      component={CreateUser}
+                    />
 
                     {/* Employee & Manager Routes */}
                     <ProtectedRouterEmployeeManager
