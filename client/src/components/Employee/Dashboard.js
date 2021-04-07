@@ -2,11 +2,9 @@ import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
 import Chart from '../Chart';
 import Deposit from '../Deposit'
 import Orders from '../Orders';
@@ -19,23 +17,6 @@ import TotalTopup from './TotalTopup';
 import TotalNumber from './TotalNumber';
 import NewsButton from '../Admin/NewsButton';
 import CreateUserButton from '../Admin/CreateUserButton';
-// import AOS from 'aos';
-// import 'aos/dist/aos.css'; // You can also use <link> for styles
-// // ..
-// AOS.init();
-
-// function Copyright() {
-//   return (
-//     <Typography variant="body2" color="textSecondary" align="center">
-//       {'Copyright © '}
-//       <Link color="inherit" to="/">
-//         The NANs
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
 
 const drawerWidth = '240';
 
