@@ -71,6 +71,11 @@ function App() {
                       path="/Staffs"
                       component={Staffs}
                     />
+                    <ProtectedRouterAdmin
+                      exact
+                      path="/CreateUser"
+                      component={CreateUser}
+                    />
 
                     {/* Employee & Manager Routes */}
                     <ProtectedRouterEmployeeManager

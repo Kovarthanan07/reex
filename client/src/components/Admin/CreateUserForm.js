@@ -5,9 +5,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Button, Form, FormGroup, Label, Input, FormText, Container, Row, Col } from 'reactstrap';
 import { Select, Paper } from '@material-ui/core';
-import DefaultProf from './Admin/profImg.jpg';
+import DefaultProf from './profImg.jpg';
 
-const EditProfileForm = (props) => {
+const CreateUserForm = (props) => {
 
     const formik = useFormik({
         initialValues: {
@@ -20,12 +20,22 @@ const EditProfileForm = (props) => {
             userId: '',
             password: '',
             confirmPassword: '',
-            profileImg: '',
-            bank: '',
-            branch: '',
-            accountNumber: ''
+            profileImg: ''
         },
         validationSchema: yup.object({
+            name: yup.string()
+                .required("Name is required")
+                .strict()
+                .trim()
+                .min(5, "Minimum 5 characters required")
+                .max(15, "Maximum 15 characters only"),
+            email: yup.string()
+                .email()
+                .required("Email is required"),
+            role: yup.string()
+                .required("Role is required"),
+            userId: yup.string()
+                .required("userId is required"),
             password: yup.string()
                 .required("Password is required"),
             confirmPassword: yup.string()
@@ -58,8 +68,7 @@ const EditProfileForm = (props) => {
             <Col xs={12} sm={8}>
                 <div className="container" >
                     <Paper elevation={4} style={{ padding: "20px" }}>
-                        <h3>Update Profile</h3>
-                        <hr/>
+                        <h3>Create User Profile</h3>
                         <form autoComplete="off" onSubmit={formik.handleSubmit}>
                             <Row>
                                 <Col xs={12} sm={6}>
@@ -72,19 +81,26 @@ const EditProfileForm = (props) => {
                                             onChange={formik.handleChange}
                                             value={formik.values.name}
                                         />
+                                        {formik.errors.name ?
+                                            <div className="text-danger">{formik.errors.name}</div>
+                                            : null
+                                        }
                                     </div>
                                 </Col>
                                 <Col xs={12} sm={6}>
                                     <div className="form-group">
-                                        <label>UserID:(Admin only)</label>
+                                        <label>UserID:</label>
                                         <input
-                                            disabled
                                             className="form-control"
                                             type="text"
                                             name="userId"
                                             onChange={formik.handleChange}
                                             value={formik.values.userId}
                                         />
+                                        {formik.errors.userId ?
+                                            <div className="text-danger">{formik.errors.userId}</div>
+                                            : null
+                                        }
                                     </div>
                                 </Col>
                                 <Col xs={12} sm={8}>
@@ -97,6 +113,10 @@ const EditProfileForm = (props) => {
                                             onChange={formik.handleChange}
                                             value={formik.values.email}
                                         />
+                                        {formik.errors.email ?
+                                            <div className="text-danger">{formik.errors.email}</div>
+                                            : null
+                                        }
                                     </div>
                                 </Col>
                                 <Col xs={12} sm={4}>
@@ -113,16 +133,22 @@ const EditProfileForm = (props) => {
                                 </Col>
                                 <Col xs={12} sm={4}>
                                     <div className="form-group">
-                                        <label>Role:(Admin only)</label>
-                                        <Input
-                                            disabled
+                                        <label>Role:</label>
+                                        <Select
                                             className="form-control"
-                                            type="text"
+                                            type="select"
                                             name="role"
                                             onChange={formik.handleChange}
                                             value={formik.values.role}
                                         >
-                                        </Input>
+                                            <option value="admin">Admin</option>
+                                            <option value="manager">Manager</option>
+                                            <option value="employee">Employee</option>
+                                        </Select>
+                                        {formik.errors.role ?
+                                            <div className="text-danger">{formik.errors.role}</div>
+                                            : null
+                                        }
                                     </div>
                                 </Col>
                                 <Col xs={12} sm={4}>
@@ -139,7 +165,7 @@ const EditProfileForm = (props) => {
                                             <option value="female">Female</option>
                                         </Select>
                                     </div>
-                                </Col>
+                                </Col>                 
                                 <Col xs={12} sm={4}>
                                     <div className="form-group">
                                         <label>Date of Birth:</label>
@@ -152,12 +178,12 @@ const EditProfileForm = (props) => {
                                         />
                                     </div>
                                 </Col>
-                                <Col xs={12} sm={4}>
+                                <Col xs={12} sm={6}>
                                     <div className="form-group">
-                                        <label>Old Password:</label>
+                                        <label>Password:</label>
                                         <input
                                             className="form-control"
-                                            type="password"
+                                            type="text"
                                             name="password"
                                             onChange={formik.handleChange}
                                             value={formik.values.password}
@@ -168,25 +194,13 @@ const EditProfileForm = (props) => {
                                         }
                                     </div>
                                 </Col>
-                                <Col xs={12} sm={4}>
-                                    <div className="form-group">
-                                        <label>New Password:</label>
-                                        <input
-                                            className="form-control"
-                                            type="password"
-                                            name="password"
-                                            onChange={formik.handleChange}
-                                            value={formik.values.newpassword}
-                                        />
-                                    </div>
-                                </Col>
-                                <Col xs={12} sm={4}>
+                                <Col xs={12} sm={6}>
                                     <div className="form-group">
                                         <label>Confirm Password:</label>
                                         <input
                                             className="form-control"
-                                            type="password"
-                                            name="password"
+                                            type="text"
+                                            name="confirmPassword"
                                             onChange={formik.handleChange}
                                             value={formik.values.confirmPassword}
                                         />
@@ -197,59 +211,7 @@ const EditProfileForm = (props) => {
                                     </div>
                                 </Col>
                             </Row>
-                            <h4>Bank Details</h4>
-                            <hr />
-                            <Row>
-                                <Col xs={12} sm={6}>
-                                    <div className="form-group">
-                                        <label>Account Holder Name:</label>
-                                        <input
-                                            className="form-control"
-                                            type="text"
-                                            name="owner"
-                                            onChange={formik.handleChange}
-                                            value={formik.values.owner}
-                                        />
-                                    </div>
-                                </Col>
-                                <Col xs={12} sm={6}>
-                                    <div className="form-group">
-                                        <label>Account Number:</label>
-                                        <input
-                                            className="form-control"
-                                            type="text"
-                                            name="accountNumber"
-                                            onChange={formik.handleChange}
-                                            value={formik.values.accountNumber}
-                                        />
-                                    </div>
-                                </Col>
-                                <Col xs={12} sm={6}>
-                                    <div className="form-group">
-                                        <label>Bank Name:</label>
-                                        <input
-                                            className="form-control"
-                                            type="text"
-                                            name="bank"
-                                            onChange={formik.handleChange}
-                                            value={formik.values.bank}
-                                        />
-                                    </div>
-                                </Col>
-                                <Col xs={12} sm={6}>
-                                    <div className="form-group">
-                                        <label>Branch Name:</label>
-                                        <input
-                                            className="form-control"
-                                            type="text"
-                                            name="branch"
-                                            onChange={formik.handleChange}
-                                            value={formik.values.branch}
-                                        />
-                                    </div>
-                                </Col>
-                            </Row>
-                            <button className="btn btn-primary">Update Profile</button>
+                            <button className="btn btn-primary">Submit</button>
                         </form>
                     </Paper>
                 </div>
@@ -259,4 +221,4 @@ const EditProfileForm = (props) => {
 
 }
 
-export default EditProfileForm;
+export default CreateUserForm;
