@@ -1,11 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Sidenav from '../components/SideNav/Sidenav';
+import Sidenav from './SideNav/Sidenav';
 import clsx from 'clsx';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
-import ViewProfileForm from './ViewProfileForm';
-import Copyright from '../components/Footer/Footer';
+import BankDetailForm from './BankDetailForm';
 
 const drawerWidth = 240;
 
@@ -88,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CreateUser() {
+export default function NewsPage() {
   const classes = useStyles();
 
   return (
@@ -97,10 +96,7 @@ export default function CreateUser() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <ViewProfileForm />
-          <Box pt={4}>
-            <Copyright />
-          </Box>
+          <BankDetailForm />
         </Container>
       </main>
     </div>

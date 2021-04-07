@@ -10,7 +10,10 @@ import NewsPage from './components/NewsPage';
 import CreateUser from './components/Admin/CreateUser';
 import Reimbursement from './components/Manager/Reimbursement';
 import Staffs from './components/Staffs/Staffs';
+import ViewProfile from './components/ViewProfile'
 import EditProfile from './components/EditProfile';
+import BankDetails from './components/BankDetail';
+import ChangePassword from './components/ChangePassword';
 import EmployeeReimbursement from './components/Employee/EmployeeReimbursement';
 import {
   BrowserRouter,
@@ -63,6 +66,21 @@ function App() {
                       exact
                       path="/EditProfile"
                       component={EditProfile}
+                    />
+                    <ProtectedRouter
+                      exact
+                      path="/ViewProfile"
+                      component={ViewProfile}
+                    />
+                    <ProtectedRouter
+                      exact
+                      path="/BankDetails"
+                      component={BankDetails}
+                    />
+                    <ProtectedRouter
+                      exact
+                      path="/ChangePassword"
+                      component={ChangePassword}
                     />
 
                     {/* Admin Routes */}
