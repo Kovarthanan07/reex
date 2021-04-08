@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { AuthTokenContext } from '../../context/AuthTokenContext';
 import { LoginFailed } from '../layouts/Alert';
+import {Paper} from '@material-ui/core';
 
 function SignIn(props) {
   const [loginData, setLoginData] = useState({
@@ -43,11 +44,11 @@ function SignIn(props) {
   
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" style={{paddingTop:50}}>
       <CssBaseline />
-
-      <div className="loginMargin">
-        <Typography component="h1" variant="h5">
+    <Paper elevation={6}>
+      <div  className="container" style={{padding:30}}>
+        <Typography component="h1" variant="h5" style={{textAlign:"center"}}>
           Log in
         </Typography>
         {loginStatus === 'fail' ? <LoginFailed /> : null}
@@ -91,6 +92,7 @@ function SignIn(props) {
           </Grid>
         </form>
       </div>
+      </Paper>
     </Container>
   );
 }

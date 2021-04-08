@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
+import { Row } from 'reactstrap';
 
 const columns = [
   { field: 'createdDate', headerName: 'Created Date', width: 150 },
@@ -18,6 +19,12 @@ const columns = [
 export default function EmployeeReimbursementData(props) {
   const rows = [];
   const { managers, reimbursements } = props;
+
+  const [modalInfo, setModalInfo] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleOpen = () => setShow(true);
 
   const getDate = (realDate) => {
     const datee = new Date(realDate);
@@ -50,11 +57,17 @@ export default function EmployeeReimbursementData(props) {
     });
   }
 
+  const rowEvents = {
+    onclick: (e, rows) => {
+      console.log(rows);
+    }
+  }
+
   return (
     <div style={{ height: 400, width: 'auto' }}>
       {console.log('Details :', details)}
       <h3>Reimbursement Requests</h3>
-      <DataGrid rows={details} columns={columns} pageSize={5} />
+      <DataGrid rows={details} columns={columns} pageSize={5}  rowEvents={rowEvents}/>
     </div>
   );
 }
