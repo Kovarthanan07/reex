@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -6,7 +6,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Chart from '../Chart';
-import Deposit from '../Deposit'
+import Deposit from '../Deposit';
 import Orders from '../Orders';
 import Sidenav from '../SideNav/Sidenav';
 import AddExpense from './AddExpense';
@@ -17,6 +17,9 @@ import TotalTopup from './TotalTopup';
 import TotalReimbursement from './TotalReimbursement';
 import NewsButton from '../Admin/NewsButton';
 import CreateUserButton from '../Admin/CreateUserButton';
+import { TransactionContext } from '../../context/TransactionContext';
+import { TopupContext } from '../../context/TopupContext';
+import { ReimbursementContext } from '../../context/ReimbursementContext';
 
 const drawerWidth = '240';
 
@@ -100,6 +103,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Dashboard() {
+  const { transactions, getEmployeeTransactions } = useContext(
+    TransactionContext
+  );
+
+  const { reimbursements, getEmployeeReimbursement } = useContext(
+    ReimbursementContext
+  );
+
+  const { topups, getEmployeeTopups } = useContext(TopupContext);
+
+  useEffect(async () => {
+    await getEmployeeTransactions();
+  }, []);
+
+  useEffect(async () => {
+    await getEmployeeReimbursement();
+  }, []);
+
+  useEffect(async () => {
+    await getEmployeeTopups();
+  }, []);
+
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -112,7 +137,7 @@ export default function Dashboard() {
   var currentUser = JSON.parse(localStorage.getItem('user'));
   return (
     <div className={classes.root}>
-      <Sidenav/>
+      <Sidenav />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
 
@@ -120,60 +145,77 @@ export default function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={4} lg={4}>
               <Paper className={fixedHeightPaper} elevation={4}>
-                {currentUser.role==='employee' ? 
-                  <TotalExpenses /> : currentUser.role==='manager' ? 
-                  <Chart/> : currentUser.role==='admin' ? 
-                  <Orders/> : null
-                }
+                {currentUser.role === 'employee' ? (
+                  <TotalExpenses transactions={transactions} />
+                ) : currentUser.role === 'manager' ? (
+                  <Chart />
+                ) : currentUser.role === 'admin' ? (
+                  <Orders />
+                ) : null}
               </Paper>
             </Grid>
             <Grid item xs={12} md={4} lg={4}>
               <Paper className={fixedHeightPaper} elevation={6}>
-                {currentUser.role==='employee' ? 
-                  <TotalTopup /> : currentUser.role==='manager' ? 
-                  <Deposit/> : currentUser.role==='admin' ? 
-                  <Orders/> : null
-                }
+                {currentUser.role === 'employee' ? (
+                  <TotalTopup topups={topups} />
+                ) : currentUser.role === 'manager' ? (
+                  <Deposit />
+                ) : currentUser.role === 'admin' ? (
+                  <Orders />
+                ) : null}
               </Paper>
             </Grid>
             <Grid item xs={12} md={4} lg={4}>
               <Paper className={fixedHeightPaper} elevation={4}>
-                {currentUser.role==='employee' ? 
-                  <TotalReimbursement /> : currentUser.role==='manager' ? 
-                  <Orders/> : currentUser.role==='admin' ? 
-                  <Deposit/> : null
-                }
+                {currentUser.role === 'employee' ? (
+                  <TotalReimbursement reimbursements={reimbursements} />
+                ) : currentUser.role === 'manager' ? (
+                  <Orders />
+                ) : currentUser.role === 'admin' ? (
+                  <Deposit />
+                ) : null}
               </Paper>
             </Grid>
             <Grid item xs={12} md={4} lg={6}>
               <Paper className={classes.paper} elevation={4}>
-                {currentUser.role==='employee' ? 
-                  <Deposit /> : currentUser.role==='manager' ? 
-                  <Chart/> : currentUser.role==='admin' ? 
-                  <Orders/> : null
-                }
+                {currentUser.role === 'employee' ? (
+                  <Deposit />
+                ) : currentUser.role === 'manager' ? (
+                  <Chart />
+                ) : currentUser.role === 'admin' ? (
+                  <Orders />
+                ) : null}
               </Paper>
             </Grid>
-            <Grid item xs={12} md={4} lg={3}> 
+            <Grid item xs={12} md={4} lg={3}>
               <Paper className={classes.paper} elevation={4}>
-              {currentUser.role==='employee' ? 
-                  <AddExpense /> : currentUser.role==='manager' ? 
-                  <Chart/> : currentUser.role==='admin' ? 
-                  <CreateUserButton/> : null
-                }
+                {currentUser.role === 'employee' ? (
+                  <AddExpense />
+                ) : currentUser.role === 'manager' ? (
+                  <Chart />
+                ) : currentUser.role === 'admin' ? (
+                  <CreateUserButton />
+                ) : null}
               </Paper>
-              </Grid>
-              <Grid item xs={12} md={4} lg={3}>
-              <Paper className={classes.paper} elevation={4} /*style={{borderStyle: "Solid",borderColor:"#1278B8"}}*/>
-              {currentUser.role==='employee' ? 
-                  <Topup /> : currentUser.role==='manager' ? 
-                  <Chart/> : currentUser.role==='admin' ? 
-                  <NewsButton/> : null
-                }
+            </Grid>
+            <Grid item xs={12} md={4} lg={3}>
+              <Paper
+                className={classes.paper}
+                elevation={
+                  4
+                } /*style={{borderStyle: "Solid",borderColor:"#1278B8"}}*/
+              >
+                {currentUser.role === 'employee' ? (
+                  <Topup />
+                ) : currentUser.role === 'manager' ? (
+                  <Chart />
+                ) : currentUser.role === 'admin' ? (
+                  <NewsButton />
+                ) : null}
               </Paper>
             </Grid>
           </Grid>
-          
+
           <Box pt={4}>
             <Copyright />
           </Box>
