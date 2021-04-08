@@ -14,7 +14,7 @@ import Topup from './Topup';
 import Copyright from '../Footer/Footer';
 import TotalExpenses from './TotalExpenses';
 import TotalTopup from './TotalTopup';
-import TotalNumber from './TotalNumber';
+import TotalReimbursement from './TotalReimbursement';
 import NewsButton from '../Admin/NewsButton';
 import CreateUserButton from '../Admin/CreateUserButton';
 
@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   fixedHeight: {
-    height: 240,
+    height: 250,
   },
 }));
 
@@ -119,7 +119,7 @@ export default function Dashboard() {
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={4} lg={4}>
-              <Paper className={fixedHeightPaper}>
+              <Paper className={fixedHeightPaper} elevation={4}>
                 {currentUser.role==='employee' ? 
                   <TotalExpenses /> : currentUser.role==='manager' ? 
                   <Chart/> : currentUser.role==='admin' ? 
@@ -128,7 +128,7 @@ export default function Dashboard() {
               </Paper>
             </Grid>
             <Grid item xs={12} md={4} lg={4}>
-              <Paper className={fixedHeightPaper}>
+              <Paper className={fixedHeightPaper} elevation={6}>
                 {currentUser.role==='employee' ? 
                   <TotalTopup /> : currentUser.role==='manager' ? 
                   <Deposit/> : currentUser.role==='admin' ? 
@@ -137,16 +137,16 @@ export default function Dashboard() {
               </Paper>
             </Grid>
             <Grid item xs={12} md={4} lg={4}>
-              <Paper className={fixedHeightPaper}>
+              <Paper className={fixedHeightPaper} elevation={4}>
                 {currentUser.role==='employee' ? 
-                  <TotalNumber /> : currentUser.role==='manager' ? 
+                  <TotalReimbursement /> : currentUser.role==='manager' ? 
                   <Orders/> : currentUser.role==='admin' ? 
                   <Deposit/> : null
                 }
               </Paper>
             </Grid>
             <Grid item xs={12} md={4} lg={6}>
-              <Paper className={classes.paper}>
+              <Paper className={classes.paper} elevation={4}>
                 {currentUser.role==='employee' ? 
                   <Deposit /> : currentUser.role==='manager' ? 
                   <Chart/> : currentUser.role==='admin' ? 
@@ -154,8 +154,8 @@ export default function Dashboard() {
                 }
               </Paper>
             </Grid>
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={classes.paper}>
+            <Grid item xs={12} md={4} lg={3}> 
+              <Paper className={classes.paper} elevation={4}>
               {currentUser.role==='employee' ? 
                   <AddExpense /> : currentUser.role==='manager' ? 
                   <Chart/> : currentUser.role==='admin' ? 
@@ -164,7 +164,7 @@ export default function Dashboard() {
               </Paper>
               </Grid>
               <Grid item xs={12} md={4} lg={3}>
-              <Paper className={classes.paper}>
+              <Paper className={classes.paper} elevation={4} /*style={{borderStyle: "Solid",borderColor:"#1278B8"}}*/>
               {currentUser.role==='employee' ? 
                   <Topup /> : currentUser.role==='manager' ? 
                   <Chart/> : currentUser.role==='admin' ? 

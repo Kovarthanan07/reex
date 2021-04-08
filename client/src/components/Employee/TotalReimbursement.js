@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Col, Row } from 'reactstrap';
+import {Col, Row} from 'reactstrap';
 import Typography from '@material-ui/core/Typography';
 import Title from '../../components/Title';
 import AOS from 'aos';
@@ -13,28 +13,28 @@ export default function Deposits() {
   // const classes = useStyles();
   return (
     <div>
-      <Title>Expenses</Title>
+      <Title>Reimbursement</Title>
       <Row>
-        <Col xs={12} sm={6}>
+        <Col xs={12} sm={8}>
           <Typography component="p" variant="h6">
-            Expenses(Rs.):
+          Reimbursement(Rs.):
       </Typography>
         </Col>
-        <Col xs={12} sm={6}>
+        <Col xs={12} sm={4}>
           <Typography component="p" variant="h6">
-            3,024.00
+            800.00
       </Typography>
         </Col>
       </Row>
       <Row>
-        <Col xs={12} sm={6}>
+        <Col xs={12} sm={8}>
         <Typography component="p" variant="h6">
         Total(Number): 
       </Typography>
         </Col>
-        <Col xs={12} sm={6}>
+        <Col xs={12} sm={4}>
         <Typography component="p" variant="h6">
-         50
+         10
       </Typography>
         </Col>
       </Row>
@@ -42,13 +42,13 @@ export default function Deposits() {
       <Typography>
         <Row>
           <Col xs={12} sm={4}>
-            <span style={{ color: "#ff6600" }}>Pending: 30</span>
+            <span style={{ color: "#ff6600" }}>Pending: 8</span>
           </Col>
           <Col xs={12} sm={4}>
-            <span style={{ color: "#00b300" }}>Accepted: 15</span>
+            <span style={{ color: "#00b300" }}>Accepted: 2</span>
           </Col>
           <Col xs={12} sm={4}>
-            <span style={{ color: "#ff0000" }}>Rejected: 5</span>
+            <span style={{ color: "#ff0000" }}>Rejected: 0</span>
           </Col>
         </Row>
       </Typography>
@@ -56,7 +56,7 @@ export default function Deposits() {
       <Typography color="textSecondary">
         until: {new Date().toDateString()}
       </Typography>
-      <Link style={{ textDecoration: "none" }} to="/History">SeeMore</Link>
+      <Link style={{ textDecoration: "none" }} to="/EmployeeReimburement">SeeMore</Link>
     </div>
   );
 }
