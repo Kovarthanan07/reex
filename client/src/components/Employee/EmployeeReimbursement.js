@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Sidenav from '../SideNav/Sidenav';
-import clsx from 'clsx';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Footer from '../Footer/Footer';
@@ -92,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EmployeeReimbursement() {
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
+
   const { getManagers, managers } = useContext(GetUsersContext);
   const {
     reimbursements,
@@ -107,14 +106,6 @@ export default function EmployeeReimbursement() {
   useEffect(async () => {
     await getManagers();
   }, []);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div className={classes.root}>
