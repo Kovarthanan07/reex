@@ -88,9 +88,6 @@ export default function Deposits(props) {
       <Typography color="textSecondary">
         until: {new Date().toDateString()}
       </Typography>
-      <Link style={{ textDecoration: 'none' }} to="/EmployeeReimburement">
-        SeeMore
-      </Link>
     </div>
   );
 }

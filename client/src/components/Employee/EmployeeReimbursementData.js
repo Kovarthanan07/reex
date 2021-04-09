@@ -1,47 +1,49 @@
 import React, { useState } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { Button } from 'reactstrap';
-
-const columns = [
-  { field: 'createdDate', headerName: 'Created Date', width: 150 },
-  { field: 'managerName', headerName: 'Manager Name', width: 130 },
-  { field: 'bankDetails', headerName: 'Bank Details', width: 160 },
-  {
-    field: 'amount',
-    headerName: 'Amount',
-    width: 130,
-  },
-  { field: 'updatedDate', headerName: 'Updated Date', width: 160 },
-  { field: 'status', headerName: 'Status', width: 160 },
-  { field: 'transactionId', hide: true, headerName: 'Status', width: 160 },
-  {
-    field: '',
-    headerName: 'Action',
-    disableClickEventBubbling: true,
-    renderCell: (params) => {
-      const onClick = () => {
-        const api = params.api;
-        const fields = api
-          .getAllColumns()
-          .map((c) => c.field)
-          .filter((c) => c !== '__check__' && !!c);
-        const thisRow = {};
-
-        fields.forEach((f) => {
-          thisRow[f] = params.getValue(f);
-        });
-
-        return window.open(JSON.stringify(thisRow, null, 4));
-      };
-
-      return <Button onClick={onClick}>Click</Button>;
-    },
-  },
-];
+import EmployeeReimburseDetail from './EmployeeReimburseDetail';
 
 export default function EmployeeReimbursementData(props) {
-  const rows = [];
+  const [rows, setRows] = useState();
+  const [rowSelcted, setRowSelected] = useState(false);
   const { managers, reimbursements } = props;
+
+  const columns = [
+    { field: 'createdDate', headerName: 'Created Date', width: 150 },
+    { field: 'managerName', headerName: 'Manager Name', width: 130 },
+    { field: 'bankDetails', headerName: 'Bank Details', width: 160 },
+    {
+      field: 'amount',
+      headerName: 'Amount',
+      width: 130,
+    },
+    { field: 'updatedDate', headerName: 'Updated Date', width: 160 },
+    { field: 'status', headerName: 'Status', width: 160 },
+    { field: 'transactionId', hide: true, headerName: 'Status', width: 160 },
+    {
+      field: "",
+      headerName: "Action",
+      disableClickEventBubbling: true,
+      renderCell: (params) => {
+        const onClick = () => {
+          const api = params.api;
+          const fields = api
+            .getAllColumns()
+            .map((c) => c.field)
+            .filter((c) => c !== "__check__" && !!c);
+          const thisRow = {};
+  
+          fields.forEach((f) => {
+            thisRow[f] = params.getValue(f);
+          });
+          setRows(thisRow);
+          return setRowSelected(true);
+        };
+  
+        return <Button onClick={onClick}>Click</Button>;
+      }
+    }
+  ]; 
 
   const getDate = (realDate) => {
     const datee = new Date(realDate);
@@ -76,9 +78,14 @@ export default function EmployeeReimbursementData(props) {
 
   return (
     <div style={{ height: 400, width: 'auto' }}>
-      {console.log('Details :', details)}
-      <h3>Reimbursement Requests</h3>
-      <DataGrid rows={details} columns={columns} pageSize={5} />
+      {rowSelcted ? (
+        <EmployeeReimburseDetail rowData={rows} />
+      ) : (
+        <React.Fragment>
+            <h3>Reimbursement Requests</h3>
+            <DataGrid rows={details} columns={columns} pageSize={5} />
+        </React.Fragment>
+      )}
     </div>
   );
 }
