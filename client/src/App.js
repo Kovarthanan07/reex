@@ -12,6 +12,7 @@ import Reimbursement from './components/Manager/Reimbursement';
 import Staffs from './components/Staffs/Staffs';
 import ViewProfile from './components/ViewProfile';
 import EditProfile from './components/EditProfile';
+import EditUser from './components/EditUser';
 import BankDetails from './components/BankDetail';
 import ChangePassword from './components/ChangePassword';
 import EmployeeReimbursement from './components/Employee/EmployeeReimbursement';
@@ -98,6 +99,11 @@ function App() {
                       exact
                       path="/CreateNews"
                       component={CreateNews}
+                    />
+                    <ProtectedRouterAdmin
+                      exact
+                      path="/EditUser"
+                      component={EditUser}
                     />
 
                     {/* Employee & Manager Routes */}
