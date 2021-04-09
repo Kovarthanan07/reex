@@ -1,9 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import { Col, Row } from 'reactstrap';
 import Typography from '@material-ui/core/Typography';
-import { TransactionContext } from '../../context/TransactionContext';
 import Title from '../../components/Title';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
@@ -12,20 +9,7 @@ AOS.init();
 
 export default function Deposits(props) {
   const { transactions } = props;
-  // const { transactions, getEmployeeTransactions } = useContext(
-  //   TransactionContext
-  // );
 
-  // const [totalExpenseAmount, setTotalExpenseAmount] = useState(0);
-  // const [totalExpenseCount, setTotalExpenseCount] = useState(0);
-  // const [totalPendingCount, setTotalPendingCount] = useState(0);
-  // const [totalApprovedCount, setTotalApprovedCount] = useState(0);
-  // const [totalRejectedCount, setTotalRejectedCount] = useState(0);
-
-  // setTotalExpenseCount(transactions.length);
-  // useEffect(async () => {
-  //   await getEmployeeTransactions();
-  // }, []);
   let expenses = [];
 
   let totalExpense = 0;
@@ -50,38 +34,26 @@ export default function Deposits(props) {
     transactions.map((transaction) => {
       totalExpense += transaction.amount;
     });
-    // if (transactions) {
-    //   transactions.map((transaction) => {
-    //     setTotalExpenseCount(totalExpenseCount + 1);
-    //     // setTotalExpenseAmount(totalExpenseAmount + transaction.amount);
-    //     // if (transaction.status === 'Pending') {
-    //     //   setTotalPendingCount(totalPendingCount + 1);
-    //     // } else if (transaction.status === 'Approved') {
-    //     //   setTotalApprovedCount(totalApprovedCount + 1);
-    //     // } else if (transaction.status === 'Rejected') {
-    //     //   setTotalRejectedCount(totalRejectedCount + 1);
-    //     // }
-    //   });
-    // }
   }
   var currentUser = JSON.parse(localStorage.getItem('user'));
   return (
     <div>
-      {/* {console.log(transactions)} */}
-      {currentUser.role==="employee" ? 
-      <Title>Expenses</Title> : 
-      currentUser.role==="manager" ?
-      <Title>Transaction</Title> : null}
+      {currentUser.role === 'employee' ? (
+        <Title>Expenses</Title>
+      ) : currentUser.role === 'manager' ? (
+        <Title>Transaction</Title>
+      ) : null}
       <Row>
         <Col xs={12} sm={6}>
-        {currentUser.role==="employee" ?
-          <Typography component="p" variant="h6">
-            Expenses(Rs.):
-          </Typography> :
-          currentUser.role==="manager" ?
-          <Typography component="p" variant="h6">
-            Transaction(Rs.):
-          </Typography> : null}
+          {currentUser.role === 'employee' ? (
+            <Typography component="p" variant="h6">
+              Expenses(Rs.):
+            </Typography>
+          ) : currentUser.role === 'manager' ? (
+            <Typography component="p" variant="h6">
+              Transaction(Rs.):
+            </Typography>
+          ) : null}
         </Col>
         <Col xs={12} sm={6}>
           <Typography component="p" variant="h6">

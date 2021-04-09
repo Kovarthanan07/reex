@@ -6,12 +6,17 @@ import EmployeeReimburseDetail from './EmployeeReimburseDetail';
 export default function EmployeeReimbursementData(props) {
   const [rows, setRows] = useState();
   const [rowSelcted, setRowSelected] = useState(false);
-  const { managers, reimbursements } = props;
+  const { managers, reimbursements, transactions, bankDetails } = props;
 
   const columns = [
     { field: 'createdDate', headerName: 'Created Date', width: 150 },
     { field: 'managerName', headerName: 'Manager Name', width: 130 },
-    { field: 'bankDetails', headerName: 'Bank Details', width: 160 },
+    {
+      field: 'bankDetails',
+      headerName: 'Bank Details',
+      width: 160,
+      hide: true,
+    },
     {
       field: 'amount',
       headerName: 'Amount',
@@ -19,10 +24,12 @@ export default function EmployeeReimbursementData(props) {
     },
     { field: 'updatedDate', headerName: 'Updated Date', width: 160 },
     { field: 'status', headerName: 'Status', width: 160 },
+    { field: 'id', headerName: 'id', width: 160, hide: true },
     { field: 'transactionId', hide: true, headerName: 'Status', width: 160 },
     {
-      field: "",
-      headerName: "Action",
+      field: '',
+      headerName: 'View More',
+      width: 150,
       disableClickEventBubbling: true,
       renderCell: (params) => {
         const onClick = () => {
@@ -30,20 +37,24 @@ export default function EmployeeReimbursementData(props) {
           const fields = api
             .getAllColumns()
             .map((c) => c.field)
-            .filter((c) => c !== "__check__" && !!c);
+            .filter((c) => c !== '__check__' && !!c);
           const thisRow = {};
-  
+
           fields.forEach((f) => {
             thisRow[f] = params.getValue(f);
           });
           setRows(thisRow);
           return setRowSelected(true);
         };
-  
-        return <Button onClick={onClick}>Click</Button>;
-      }
-    }
-  ]; 
+
+        return (
+          <Button color="primary" onClick={onClick}>
+            Click Here
+          </Button>
+        );
+      },
+    },
+  ];
 
   const getDate = (realDate) => {
     const datee = new Date(realDate);
@@ -79,11 +90,16 @@ export default function EmployeeReimbursementData(props) {
   return (
     <div style={{ height: 400, width: 'auto' }}>
       {rowSelcted ? (
-        <EmployeeReimburseDetail rowData={rows} />
+        <EmployeeReimburseDetail
+          rowData={rows}
+          transactions={transactions}
+          reimbursements={reimbursements}
+          bankDetails={bankDetails}
+        />
       ) : (
         <React.Fragment>
-            <h3>Reimbursement Requests</h3>
-            <DataGrid rows={details} columns={columns} pageSize={5} />
+          <h3>Reimbursement Requests</h3>
+          <DataGrid rows={details} columns={columns} pageSize={5} />
         </React.Fragment>
       )}
     </div>
