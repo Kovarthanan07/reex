@@ -15,8 +15,8 @@ const columns = [
   { field: 'status', headerName: 'Status', width: 160 },
   { field: 'transactionId', hide: true, headerName: 'Status', width: 160 },
   {
-    field: "",
-    headerName: "Action",
+    field: '',
+    headerName: 'Action',
     disableClickEventBubbling: true,
     renderCell: (params) => {
       const onClick = () => {
@@ -24,7 +24,7 @@ const columns = [
         const fields = api
           .getAllColumns()
           .map((c) => c.field)
-          .filter((c) => c !== "__check__" && !!c);
+          .filter((c) => c !== '__check__' && !!c);
         const thisRow = {};
 
         fields.forEach((f) => {
@@ -35,8 +35,8 @@ const columns = [
       };
 
       return <Button onClick={onClick}>Click</Button>;
-    }
-  }
+    },
+  },
 ];
 
 export default function EmployeeReimbursementData(props) {
