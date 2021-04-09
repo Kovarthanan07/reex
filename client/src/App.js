@@ -6,7 +6,7 @@ import History from './components/History';
 import CreateNews from './components/News/CreateNews';
 import Topup from './components/Manager/Topupreq';
 import Transaction from './components/Manager/Transactionreq';
-import NewsPage from './components/NewsPage';
+import NewsPage from './components/News/NewsPage';
 import CreateUser from './components/Admin/CreateUser';
 import Reimbursement from './components/Manager/Reimbursement';
 import Staffs from './components/Staffs/Staffs';
