@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react';
+import {Link} from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Chart from '../Chart';
 import Deposit from '../Deposit';
 import Orders from '../Orders';
 import Sidenav from '../SideNav/Sidenav';
@@ -20,6 +20,10 @@ import CreateUserButton from '../Admin/CreateUserButton';
 import { TransactionContext } from '../../context/TransactionContext';
 import { TopupContext } from '../../context/TopupContext';
 import { ReimbursementContext } from '../../context/ReimbursementContext';
+import HowToVoteIcon from '@material-ui/icons/HowToVote';
+import { Button } from 'reactstrap';
+import CachedIcon from '@material-ui/icons/Cached';
+import TotalEmployee from '../Manager/TotalEmployee';
 
 const drawerWidth = '240';
 
@@ -145,10 +149,8 @@ export default function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={4} lg={4}>
               <Paper className={fixedHeightPaper} elevation={4}>
-                {currentUser.role === 'employee' ? (
+                {currentUser.role === 'employee' || currentUser.role === 'manager' ? (
                   <TotalExpenses transactions={transactions} />
-                ) : currentUser.role === 'manager' ? (
-                  <Chart />
                 ) : currentUser.role === 'admin' ? (
                   <Orders />
                 ) : null}
@@ -156,10 +158,8 @@ export default function Dashboard() {
             </Grid>
             <Grid item xs={12} md={4} lg={4}>
               <Paper className={fixedHeightPaper} elevation={6}>
-                {currentUser.role === 'employee' ? (
+                {currentUser.role === 'employee' || currentUser.role === 'manager' ? (
                   <TotalTopup topups={topups} />
-                ) : currentUser.role === 'manager' ? (
-                  <Deposit />
                 ) : currentUser.role === 'admin' ? (
                   <Orders />
                 ) : null}
@@ -167,10 +167,8 @@ export default function Dashboard() {
             </Grid>
             <Grid item xs={12} md={4} lg={4}>
               <Paper className={fixedHeightPaper} elevation={4}>
-                {currentUser.role === 'employee' ? (
-                  <TotalReimbursement reimbursements={reimbursements} />
-                ) : currentUser.role === 'manager' ? (
-                  <Orders />
+                {currentUser.role === 'employee' || currentUser.role === 'manager' ? (
+                  <TotalEmployee />
                 ) : currentUser.role === 'admin' ? (
                   <Deposit />
                 ) : null}
@@ -179,9 +177,9 @@ export default function Dashboard() {
             <Grid item xs={12} md={4} lg={6}>
               <Paper className={classes.paper} elevation={4}>
                 {currentUser.role === 'employee' ? (
-                  <Deposit />
+                  <TotalEmployee />
                 ) : currentUser.role === 'manager' ? (
-                  <Chart />
+                  <TotalReimbursement reimbursements={reimbursements} />
                 ) : currentUser.role === 'admin' ? (
                   <Orders />
                 ) : null}
@@ -192,7 +190,7 @@ export default function Dashboard() {
                 {currentUser.role === 'employee' ? (
                   <AddExpense />
                 ) : currentUser.role === 'manager' ? (
-                  <Chart />
+                  <Button style={{backgroundColor:"#fff", color:"#1278B8"}} ><Link style={{textDecoration:"none"}} to="/Reimbursement"><CachedIcon style={{width:230, height:100}} /><br/>Check Reimbursement Requests</Link></Button>
                 ) : currentUser.role === 'admin' ? (
                   <CreateUserButton />
                 ) : null}
@@ -208,7 +206,7 @@ export default function Dashboard() {
                 {currentUser.role === 'employee' ? (
                   <Topup />
                 ) : currentUser.role === 'manager' ? (
-                  <Chart />
+                  <Button style={{backgroundColor:"#fff", color:"#1278B8"}} ><Link style={{textDecoration:"none"}} to="/Topup"><HowToVoteIcon style={{width:230, height:100}} /><br/>Check Topup<br/> Requests</Link></Button>
                 ) : currentUser.role === 'admin' ? (
                   <NewsButton />
                 ) : null}

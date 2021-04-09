@@ -64,16 +64,24 @@ export default function Deposits(props) {
     //   });
     // }
   }
-
+  var currentUser = JSON.parse(localStorage.getItem('user'));
   return (
     <div>
       {/* {console.log(transactions)} */}
-      <Title>Expenses</Title>
+      {currentUser.role==="employee" ? 
+      <Title>Expenses</Title> : 
+      currentUser.role==="manager" ?
+      <Title>Transaction</Title> : null}
       <Row>
         <Col xs={12} sm={6}>
+        {currentUser.role==="employee" ?
           <Typography component="p" variant="h6">
             Expenses(Rs.):
-          </Typography>
+          </Typography> :
+          currentUser.role==="manager" ?
+          <Typography component="p" variant="h6">
+            Transaction(Rs.):
+          </Typography> : null}
         </Col>
         <Col xs={12} sm={6}>
           <Typography component="p" variant="h6">
@@ -117,9 +125,6 @@ export default function Deposits(props) {
       <Typography color="textSecondary">
         until: {new Date().toDateString()}
       </Typography>
-      <Link style={{ textDecoration: 'none' }} to="/History">
-        SeeMore
-      </Link>
     </div>
   );
 }
