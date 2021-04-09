@@ -167,7 +167,9 @@ export default function Dashboard() {
             </Grid>
             <Grid item xs={12} md={4} lg={4}>
               <Paper className={fixedHeightPaper} elevation={4}>
-                {currentUser.role === 'employee' || currentUser.role === 'manager' ? (
+                {currentUser.role === 'employee' ? (
+                  <TotalReimbursement reimbursements={reimbursements} />
+                ) : currentUser.role === 'manager' ? (
                   <TotalEmployee />
                 ) : currentUser.role === 'admin' ? (
                   <Deposit />
