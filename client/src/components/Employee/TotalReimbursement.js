@@ -42,9 +42,10 @@ export default function Deposits(props) {
   return (
     <div>
       <Title>Reimbursement</Title>
+      <hr/>
       <Row>
         <Col xs={12} sm={8}>
-          <Typography component="p" variant="h6">
+          <Typography component="p" variant="h6" style={{fontWeight:"bold"}}>
             Reimbursement(Rs.):
           </Typography>
         </Col>
@@ -56,7 +57,7 @@ export default function Deposits(props) {
       </Row>
       <Row>
         <Col xs={12} sm={8}>
-          <Typography component="p" variant="h6">
+          <Typography component="p" variant="h6" style={{fontWeight:"bold"}}>
             Total(Number):
           </Typography>
         </Col>

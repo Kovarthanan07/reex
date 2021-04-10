@@ -6,8 +6,6 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Deposit from '../Deposit';
-import Orders from '../Orders';
 import Sidenav from '../SideNav/Sidenav';
 import AddExpense from './AddExpense';
 import Topup from './Topup';
@@ -24,6 +22,7 @@ import HowToVoteIcon from '@material-ui/icons/HowToVote';
 import { Button } from 'reactstrap';
 import CachedIcon from '@material-ui/icons/Cached';
 import TotalEmployee from '../Manager/TotalEmployee';
+import TotalStaffs from '../Admin/TotalStaffs';
 
 const drawerWidth = '240';
 
@@ -149,41 +148,25 @@ export default function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={4} lg={4}>
               <Paper className={fixedHeightPaper} elevation={4}>
-                {currentUser.role === 'employee' || currentUser.role === 'manager' ? (
                   <TotalExpenses transactions={transactions} />
-                ) : currentUser.role === 'admin' ? (
-                  <Orders />
-                ) : null}
               </Paper>
             </Grid>
             <Grid item xs={12} md={4} lg={4}>
-              <Paper className={fixedHeightPaper} elevation={6}>
-                {currentUser.role === 'employee' || currentUser.role === 'manager' ? (
+              <Paper className={fixedHeightPaper} elevation={6}>              
                   <TotalTopup topups={topups} />
-                ) : currentUser.role === 'admin' ? (
-                  <Orders />
-                ) : null}
               </Paper>
             </Grid>
             <Grid item xs={12} md={4} lg={4}>
               <Paper className={fixedHeightPaper} elevation={4}>
-                {currentUser.role === 'employee' ? (
                   <TotalReimbursement reimbursements={reimbursements} />
-                ) : currentUser.role === 'manager' ? (
-                  <TotalEmployee />
-                ) : currentUser.role === 'admin' ? (
-                  <Deposit />
-                ) : null}
               </Paper>
             </Grid>
             <Grid item xs={12} md={4} lg={6}>
               <Paper className={classes.paper} elevation={4}>
-                {currentUser.role === 'employee' ? (
+                {currentUser.role === 'employee' || currentUser.role === 'manager'  ? (
                   <TotalEmployee />
-                ) : currentUser.role === 'manager' ? (
-                  <TotalReimbursement reimbursements={reimbursements} />
                 ) : currentUser.role === 'admin' ? (
-                  <Orders />
+                  <TotalStaffs />
                 ) : null}
               </Paper>
             </Grid>
