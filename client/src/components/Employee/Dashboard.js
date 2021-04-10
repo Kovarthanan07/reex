@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -175,23 +175,34 @@ export default function Dashboard() {
                 {currentUser.role === 'employee' ? (
                   <AddExpense />
                 ) : currentUser.role === 'manager' ? (
-                  <Button style={{backgroundColor:"#fff", color:"#1278B8"}} ><Link style={{textDecoration:"none"}} to="/Reimbursement"><CachedIcon style={{width:230, height:100}} /><br/>Check Reimbursement Requests</Link></Button>
+                  <Button style={{ backgroundColor: '#fff', color: '#1278B8' }}>
+                    <Link
+                      style={{ textDecoration: 'none' }}
+                      to="/Reimbursement"
+                    >
+                      <CachedIcon style={{ width: 230, height: 100 }} />
+                      <br />
+                      Check Reimbursement Requests
+                    </Link>
+                  </Button>
                 ) : currentUser.role === 'admin' ? (
                   <CreateUserButton />
                 ) : null}
               </Paper>
             </Grid>
             <Grid item xs={12} md={4} lg={3}>
-              <Paper
-                className={classes.paper}
-                elevation={
-                  4
-                } /*style={{borderStyle: "Solid",borderColor:"#1278B8"}}*/
-              >
+              <Paper className={classes.paper} elevation={4}>
                 {currentUser.role === 'employee' ? (
                   <Topup />
                 ) : currentUser.role === 'manager' ? (
-                  <Button style={{backgroundColor:"#fff", color:"#1278B8"}} ><Link style={{textDecoration:"none"}} to="/Topup"><HowToVoteIcon style={{width:230, height:100}} /><br/>Check Topup<br/> Requests</Link></Button>
+                  <Button style={{ backgroundColor: '#fff', color: '#1278B8' }}>
+                    <Link style={{ textDecoration: 'none' }} to="/Topup">
+                      <HowToVoteIcon style={{ width: 230, height: 100 }} />
+                      <br />
+                      Check Topup
+                      <br /> Requests
+                    </Link>
+                  </Button>
                 ) : currentUser.role === 'admin' ? (
                   <NewsButton />
                 ) : null}
