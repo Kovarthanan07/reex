@@ -94,3 +94,5 @@ function SignIn(props) {
     </Container>
   );
 }
+
+export default SignIn;
