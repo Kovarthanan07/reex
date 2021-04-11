@@ -1,14 +1,11 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Sidenav from '../SideNav/Sidenav';
+import Sidenav from '../components/SideNav/Sidenav';
+import clsx from 'clsx';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
-import Footer from '../Footer/Footer';
-import { ReimbursementContext } from '../../context/ReimbursementContext';
-import { GetUsersContext } from '../../context/GetUsersContext';
-import { TransactionContext } from '../../context/TransactionContext';
-import { BankDetailsContext } from '../../context/BankDetailsContext';
-import EmployeeReimbursementData from './EmployeeReimbursementData';
+import ViewProfileForm from './ViewProfileForm';
+import Copyright from '../components/Footer/Footer';
 
 const drawerWidth = 240;
 
@@ -91,38 +88,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EmployeeReimbursement() {
+export default function CreateUser() {
   const classes = useStyles();
-
-  const { transactions, getEmployeeTransactions } = useContext(
-    TransactionContext
-  );
-
-  const { bankDetails, getUserBankDetails } = useContext(BankDetailsContext);
-
-  const { getManagers, managers } = useContext(GetUsersContext);
-
-  const {
-    reimbursements,
-    getEmployeeReimbursement,
-    getManagerReimbursement,
-  } = useContext(ReimbursementContext);
-
-  useEffect(async () => {
-    await getUserBankDetails();
-  }, []);
-
-  useEffect(async () => {
-    await getEmployeeTransactions();
-  }, []);
-
-  useEffect(async () => {
-    await getEmployeeReimbursement();
-  }, []);
-
-  useEffect(async () => {
-    await getManagers();
-  }, []);
 
   return (
     <div className={classes.root}>
@@ -130,14 +97,9 @@ export default function EmployeeReimbursement() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <EmployeeReimbursementData
-            managers={managers}
-            reimbursements={reimbursements}
-            transactions={transactions}
-            bankDetails={bankDetails}
-          />
+          <ViewProfileForm />
           <Box pt={4}>
-            <Footer />
+            <Copyright />
           </Box>
         </Container>
       </main>

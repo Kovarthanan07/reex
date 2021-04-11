@@ -10,7 +10,7 @@ import NewsPage from './components/News/NewsPage';
 import CreateUser from './components/Admin/CreateUser';
 import Reimbursement from './components/Manager/Reimbursement';
 import Staffs from './components/Staffs/Staffs';
-import ViewProfile from './components/viewProfile';
+import ViewProfile from './components/ViewProfile';
 import EditProfile from './components/EditProfile';
 import EditUser from './components/EditUser';
 import BankDetails from './components/BankDetail';

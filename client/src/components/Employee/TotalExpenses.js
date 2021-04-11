@@ -38,22 +38,22 @@ export default function Deposits(props) {
   var currentUser = JSON.parse(localStorage.getItem('user'));
   return (
     <div>
-      {currentUser.role === 'employee' ? (
-        <Title>Expenses</Title>
-      ) : currentUser.role === 'manager' ? (
-        <Title>Transaction</Title>
-      ) : null}
+      {/* {console.log(transactions)} */}
+      {currentUser.role==="employee" ? 
+      <Title>Expenses</Title> : 
+      currentUser.role==="manager" || currentUser.role==="admin" ?
+      <Title>Transaction</Title> : null}
+      <hr/>
       <Row>
         <Col xs={12} sm={6}>
-          {currentUser.role === 'employee' ? (
-            <Typography component="p" variant="h6">
-              Expenses(Rs.):
-            </Typography>
-          ) : currentUser.role === 'manager' ? (
-            <Typography component="p" variant="h6">
-              Transaction(Rs.):
-            </Typography>
-          ) : null}
+        {currentUser.role==="employee" || currentUser.role==="admin" ?
+          <Typography component="p" variant="h6" style={{fontWeight:"bold"}}>
+            Expenses(Rs.):
+          </Typography> :
+          currentUser.role==="manager" ?
+          <Typography component="p" variant="h6" style={{fontWeight:"bold"}}>
+            Transaction(Rs.):
+          </Typography> : null}
         </Col>
         <Col xs={12} sm={6}>
           <Typography component="p" variant="h6">
@@ -63,7 +63,7 @@ export default function Deposits(props) {
           </Typography>
         </Col>
         <Col xs={12} sm={6}>
-          <Typography component="p" variant="h6">
+          <Typography component="p" variant="h6" style={{fontWeight:"bold"}}>
             Total(Number):
           </Typography>
         </Col>
