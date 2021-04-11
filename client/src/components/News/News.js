@@ -1,16 +1,13 @@
 import React from "react";
 import {Row,Col} from 'reactstrap';
-
+import {Paper} from '@material-ui/core';
 // reactstrap components
 import {
   Button,
   Card,
   CardBody,
-  CardImg,
   CardTitle,
   CardText,
-  ListGroupItem,
-  ListGroup,
 } from "reactstrap";
 
 function Example() {
@@ -18,10 +15,13 @@ function Example() {
   return (
     <>
       <Card>
+      <Paper elevation={4}>
         <CardBody>
           <CardTitle style={{textAlign:"center"}} className=" mb-3" tag="h3">
-            Card title
+            News title
           </CardTitle>
+          <p style={{textAlign:"right"}}>- admin -</p>
+          <hr/>
           <CardText className=" mb-4">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Facilis non dolore est fuga nobis ipsum illum eligendi nemo iure
@@ -50,6 +50,7 @@ function Example() {
           </Col>
           </Row>
         </CardBody>
+        </Paper>
       </Card>
     </>
   );
