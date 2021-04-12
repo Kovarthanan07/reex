@@ -7,7 +7,7 @@ import 'aos/dist/aos.css'; // You can also use <link> for styles
 // ..
 AOS.init();
 
-export default function Deposits(props) {
+export default function TotalExpenses(props) {
   const { transactions } = props;
 
   let expenses = [];
