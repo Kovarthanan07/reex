@@ -13,6 +13,12 @@ import Copyright from '../Footer/Footer';
 import TotalExpenses from './TotalExpenses';
 import TotalTopup from './TotalTopup';
 import TotalReimbursement from './TotalReimbursement';
+import ATotalExpenses from '../Admin/ATotalExpenses';
+import ATotalTopup from '../Admin/ATotalTopup';
+import ATotalReimbursement from '../Admin/ATotalReimbursement';
+import MTotalExpenses from '../Manager/MTotalExpenses';
+import MTotalTopup from '../Manager/MTotalTopup';
+import MTotalReimbursement from '../Manager/MTotalReimbursement';
 import NewsButton from '../Admin/NewsButton';
 import CreateUserButton from '../Admin/CreateUserButton';
 import { TransactionContext } from '../../context/TransactionContext';
@@ -129,15 +135,10 @@ export default function Dashboard() {
   }, []);
 
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
   var currentUser = JSON.parse(localStorage.getItem('user'));
+
   return (
     <div className={classes.root}>
       <Sidenav />
@@ -148,17 +149,42 @@ export default function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={4} lg={4}>
               <Paper className={fixedHeightPaper} elevation={4}>
-                  <TotalExpenses transactions={transactions} />
+                {currentUser.role==='employee' ? 
+                <TotalExpenses transactions={transactions} />
+                : currentUser.role==='admin' ?
+                <ATotalExpenses/>
+                : currentUser.role==='manager' ?
+                <MTotalExpenses/>
+                : null}
+                {/* {currentUser.role==='employee' ? 
+                
+                : currentUser.role==='admin' ?
+              
+                : currentUser.role==='manager' ?
+              
+                : null} */}
               </Paper>
             </Grid>
             <Grid item xs={12} md={4} lg={4}>
-              <Paper className={fixedHeightPaper} elevation={6}>              
-                  <TotalTopup topups={topups} />
+              <Paper className={fixedHeightPaper} elevation={6}>
+              {currentUser.role==='employee' ? 
+                <TotalTopup topups={topups} />
+                : currentUser.role==='admin' ?
+                <ATotalTopup/>
+                : currentUser.role==='manager' ?
+                <MTotalTopup/>
+                : null}     
               </Paper>
             </Grid>
             <Grid item xs={12} md={4} lg={4}>
               <Paper className={fixedHeightPaper} elevation={4}>
-                  <TotalReimbursement reimbursements={reimbursements} />
+              {currentUser.role==='employee' ? 
+                <TotalReimbursement reimbursements={reimbursements} />
+                : currentUser.role==='admin' ?
+                <ATotalReimbursement/>
+                : currentUser.role==='manager' ?
+                <MTotalReimbursement/>
+                : null}
               </Paper>
             </Grid>
             <Grid item xs={12} md={4} lg={6}>
