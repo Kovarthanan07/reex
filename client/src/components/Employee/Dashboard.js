@@ -24,6 +24,7 @@ import CreateUserButton from '../Admin/CreateUserButton';
 import { TransactionContext } from '../../context/TransactionContext';
 import { TopupContext } from '../../context/TopupContext';
 import { ReimbursementContext } from '../../context/ReimbursementContext';
+import { GetUsersContext } from '../../context/GetUsersContext';
 import HowToVoteIcon from '@material-ui/icons/HowToVote';
 import { Button } from 'reactstrap';
 import CachedIcon from '@material-ui/icons/Cached';
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    paddingRight: 24,
   },
   toolbarIcon: {
     display: 'flex',
@@ -112,32 +113,76 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Dashboard() {
-  const { transactions, getEmployeeTransactions } = useContext(
-    TransactionContext
+  const { getManagers, managers, employees, getEmployees } = useContext(
+    GetUsersContext
   );
 
-  const { reimbursements, getEmployeeReimbursement } = useContext(
-    ReimbursementContext
-  );
+  const {
+    transactions,
+    getEmployeeTransactions,
+    getManagerTransactions,
+    getAllTransactions,
+  } = useContext(TransactionContext);
 
-  const { topups, getEmployeeTopups } = useContext(TopupContext);
+  const {
+    reimbursements,
+    getEmployeeReimbursement,
+    getManagerReimbursement,
+    getAllReimbursement,
+  } = useContext(ReimbursementContext);
+
+  const {
+    topups,
+    getEmployeeTopups,
+    getManagerTopups,
+    getAllTopups,
+  } = useContext(TopupContext);
+
+  var currentUser = JSON.parse(localStorage.getItem('user'));
 
   useEffect(async () => {
-    await getEmployeeTransactions();
+    await getManagers();
   }, []);
 
   useEffect(async () => {
-    await getEmployeeReimbursement();
+    await getEmployees();
   }, []);
 
   useEffect(async () => {
-    await getEmployeeTopups();
+    var user = JSON.parse(localStorage.getItem('user'));
+    if (user.role === 'employee') {
+      await getEmployeeTransactions();
+    } else if (user.role === 'manager') {
+      await getManagerTransactions();
+    } else if (user.role === 'admin') {
+      await getAllTransactions();
+    }
+  }, []);
+
+  useEffect(async () => {
+    var user = JSON.parse(localStorage.getItem('user'));
+    if (user.role === 'employee') {
+      await getEmployeeReimbursement();
+    } else if (user.role === 'manager') {
+      await getManagerReimbursement();
+    } else if (user.role === 'admin') {
+      await getAllReimbursement();
+    }
+  }, []);
+
+  useEffect(async () => {
+    var user = JSON.parse(localStorage.getItem('user'));
+    if (user.role === 'employee') {
+      await getEmployeeTopups();
+    } else if (user.role === 'manager') {
+      await getManagerTopups();
+    } else if (user.role === 'admin') {
+      await getAllTopups();
+    }
   }, []);
 
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
-  var currentUser = JSON.parse(localStorage.getItem('user'));
 
   return (
     <div className={classes.root}>
@@ -149,50 +194,44 @@ export default function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={4} lg={4}>
               <Paper className={fixedHeightPaper} elevation={4}>
-                {currentUser.role==='employee' ? 
-                <TotalExpenses transactions={transactions} />
-                : currentUser.role==='admin' ?
-                <ATotalExpenses/>
-                : currentUser.role==='manager' ?
-                <MTotalExpenses/>
-                : null}
-                {/* {currentUser.role==='employee' ? 
-                
-                : currentUser.role==='admin' ?
-              
-                : currentUser.role==='manager' ?
-              
-                : null} */}
+                {currentUser.role === 'employee' ? (
+                  <TotalExpenses transactions={transactions} />
+                ) : currentUser.role === 'admin' ? (
+                  <ATotalExpenses transactions={transactions} />
+                ) : currentUser.role === 'manager' ? (
+                  <MTotalExpenses transactions={transactions} />
+                ) : null}
               </Paper>
             </Grid>
             <Grid item xs={12} md={4} lg={4}>
               <Paper className={fixedHeightPaper} elevation={6}>
-              {currentUser.role==='employee' ? 
-                <TotalTopup topups={topups} />
-                : currentUser.role==='admin' ?
-                <ATotalTopup/>
-                : currentUser.role==='manager' ?
-                <MTotalTopup/>
-                : null}     
+                {currentUser.role === 'employee' ? (
+                  <TotalTopup topups={topups} />
+                ) : currentUser.role === 'admin' ? (
+                  <ATotalTopup topups={topups} />
+                ) : currentUser.role === 'manager' ? (
+                  <MTotalTopup topups={topups} />
+                ) : null}
               </Paper>
             </Grid>
             <Grid item xs={12} md={4} lg={4}>
               <Paper className={fixedHeightPaper} elevation={4}>
-              {currentUser.role==='employee' ? 
-                <TotalReimbursement reimbursements={reimbursements} />
-                : currentUser.role==='admin' ?
-                <ATotalReimbursement/>
-                : currentUser.role==='manager' ?
-                <MTotalReimbursement/>
-                : null}
+                {currentUser.role === 'employee' ? (
+                  <TotalReimbursement reimbursements={reimbursements} />
+                ) : currentUser.role === 'admin' ? (
+                  <ATotalReimbursement reimbursements={reimbursements} />
+                ) : currentUser.role === 'manager' ? (
+                  <MTotalReimbursement reimbursements={reimbursements} />
+                ) : null}
               </Paper>
             </Grid>
             <Grid item xs={12} md={4} lg={6}>
               <Paper className={classes.paper} elevation={4}>
-                {currentUser.role === 'employee' || currentUser.role === 'manager'  ? (
+                {currentUser.role === 'employee' ||
+                currentUser.role === 'manager' ? (
                   <TotalEmployee />
                 ) : currentUser.role === 'admin' ? (
-                  <TotalStaffs />
+                  <TotalStaffs managers={managers} employees={employees} />
                 ) : null}
               </Paper>
             </Grid>
