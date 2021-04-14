@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext , useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Sidenav from '../SideNav/Sidenav';
 import News from './News';
@@ -7,19 +7,8 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" to="/">
-        The NANs
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Copyright from '../Footer/Footer';
+import {NewsContext} from '../../context/NewsContext';
 
 const drawerWidth = 240;
 
@@ -104,14 +93,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NewsPage() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  const { news, getAllNews } = useContext(NewsContext);
+
+  useEffect(async () => {
+    await getAllNews();
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -119,7 +106,7 @@ export default function NewsPage() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <News />
+          <News news={news}/>
           <Box pt={4}>
             <Copyright />
           </Box>
