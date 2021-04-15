@@ -55,17 +55,28 @@ function News(props) {
 
   const NewsData = [];
 
+  const getDate = (realDate) => {
+    const datee = new Date(realDate);
+    const year = datee.getUTCFullYear();
+    const month = datee.getUTCMonth();
+    const date = datee.getUTCDate();
+    const correctDate = date + '-' + month + '-' + year;
+    return correctDate;
+  };
+
   if(news){
-    news.reverse().map((news) => {
-      const data = {
-        id: news._id,
-        title: news.title,
-        news: news.news,
-        startDisplayOn: news.startDisplayOn,
-        endDisplayOn: news.endDisplayOn,
-        viewers: news.viewers,
+    news.map((data) => {
+      const dataa = {
+        id: data._id,
+        title: data.title,
+        news: data.news,
+        startDisplayOn: data.startDisplayOn,
+        endDisplayOn: data.endDisplayOn,
+        viewers: data.viewers,
+        visibleStartOn: getDate(data.startDisplayOn),
+        visibleEndOn: getDate(data.endDisplayOn),
       };
-      NewsData.push(data);
+      NewsData.push(dataa);
     });
   }
 
@@ -74,12 +85,23 @@ function News(props) {
     <Row>
     <Col xs={12} sm={1}></Col>
     <Col xs={12} sm={10}>
-    <Card>
-        <Paper elevation={4}>
-        {/* {NewsData.length > 0 ? (
-        {NewsData}
-      ) : null} */}
-          <CardBody>
+    
+          {NewsData.reverse().map((singleNews) => (
+            <Card>
+            <Paper elevation={4}>
+            <CardBody>
+            <CardTitle style={{ textAlign: "center" }} className=" mb-3" tag="h3">
+              {singleNews.title}
+          </CardTitle>
+            <hr />
+            <ReadMore>
+              {singleNews.news}
+          </ReadMore>
+          </CardBody>
+          </Paper>
+      </Card>
+          ))}
+          {/* <CardBody>
             <CardTitle style={{ textAlign: "center" }} className=" mb-3" tag="h3">
               Card title
           </CardTitle>
@@ -90,9 +112,8 @@ function News(props) {
               repellat, soluta, optio minus ut reiciendis voluptates enim
               impedit veritatis officiis.
           </ReadMore>
-          </CardBody>
-        </Paper>
-      </Card>
+          </CardBody> */}
+       
     </Col>
     <Col xs={12} sm={1}></Col>
     </Row>

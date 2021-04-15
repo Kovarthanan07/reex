@@ -8,6 +8,7 @@ import { Button, Form, FormGroup, Label, Input, FormText, Container, Row, Col } 
 import { Select, Paper } from '@material-ui/core';
 import DefaultProf from './Admin/profImg.jpg';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import TotalExpenses from './Employee/TotalExpenses';
 
 const ViewUserForm = (props) => {
 
@@ -156,7 +157,7 @@ const ViewUserForm = (props) => {
 
     //.....................Bank Details...........................
     const [bankDetail, setBankDetail] = useState(false);
-    const extraBankDetail = <div>
+    const extraBankDetail = <Paper elevation={4} style={{padding:10}}>
         <h4>Bank Details</h4>
                         <hr />
                         <Row>
@@ -213,14 +214,17 @@ const ViewUserForm = (props) => {
                                 </div>
                             </Col>
                         </Row>
-    </div>
+                        <Button color="primary">Add</Button>
+                        <Button color="danger">Remove</Button>
+                        </Paper>
      const PersonalBankDetailLink = bankDetail ? 'Bank Details << ' : 'Bank Details >> '
 
      //.....................User Progress...........................
-    //  const [userProgress, setUserProgress] = useState(false);
-    // const extraProgressDetail = <div>
-
-    // </div>
+     const [userProgress, setUserProgress] = useState(false);
+    const extraProgressDetail = <div>
+        <TotalExpenses/>
+    </div>
+    const ProgressLink = userProgress ? 'Bank Details << ' : 'Bank Details >> '
 
     return (
         <Row>
@@ -233,7 +237,7 @@ const ViewUserForm = (props) => {
             <Col xs={12} sm={8}>
                 <div className="container" >
                     <Paper elevation={4} style={{ padding: "20px" }}>
-                        <Button className="read-more-link" onClick={() => { setDetail(!detail) }}><span>{PersonalDetailLink}</span></Button>
+                        <a className="read-more-link" onClick={() => { setDetail(!detail) }}><span>{PersonalDetailLink}</span></a>
                         {detail && extraDetail}
 
                         <br/>
@@ -241,6 +245,12 @@ const ViewUserForm = (props) => {
 
                         <Button className="read-more-link" onClick={() => { setBankDetail(!bankDetail) }}><span>{PersonalBankDetailLink}</span></Button>
                         {bankDetail && extraBankDetail}
+
+                        <br/>
+                        <br/>
+
+                        <Button className="read-more-link" onClick={() => { setUserProgress(!userProgress) }}><span>{ProgressLink}</span></Button>
+                        {userProgress && extraProgressDetail}
                         
                         <Link style={{ textDecoration: "none", fontWeight: "bold" }} to="/EditUser"> Edit User <ArrowForwardIcon /></Link>
 
