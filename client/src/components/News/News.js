@@ -87,6 +87,7 @@ function News(props) {
     <Col xs={12} sm={10}>
     
           {NewsData.reverse().map((singleNews) => (
+            <>
             <Card>
             <Paper elevation={4}>
             <CardBody>
@@ -100,6 +101,9 @@ function News(props) {
           </CardBody>
           </Paper>
       </Card>
+      <br/>
+      </>
+      
           ))}
           {/* <CardBody>
             <CardTitle style={{ textAlign: "center" }} className=" mb-3" tag="h3">

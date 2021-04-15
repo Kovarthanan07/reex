@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-import EmployeeReimburseDetail from '../Employee/EmployeeReimburseDetail';
+import ManagerReimburseDetail from './ManagerReimburseDetail';
 import { Button } from 'reactstrap';
 
 export default function ReimburseRequests(props) {
   const [rows, setRows] = useState();
-  const [rowSelcted, setRowSelected] = useState(false);
+  const [rowSelected, setRowSelected] = useState(false);
   const { employees, reimbursements } = props;
 
   const columns = [
@@ -79,8 +79,8 @@ export default function ReimburseRequests(props) {
 
   return (
     <div style={{ height: 400, width: 'auto' }}>
-      {rowSelcted ? (
-        <EmployeeReimburseDetail rowData={rows} />
+      {rowSelected ? (
+        <ManagerReimburseDetail rowData={rows} />
       ) : (
         <React.Fragment>
             <h3>Reimbursement Requests</h3>
