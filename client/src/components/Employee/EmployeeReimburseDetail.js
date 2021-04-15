@@ -11,7 +11,6 @@ import {
   Row,
   Col,
 } from 'reactstrap';
-import Receipt from './Receipt.png';
 
 const EmployeeReimburseDetail = (props) => {
   const { rowData, transactions, reimbursements, bankDetails } = props;
@@ -88,16 +87,13 @@ const EmployeeReimburseDetail = (props) => {
       reimbursementDetails.bankBranch = relatedBankDetail.branch;
       reimbursementDetails.bankAccountNumber = relatedBankDetail.accountNumber;
     }
-
-    console.log('RowData : ', rowData);
-    console.log('expenseDetails : ', expenseDetails);
-    console.log('reimbursementDetails : ', reimbursementDetails);
   }
 
   const onClick = () => {
     window.location.reload();
   };
   var currentUser = JSON.parse(localStorage.getItem('user'));
+
   return (
     <div>
       <Row>
