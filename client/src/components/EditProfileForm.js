@@ -22,7 +22,6 @@ import { GetUsersContext } from '../context/GetUsersContext';
 import { SuccessMessage, FailedMessage } from './layouts/Alert';
 import ProfilePictureUpdate from './ProfilePictureUpdate';
 
-
 const EditProfileForm = (props) => {
   const [updateStatus, setUpdateStatus] = useState();
   const { reloadUser } = useContext(GetUsersContext);
@@ -91,7 +90,7 @@ const EditProfileForm = (props) => {
       <Col xs={12} sm={4}>
         <Paper elevation={4}>
           <div>
-            <ProfilePictureUpdate/>
+            <ProfilePictureUpdate currentUser={currentUser} />
           </div>
         </Paper>
       </Col>

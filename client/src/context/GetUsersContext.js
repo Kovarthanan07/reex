@@ -62,7 +62,6 @@ export const GetUsersContextProvider = function (props) {
       .get('http://localhost:3000/users/me', config)
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
-        console.log(response.data);
       })
       .catch((err) => {
         console.log('Unable to Update');

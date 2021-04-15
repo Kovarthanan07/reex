@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Sidenav from '../components/SideNav/Sidenav';
 import clsx from 'clsx';
@@ -6,6 +6,7 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import ViewProfileForm from './ViewProfileForm';
 import Copyright from '../components/Footer/Footer';
+import { BankDetailsContext } from '../context/BankDetailsContext';
 
 const drawerWidth = 240;
 
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    paddingRight: 24,
   },
   toolbarIcon: {
     display: 'flex',
@@ -91,13 +92,19 @@ const useStyles = makeStyles((theme) => ({
 export default function CreateUser() {
   const classes = useStyles();
 
+  const { bankDetails, getUserBankDetails } = useContext(BankDetailsContext);
+
+  useEffect(() => {
+    getUserBankDetails();
+  }, []);
+
   return (
     <div className={classes.root}>
       <Sidenav />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <ViewProfileForm />
+          <ViewProfileForm bankDetails={bankDetails} />
           <Box pt={4}>
             <Copyright />
           </Box>

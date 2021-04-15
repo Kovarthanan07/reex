@@ -20,6 +20,7 @@ export default function TopupAccept(props) {
       field: 'status',
       headerName: 'Status',
       width: 100,
+      hide: true,
     },
     {
       field: 'receiptUrl',
@@ -34,7 +35,7 @@ export default function TopupAccept(props) {
     const year = datee.getUTCFullYear();
     const month = datee.getUTCMonth();
     const date = datee.getUTCDate();
-    const correctDate = date + '-' + month + '-' + year;
+    const correctDate = date + '-' + (month + 1) + '-' + year;
     return correctDate;
   };
 

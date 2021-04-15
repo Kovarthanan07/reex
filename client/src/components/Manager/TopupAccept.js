@@ -13,6 +13,7 @@ export default function TopupAccept(props) {
       headerName: 'Amount',
       width: 130,
     },
+    { field: 'updatedAt', headerName: 'Updated On', width: 170 },
     // {
     //   field: 'status',
     //   headerName: 'Status',
@@ -25,7 +26,7 @@ export default function TopupAccept(props) {
     const year = datee.getUTCFullYear();
     const month = datee.getUTCMonth();
     const date = datee.getUTCDate();
-    const correctDate = date + '-' + month + '-' + year;
+    const correctDate = date + '-' + (month + 1) + '-' + year;
     return correctDate;
   };
 
@@ -53,6 +54,7 @@ export default function TopupAccept(props) {
         employeeName: getEmployeeName(approvedTopup.requestBy),
         employeeId: getEmployeeId(approvedTopup.requestBy),
         amount: approvedTopup.amount,
+        updatedAt: getDate(approvedTopup.updatedAt),
         // status: approvedTopup.status,
       };
       rows.push(data);
