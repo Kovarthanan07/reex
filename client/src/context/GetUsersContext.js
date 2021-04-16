@@ -7,6 +7,28 @@ export const GetUsersContextProvider = function (props) {
   const [managers, setManagers] = useState();
   const [employees, setEmployees] = useState();
   const [allUsers, setAllUsers] = useState();
+  const [selectedUser, setSelectedUser] = useState();
+
+  const getSelectedUser = async (userId) => {
+    const token = localStorage.getItem('token');
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    let url = 'http://localhost:3000/user/' + userId;
+    await axios
+      .get(url, config)
+      .then((response) => {
+        setSelectedUser(response.data);
+      })
+      .catch((err) => {
+        console.log('Unable to get Selected User');
+      });
+  };
 
   const getAllUsers = async () => {
     const token = localStorage.getItem('token');
@@ -98,6 +120,8 @@ export const GetUsersContextProvider = function (props) {
         allUsers,
         getAllUsers,
         reloadUser,
+        getSelectedUser,
+        selectedUser,
       }}
     >
       {props.children}

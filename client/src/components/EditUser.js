@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Sidenav from '../components/SideNav/Sidenav';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import EditUserForm from './EditUserForm';
 import Copyright from '../components/Footer/Footer';
+import { GetUsersContext } from '../context/GetUsersContext';
 
 const drawerWidth = 240;
 
@@ -13,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    paddingRight: 24,
   },
   toolbarIcon: {
     display: 'flex',
@@ -87,8 +88,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CreateUser() {
+export default function CreateUser(props) {
   const classes = useStyles();
+  let editUserId = props.match.params.userId;
+
+  const { selectedUser, getSelectedUser } = useContext(GetUsersContext);
+
+  useEffect(() => {
+    getSelectedUser(editUserId);
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -96,7 +104,7 @@ export default function CreateUser() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <EditUserForm />
+          <EditUserForm selectedUser={selectedUser} />
           <Box pt={4}>
             <Copyright />
           </Box>

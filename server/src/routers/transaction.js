@@ -79,6 +79,21 @@ router.get(
   }
 );
 
+router.get(
+  '/transactionsBy/:userid',
+  [auth.authUser, auth.isAdmin],
+  async (req, res) => {
+    try {
+      const allTransactions = await Transaction.find({
+        transactionBy: req.params.userid,
+      });
+      res.send(allTransactions);
+    } catch (e) {
+      res.status(500).send();
+    }
+  }
+);
+
 router.patch(
   '/transaction/:id',
   [auth.authUser, auth.isManager],

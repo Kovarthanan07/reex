@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Sidenav from '../components/SideNav/Sidenav';
-import clsx from 'clsx';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import ViewUserForm from './ViewUserForm';
 import Copyright from '../components/Footer/Footer';
+import { GetUsersContext } from '../context/GetUsersContext';
+import { BankDetailsContext } from '../context/BankDetailsContext';
+import { ReimbursementContext } from '../context/ReimbursementContext';
+import { TopupContext } from '../context/TopupContext';
+import { TransactionContext } from '../context/TransactionContext';
 
 const drawerWidth = 240;
 
@@ -14,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    paddingRight: 24,
   },
   toolbarIcon: {
     display: 'flex',
@@ -88,8 +92,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CreateUser() {
+export default function CreateUser(props) {
   const classes = useStyles();
+  let viewUserId = props.match.params.userId;
+  let selectedUserId = '';
+
+  const { getSelectedUser, selectedUser } = useContext(GetUsersContext);
+  const { allBankDetails, getAllBankDetails } = useContext(BankDetailsContext);
+  const { transactions, getAllTransactions } = useContext(TransactionContext);
+  const { topups, getAllTopups } = useContext(TopupContext);
+  const { getAllReimbursement, reimbursements } = useContext(
+    ReimbursementContext
+  );
+
+  useEffect(() => {
+    getSelectedUser(viewUserId);
+  }, []);
+
+  useEffect(() => {
+    getAllTransactions();
+  }, []);
+
+  useEffect(() => {
+    getAllReimbursement();
+  }, []);
+
+  useEffect(() => {
+    getAllTopups();
+  }, []);
+
+  useEffect(() => {
+    getAllBankDetails();
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -97,7 +131,13 @@ export default function CreateUser() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <ViewUserForm />
+          <ViewUserForm
+            selectedUser={selectedUser}
+            allBankDetails={allBankDetails}
+            transactions={transactions}
+            topups={topups}
+            reimbursements={reimbursements}
+          />
           <Box pt={4}>
             <Copyright />
           </Box>
