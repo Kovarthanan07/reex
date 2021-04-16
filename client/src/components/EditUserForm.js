@@ -96,6 +96,7 @@ const EditProfileForm = (props) => {
                     <img src={DefaultProf} alt="" />
                 </Paper>
             </Col> */}
+            <Col xs={12} sm={2}></Col>
       <Col xs={12} sm={8}>
         <div className="container">
           <Paper elevation={4} style={{ padding: '20px' }}>
@@ -158,6 +159,7 @@ const EditProfileForm = (props) => {
           </Paper>
         </div>
       </Col>
+      <Col xs={12} sm={2}></Col>
     </Row>
   );
 };
