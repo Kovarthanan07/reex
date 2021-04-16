@@ -8,7 +8,7 @@ import Topup from './components/Manager/Topupreq';
 import Transaction from './components/Manager/Transactionreq';
 import NewsPage from './components/News/NewsPage';
 import CreateUser from './components/Admin/CreateUser';
-import Reimbursement from './components/Manager/Reimbursement';
+import Reimbursement from './components/Manager/ReimburseRequests';
 import Staffs from './components/Staffs/Staffs';
 import ViewProfile from './components/ViewProfile';
 import EditProfile from './components/EditProfile';

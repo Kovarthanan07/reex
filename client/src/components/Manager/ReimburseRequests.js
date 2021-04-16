@@ -1,91 +1,152 @@
-import React, { useState } from 'react';
-import { DataGrid } from '@material-ui/data-grid';
-import ManagerReimburseDetail from './ManagerReimburseDetail';
-import { Button } from 'reactstrap';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+// import TextField from '@material-ui/core/TextField';
+import Sidenav from '../SideNav/Sidenav';
+// import ExpenseTable from './ExpenseTable';
+// import TopupTable from './TopupTable';
+import ReimbursementTab from './ReimbursementTab';
 
-export default function ReimburseRequests(props) {
-  const [rows, setRows] = useState();
-  const [rowSelected, setRowSelected] = useState(false);
-  const { employees, reimbursements } = props;
+import clsx from 'clsx';    
+// import CssBaseline from '@material-ui/core/CssBaseline';
+// import Drawer from '@material-ui/core/Drawer';
+import Box from '@material-ui/core/Box';
+// import AppBar from '@material-ui/core/AppBar';
+// import Toolbar from '@material-ui/core/Toolbar';
+// import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
+// import Divider from '@material-ui/core/Divider';
+// import IconButton from '@material-ui/core/IconButton';
+// import Badge from '@material-ui/core/Badge';
+import Container from '@material-ui/core/Container';
+// import Grid from '@material-ui/core/Grid';
+// import Paper from '@material-ui/core/Paper';
+import Link from '@material-ui/core/Link';
+// import MenuIcon from '@material-ui/icons/Menu';
+// import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+// import NotificationsIcon from '@material-ui/icons/Notifications';
+// import { mainListItems, secondaryListItems } from './SideNav/listItems';
+// import Footer from '../Footer/Footer';
 
-  const columns = [
-    { field: 'createdDate', headerName: 'Created Date', width: 150 },
-    { field: 'employeeName', headerName: 'Employee Name Name', width: 130 },
-    { field: 'bankDetails', headerName: 'Bank Details', width: 160 },
-    {
-      field: 'amount',
-      headerName: 'Amount',
-      width: 130,
-    },
-    { field: 'updatedDate', headerName: 'Updated Date', width: 160 },
-    { field: 'status', headerName: 'Status', width: 160 },
-    { field: 'transactionId', hide: true, headerName: 'Status', width: 160 },
-    {
-      field: '',
-      headerName: 'Action',
-      disableClickEventBubbling: true,
-      renderCell: (params) => {
-        const onClick = () => {
-          const api = params.api;
-          const fields = api
-            .getAllColumns()
-            .map((c) => c.field)
-            .filter((c) => c !== '__check__' && !!c);
-          const thisRow = {};
-
-          fields.forEach((f) => {
-            thisRow[f] = params.getValue(f);
-          });
-          setRows(thisRow);
-          return setRowSelected(true);
-        };
-
-        return <Button onClick={onClick}>Click</Button>;
-      },
-    },
-  ];
-
-  const getDate = (realDate) => {
-    const datee = new Date(realDate);
-    const year = datee.getUTCFullYear();
-    const month = datee.getUTCMonth();
-    const date = datee.getUTCDate();
-    const correctDate = date + '-' + month + '-' + year;
-    return correctDate;
-  };
-
-  const getEmployeeName = (id) => {
-    let employee = employees.find((m) => m._id === id);
-    return employee.name;
-  };
-
-  const details = [];
-  if (reimbursements && employees) {
-    reimbursements.reverse().map((reimbursement) => {
-      const data = {
-        id: reimbursement._id,
-        createdDate: getDate(reimbursement.createdAt),
-        employeeName: getEmployeeName(reimbursement.reimbursementTo),
-        amount: reimbursement.amount,
-        status: reimbursement.status,
-        bankDetails: reimbursement.reimbursementAccount,
-        updatedDate: getDate(reimbursement.updatedAt),
-        transactionId: reimbursement.transactionId,
-      };
-      details.push(data);
-    });
+function Copyright() {
+    return (
+      <Typography variant="body2" color="textSecondary" align="center">
+        {'Copyright © '}
+        <Link color="inherit" to="/">
+          The NANs
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
   }
 
+const drawerWidth = 240;
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
+  toolbar: {
+    paddingRight: 24, // keep right padding when drawer closed
+  },
+  toolbarIcon: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar,
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginRight: 36,
+  },
+  menuButtonHidden: {
+    display: 'none',
+  },
+  title: {
+    flexGrow: 1,
+  },
+  drawerPaper: {
+    position: 'relative',
+    whiteSpace: 'nowrap',
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerPaperClose: {
+    overflowX: 'hidden',
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    width: theme.spacing(7),
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(9),
+    },
+  },
+  appBarSpacer: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    height: '100vh',
+    overflow: 'auto',
+  },
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+  },
+  paper: {
+    padding: theme.spacing(2),
+    display: 'flex',
+    overflow: 'auto',
+    flexDirection: 'column',
+  },
+  fixedHeight: {
+    height: 240,
+  },
+}));
+
+export default function Topupreq() {
+    const classes = useStyles();
+    const [open, setOpen] = React.useState(true);
+    const handleDrawerOpen = () => {
+      setOpen(true);
+    };
+    const handleDrawerClose = () => {
+      setOpen(false);
+    };
+    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
   return (
-    <div style={{ height: 400, width: 'auto' }}>
-      {rowSelected ? (
-        <ManagerReimburseDetail rowData={rows} />
-      ) : (
-        <React.Fragment>
-          <h3>Reimbursement Requests</h3>
-          <DataGrid rows={details} columns={columns} pageSize={5} />
-        </React.Fragment>
-      )}
+
+    <div className={classes.root}>
+        <Sidenav/>
+        <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth="lg" className={classes.container}>
+          <ReimbursementTab/>
+          <Box pt={4}>
+            <Copyright />
+          </Box>
+        </Container>
+      </main>
     </div>
+
+    
   );
 }
