@@ -37,7 +37,7 @@ const ViewProfileForm = (props) => {
       <Col xs={12} sm={4}>
         <Paper Container elevation={4}>
           {currentUser.profilePictureUrl ? (
-            <img src={currentUser.profilePictureUrl} />
+            <img style={{width:"100%", height:500}} src={currentUser.profilePictureUrl} />
           ) : (
             <img src={DefaultProf} alt="" />
           )}

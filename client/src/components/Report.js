@@ -1,11 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Sidenav from './SideNav/Sidenav';
-import clsx from 'clsx';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import ReportTab from './ReportTab';
 
 function Copyright() {
   return (
@@ -103,22 +103,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Report() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
+  
   return (
     <div className={classes.root}>
       <Sidenav />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          This is for Reporting Section
+          <ReportTab/>
           <Box pt={4}>
             <Copyright />
           </Box>
