@@ -8,7 +8,7 @@ const Content = () => {
 
   useEffect(async () => {
     await getAllUsers();
-  });
+  }, []);
 
   const getDate = (realDate) => {
     const datee = new Date(realDate);

@@ -25,7 +25,8 @@ const ViewProfileForm = (props) => {
     branch: 'Not Available',
   };
 
-  if (bankDetails) {
+  if (bankDetails && currentUser.role === 'employee') {
+    console.log(bankDetails[0]);
     bankDetailCopy.accountNumber = bankDetails[0].accountNumber;
     bankDetailCopy.bank = bankDetails[0].bank;
     bankDetailCopy.branch = bankDetails[0].branch;
@@ -115,47 +116,53 @@ const ViewProfileForm = (props) => {
             </Row>
           </Paper>
           <br />
-          <Paper elevation={4} style={{ padding: '20px' }}>
-            <h4 style={{ textAlign: 'center' }}>My Bank Details</h4>
-            <hr />
-            <Row>
-              <Col xs={12} sm={6}>
-                <div className="form-group">
-                  <label>
-                    <span style={{ fontWeight: 'bold' }}>Account Number:</span>
-                    {bankDetailCopy.length === 0 ? (
-                      <p>Not Found</p>
-                    ) : (
-                      bankDetailCopy.accountNumber
-                    )}
-                  </label>
-                </div>
-              </Col>
-              <Col xs={12} sm={6}>
-                <div className="form-group">
-                  <label>
-                    <span style={{ fontWeight: 'bold' }}>Bank Name:</span>
-                    {bankDetailCopy.bank}
-                  </label>
-                </div>
-              </Col>
-              <Col xs={12} sm={6}>
-                <div className="form-group">
-                  <label>
-                    <span style={{ fontWeight: 'bold' }}>Branch Name:</span>
-                    {bankDetailCopy.branch}
-                  </label>
-                </div>
-              </Col>
-            </Row>
-            <Link
-              style={{ textDecoration: 'none', fontWeight: 'bold' }}
-              to="/EditProfile"
-            >
-              {' '}
-              Edit Profile <ArrowForwardIcon />
-            </Link>
-          </Paper>
+          {currentUser.role === 'employee' ? (
+            <React.Fragment>
+              <Paper elevation={4} style={{ padding: '20px' }}>
+                <h4 style={{ textAlign: 'center' }}>My Bank Details</h4>
+                <hr />
+                <Row>
+                  <Col xs={12} sm={6}>
+                    <div className="form-group">
+                      <label>
+                        <span style={{ fontWeight: 'bold' }}>
+                          Account Number:
+                        </span>
+                        {bankDetailCopy.length === 0 ? (
+                          <p>Not Found</p>
+                        ) : (
+                          bankDetailCopy.accountNumber
+                        )}
+                      </label>
+                    </div>
+                  </Col>
+                  <Col xs={12} sm={6}>
+                    <div className="form-group">
+                      <label>
+                        <span style={{ fontWeight: 'bold' }}>Bank Name:</span>
+                        {bankDetailCopy.bank}
+                      </label>
+                    </div>
+                  </Col>
+                  <Col xs={12} sm={6}>
+                    <div className="form-group">
+                      <label>
+                        <span style={{ fontWeight: 'bold' }}>Branch Name:</span>
+                        {bankDetailCopy.branch}
+                      </label>
+                    </div>
+                  </Col>
+                </Row>
+                <Link
+                  style={{ textDecoration: 'none', fontWeight: 'bold' }}
+                  to="/EditProfile"
+                >
+                  {' '}
+                  Edit Profile <ArrowForwardIcon />
+                </Link>
+              </Paper>
+            </React.Fragment>
+          ) : null}
         </div>
       </Col>
     </Row>
