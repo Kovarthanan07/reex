@@ -11,10 +11,10 @@ import {
   Col,
 } from "reactstrap";
 
-function ReadMore({ children, maxCharacterCount = 100 }) {
+function ReadMore({ children, maxCharacterCount = 150 }) {
   const text = children;
   const [isTruncated, setIsTruncated] = useState(true);
-  const resultString = isTruncated ? text.slice(0, 100) : text;
+  const resultString = isTruncated ? text.slice(0, maxCharacterCount) : text;
 
   function toggleIsTruncated() {
     setIsTruncated(!isTruncated);
@@ -51,7 +51,7 @@ function ReadMore({ children, maxCharacterCount = 100 }) {
 
 
 function News(props) {
-  const {news} = props;
+  const { news } = props;
 
   const NewsData = [];
 
@@ -64,14 +64,14 @@ function News(props) {
     return correctDate;
   };
 
-  if(news){
+  if (news) {
     news.map((data) => {
       const dataa = {
         id: data._id,
         title: data.title,
         news: data.news,
-        startDisplayOn: data.startDisplayOn,
-        endDisplayOn: data.endDisplayOn,
+        startDisplayOn: new Date(data.startDisplayOn),
+        endDisplayOn: new Date(data.endDisplayOn),
         viewers: data.viewers,
         visibleStartOn: getDate(data.startDisplayOn),
         visibleEndOn: getDate(data.endDisplayOn),
@@ -79,31 +79,50 @@ function News(props) {
       NewsData.push(dataa);
     });
   }
+  var currentUser = JSON.parse(localStorage.getItem('user'));
 
   return (
     <>
-    <Row>
-    <Col xs={12} sm={1}></Col>
-    <Col xs={12} sm={10}>
-    
+      <Row>
+        <Col xs={12} sm={1}></Col>
+        <Col xs={12} sm={10}>
           {NewsData.reverse().map((singleNews) => (
             <>
-            <Card>
-            <Paper elevation={4}>
-            <CardBody>
-            <CardTitle style={{ textAlign: "center" }} className=" mb-3" tag="h3">
-              {singleNews.title}
-          </CardTitle>
-            <hr />
-            <ReadMore>
-              {singleNews.news}
-          </ReadMore>
-          </CardBody>
-          </Paper>
-      </Card>
-      <br/>
-      </>
-      
+              
+                {(singleNews.startDisplayOn <= new Date() && singleNews.endDisplayOn >= new Date() ) || currentUser.role === 'admin'?
+                  <>
+                  <Card>
+                  <Paper elevation={4}>
+                  <CardBody>
+                    <CardTitle style={{ textAlign: "center" }} className=" mb-3" tag="h4">
+                      {singleNews.title}
+                    </CardTitle>
+                    {currentUser.role === 'admin' ?
+                      <Row>
+                        <hr />
+                        <Col xs={12} sm={4}>
+                          <span>Start Display On : {singleNews.visibleStartOn}</span>
+                        </Col>
+                        <Col xs={12} sm={4}>
+                          <span>End Display On : {singleNews.visibleEndOn}</span>
+                        </Col>
+                        <Col xs={12} sm={4}>
+                          <span>Viewers : {singleNews.viewers}</span>
+                        </Col>
+                      </Row>
+                      : null}
+                    <hr />
+                    <ReadMore>
+                      {singleNews.news}
+                    </ReadMore>
+                  </CardBody>
+                </Paper>
+                </Card>
+                  </>
+                  : null}
+              
+              <br />
+            </>
           ))}
           {/* <CardBody>
             <CardTitle style={{ textAlign: "center" }} className=" mb-3" tag="h3">
@@ -117,10 +136,10 @@ function News(props) {
               impedit veritatis officiis.
           </ReadMore>
           </CardBody> */}
-       
-    </Col>
-    <Col xs={12} sm={1}></Col>
-    </Row>
+
+        </Col>
+        <Col xs={12} sm={1}></Col>
+      </Row>
     </>
   );
 }

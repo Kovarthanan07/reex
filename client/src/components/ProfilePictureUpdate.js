@@ -63,7 +63,7 @@ function ProfilePictureUpdate(props) {
     <div style={{ textAlign: 'center', paddingBottom: 10 }}>
       <form onSubmit={(e) => onSubmit(e)}>
         {userDetails.profilePictureUrl ? (
-          <img src={userDetails.profilePictureUrl} />
+          <img style={{width:"100%", height:400}} src={userDetails.profilePictureUrl} />
         ) : (
           <img src={DefaultProf} alt="" />
         )}

@@ -45,11 +45,8 @@ const BankDetailForm = (props) => {
 
     return (
         <Row>
-            <Col xs={12} sm={4}>
-                <Paper Container elevation={4}>
-                    {/* {profileImg===null?<img src={DefaultProf} alt="" />: <img scr={profileImg}/>} */}
-                    <img src={DefaultProf} alt="" />
-                </Paper>
+            <Col xs={12} sm={2}>
+                
             </Col>
             <Col xs={12} sm={8} style={{paddingTop:20}}>
                 <div className="container" >
@@ -118,6 +115,9 @@ const BankDetailForm = (props) => {
                         </form>
                     </Paper>
                 </div>
+            </Col>
+            <Col xs={12} sm={2}>
+                
             </Col>
         </Row>
     )

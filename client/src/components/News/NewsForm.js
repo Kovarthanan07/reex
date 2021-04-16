@@ -75,16 +75,6 @@ const NewsForm = (props) => {
           setNewsCreationStatus('fail');
         });
     },
-
-    // axios.post('http://localhost:3000/users', user)
-    //     .then(res => {
-    //         console.log("Done");
-    //         toast.success("User Register successful");
-    //         props.history.push('/user/me');
-    //     })
-    //     .catch(err => {
-    //         toast.error(err.response.user);
-    //     }),
   });
 
   return (
