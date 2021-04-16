@@ -59,18 +59,14 @@ router.patch('/bankDetail/:id', [auth.authUser], async (req, res) => {
   }
 });
 
-router.get(
-  '/allBankDetails',
-  [auth.authUser, auth.isAdmin],
-  async (req, res) => {
-    try {
-      const allBankDetails = await BankDetail.find({});
-      res.send(allBankDetails);
-    } catch (error) {
-      res.status(400).send();
-    }
+router.get('/allBankDetails', [auth.authUser], async (req, res) => {
+  try {
+    const allBankDetails = await BankDetail.find({});
+    res.send(allBankDetails);
+  } catch (error) {
+    res.status(400).send();
   }
-);
+});
 
 router.delete('/bankDetail/:id', [auth.authUser], async (req, res) => {
   try {

@@ -27,7 +27,7 @@ export default function MTotalReimbursement(props) {
     });
 
     rejected = reimbursements.filter((reimbursement) => {
-      return reimbursement.status === 'Rejected';
+      return reimbursement.status === 'Cancelled';
     });
 
     reimbursements.map((reimbursement) => {

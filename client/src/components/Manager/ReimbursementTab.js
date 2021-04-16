@@ -10,8 +10,10 @@ import ReimbursementPending from './ReimbursementPending';
 import ReimbursementAccept from './ReimbursementAccept';
 import ReimbursementReject from './ReimbursementReject';
 import { Paper } from '@material-ui/core';
-import { TopupContext } from '../../context/TopupContext';
 import { GetUsersContext } from '../../context/GetUsersContext';
+import { ReimbursementContext } from '../../context/ReimbursementContext';
+import { TransactionContext } from '../../context/TransactionContext';
+import { BankDetailsContext } from '../../context/BankDetailsContext';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -66,12 +68,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NavTabs() {
-  const { topups, getManagerTopups } = useContext(TopupContext);
-
-  const { employees, getEmployees } = useContext(GetUsersContext);
+  const { reimbursements, getManagerReimbursement } = useContext(
+    ReimbursementContext
+  );
+  const { getAllBankDetails, allBankDetails } = useContext(BankDetailsContext);
+  const { transactions, getAllTransactions } = useContext(TransactionContext);
+  const { employees, getEmployees, getManagers, managers } = useContext(
+    GetUsersContext
+  );
 
   useEffect(async () => {
-    await getManagerTopups();
+    await getManagers();
+  }, []);
+
+  useEffect(async () => {
+    await getAllTransactions();
+  }, []);
+
+  useEffect(async () => {
+    await getAllBankDetails();
+  }, []);
+
+  useEffect(async () => {
+    await getManagerReimbursement();
   }, []);
 
   useEffect(async () => {
@@ -104,13 +123,31 @@ export default function NavTabs() {
         </Tabs>
       </Paper>
       <TabPanel value={value} index={0}>
-        <ReimbursementPending />
+        <ReimbursementPending
+          reimbursements={reimbursements}
+          employees={employees}
+          transactions={transactions}
+          allBankDetails={allBankDetails}
+          managers={managers}
+        />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ReimbursementAccept  />
+        <ReimbursementAccept
+          reimbursements={reimbursements}
+          employees={employees}
+          transactions={transactions}
+          allBankDetails={allBankDetails}
+          managers={managers}
+        />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <ReimbursementReject  />
+        <ReimbursementReject
+          reimbursements={reimbursements}
+          employees={employees}
+          transactions={transactions}
+          allBankDetails={allBankDetails}
+          managers={managers}
+        />
       </TabPanel>
     </div>
   );
