@@ -66,18 +66,14 @@ router.get(
   }
 );
 
-router.get(
-  '/allTransactions',
-  [auth.authUser, auth.isAdmin],
-  async (req, res) => {
-    try {
-      const allTransactions = await Transaction.find({});
-      res.send(allTransactions);
-    } catch (e) {
-      res.status(500).send();
-    }
+router.get('/allTransactions', [auth.authUser], async (req, res) => {
+  try {
+    const allTransactions = await Transaction.find({});
+    res.send(allTransactions);
+  } catch (e) {
+    res.status(500).send();
   }
-);
+});
 
 router.get(
   '/transactionsBy/:userid',

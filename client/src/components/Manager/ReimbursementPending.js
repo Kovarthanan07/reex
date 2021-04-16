@@ -6,23 +6,43 @@ import { Button } from 'reactstrap';
 export default function ReimburseRequests(props) {
   const [rows, setRows] = useState();
   const [rowSelected, setRowSelected] = useState(false);
-  const { employees, reimbursements } = props;
+  const {
+    employees,
+    reimbursements,
+    transactions,
+    allBankDetails,
+    managers,
+  } = props;
 
   const columns = [
     { field: 'createdDate', headerName: 'Created Date', width: 150 },
-    { field: 'employeeName', headerName: 'Employee Name Name', width: 130 },
-    { field: 'bankDetails', headerName: 'Bank Details', width: 160 },
+    { field: 'employeeName', headerName: 'Employee Name', width: 130 },
+    { field: 'employeeId', headerName: 'Employee Id', width: 130, hide: true },
+    { field: 'id', headerName: 'Id', width: 130, hide: true },
+    {
+      field: 'reimbursementAccount',
+      headerName: 'reimbursementAccount',
+      width: 130,
+      hide: true,
+    },
+    { field: 'status', headerName: 'status', width: 130, hide: true },
+    {
+      field: 'managerName',
+      headerName: 'manager name',
+      width: 130,
+      hide: true,
+    },
     {
       field: 'amount',
       headerName: 'Amount',
       width: 130,
     },
     { field: 'updatedDate', headerName: 'Updated Date', width: 160 },
-    { field: 'status', headerName: 'Status', width: 160 },
     { field: 'transactionId', hide: true, headerName: 'Status', width: 160 },
     {
       field: '',
-      headerName: 'Action',
+      headerName: 'For More',
+      width: 160,
       disableClickEventBubbling: true,
       renderCell: (params) => {
         const onClick = () => {
@@ -40,7 +60,7 @@ export default function ReimburseRequests(props) {
           return setRowSelected(true);
         };
 
-        return <Button onClick={onClick}>Click</Button>;
+        return <Button onClick={onClick}>Click Here</Button>;
       },
     },
   ];
@@ -50,7 +70,7 @@ export default function ReimburseRequests(props) {
     const year = datee.getUTCFullYear();
     const month = datee.getUTCMonth();
     const date = datee.getUTCDate();
-    const correctDate = date + '-' + month + '-' + year;
+    const correctDate = date + '-' + (month + 1) + '-' + year;
     return correctDate;
   };
 
@@ -59,27 +79,41 @@ export default function ReimburseRequests(props) {
     return employee.name;
   };
 
+  const getManagerName = (id) => {
+    let manager = managers.find((m) => m._id === id);
+    return manager.name;
+  };
+
   const details = [];
   if (reimbursements && employees) {
     reimbursements.reverse().map((reimbursement) => {
-      const data = {
-        id: reimbursement._id,
-        createdDate: getDate(reimbursement.createdAt),
-        employeeName: getEmployeeName(reimbursement.reimbursementTo),
-        amount: reimbursement.amount,
-        status: reimbursement.status,
-        bankDetails: reimbursement.reimbursementAccount,
-        updatedDate: getDate(reimbursement.updatedAt),
-        transactionId: reimbursement.transactionId,
-      };
-      details.push(data);
+      if (reimbursement.status === 'Pending') {
+        const data = {
+          id: reimbursement._id,
+          createdDate: getDate(reimbursement.createdAt),
+          employeeName: getEmployeeName(reimbursement.reimbursementTo),
+          amount: reimbursement.amount,
+          status: reimbursement.status,
+          bankDetails: reimbursement.reimbursementAccount,
+          updatedDate: getDate(reimbursement.updatedAt),
+          transactionId: reimbursement.transactionId,
+          employeeId: reimbursement.reimbursementTo,
+          managerName: getManagerName(reimbursement.reimbursementBy),
+          reimbursementAccount: reimbursement.reimbursementAccount,
+        };
+        details.push(data);
+      }
     });
   }
 
   return (
     <div style={{ height: 400, width: 'auto' }}>
       {rowSelected ? (
-        <ManagerReimburseDetail rowData={rows} />
+        <ManagerReimburseDetail
+          rowData={rows}
+          transactions={transactions}
+          allBankDetails={allBankDetails}
+        />
       ) : (
         <React.Fragment>
           <h3>Reimbursement Pending</h3>
