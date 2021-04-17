@@ -9,6 +9,10 @@ import Box from '@material-ui/core/Box';
 import ReportReceived from './ReportReceived';
 import ReportSent from './ReportSent';
 import { Paper } from '@material-ui/core';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import { Col, Row } from 'reactstrap';
+import ReportForm from './ReportForm';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -73,6 +77,15 @@ export default function NavTabs() {
 
   return (
     <div className={classes.root}>
+      <Row>
+        <Col xs={5} sm={5}></Col>
+        <Col xs={2} sm={2}>
+        
+            <ReportForm/>
+          
+        </Col>
+        <Col xs={5} sm={5}></Col>
+      </Row>
       <Paper
         elevation={3}
         style={{ background: '#fff', color: '#1278B8', width: 'auto' }}
