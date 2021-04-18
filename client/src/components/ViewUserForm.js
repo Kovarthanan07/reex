@@ -30,6 +30,7 @@ const ViewUserForm = (props) => {
   } = props;
 
   const [updateStatus, setUpdateStatus] = useState();
+  const [deleteStatus, setDeleteStatus] = useState();
 
   const getDate = (realDate) => {
     const datee = new Date(realDate);
@@ -58,6 +59,7 @@ const ViewUserForm = (props) => {
   let selectedUserTopups = [];
   let selectedUserReimbursements = [];
   let editUserUrl = '';
+  let deleteUserUrl = '';
 
   if (selectedUser && allBankDetails) {
     selectedUserCopy.name = selectedUser[0].name;
@@ -73,6 +75,8 @@ const ViewUserForm = (props) => {
 
     resetPasswordUrl =
       'http://localhost:3000/userUpdate/' + selectedUser[0]._id;
+
+    deleteUserUrl = 'http://localhost:3000/users/' + selectedUser[0]._id;
 
     selectedUserBankDetail = allBankDetails.find(
       (bankDetail) => bankDetail.owner === selectedUser[0]._id
@@ -131,7 +135,7 @@ const ViewUserForm = (props) => {
   const [detail, setDetail] = useState(false);
 
   const extraDetail = (
-    <Paper elevation={4} style={{ padding: 10, fontFamily:"Montserrat" }}>
+    <Paper elevation={4} style={{ padding: 10, fontFamily: 'Montserrat' }}>
       <br />
       <Row>
         <Col xs={12} sm={6}>
@@ -276,14 +280,41 @@ const ViewUserForm = (props) => {
         setUpdateStatus(false);
       });
   };
+
+  const onDeleteuser = () => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    };
+
+    axios
+      .delete(deleteUserUrl, config)
+      .then((res) => {
+        setDeleteStatus(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        setDeleteStatus(false);
+      });
+  };
+
   return (
     <Row style={{ fontSize: 18 }}>
       <Col xs={12} sm={4}>
         <Paper Container elevation={4}>
           {selectedUserCopy.profilePictureUrl === null ? (
-            <img style={{width:"100%", height:"auto"}} src={DefaultProf} alt="" />
+            <img
+              style={{ width: '100%', height: 'auto' }}
+              src={DefaultProf}
+              alt=""
+            />
           ) : (
-            <img style={{width:"100%", height:"auto"}} src={selectedUserCopy.profilePictureUrl} />
+            <img
+              style={{ width: '100%', height: 'auto' }}
+              src={selectedUserCopy.profilePictureUrl}
+            />
           )}
         </Paper>
       </Col>
@@ -352,6 +383,12 @@ const ViewUserForm = (props) => {
             {updateStatus === true ? (
               <SuccessMessage message="Password set to default password" />
             ) : null}
+            {deleteStatus === true ? (
+              <SuccessMessage message="User Successfully Deleted." />
+            ) : null}
+            {deleteStatus === false ? (
+              <FailedMessage message="Delete User Failed." />
+            ) : null}
             {updateStatus === false ? (
               <FailedMessage message="Error to set default password" />
             ) : null}
@@ -373,7 +410,7 @@ const ViewUserForm = (props) => {
                 </button>
               </Col>
               <Col xs={12} sm={3}>
-                <button className="btn btn-danger" >
+                <button className="btn btn-danger" onClick={onDeleteuser}>
                   Delete User
                 </button>
               </Col>
