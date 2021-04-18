@@ -47,7 +47,7 @@ const EmployeeReimburseDetail = (props) => {
     const year = datee.getUTCFullYear();
     const month = datee.getUTCMonth();
     const date = datee.getUTCDate();
-    const correctDate = date + '-' + month + '-' + year;
+    const correctDate = date + '-' + (month + 1) + '-' + year;
     return correctDate;
   };
 

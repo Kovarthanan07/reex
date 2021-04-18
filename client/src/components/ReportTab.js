@@ -66,10 +66,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavTabs() {
-
+export default function NavTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+
+  const { allUsers, sentReports, receivedReports } = props;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -80,9 +81,7 @@ export default function NavTabs() {
       <Row>
         <Col xs={5} sm={5}></Col>
         <Col xs={2} sm={2}>
-        
-            <ReportForm/>
-          
+          <ReportForm allUsers={allUsers} />
         </Col>
         <Col xs={5} sm={5}></Col>
       </Row>
@@ -102,10 +101,10 @@ export default function NavTabs() {
         </Tabs>
       </Paper>
       <TabPanel value={value} index={0}>
-        <ReportReceived />
+        <ReportReceived receivedReports={receivedReports} allUsers={allUsers} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ReportSent />
+        <ReportSent sentReports={sentReports} allUsers={allUsers} />
       </TabPanel>
     </div>
   );

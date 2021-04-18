@@ -16,9 +16,7 @@ function AddExpenseForm(props) {
     getManagers();
   }, []);
 
-  useEffect(() => {
-    
-  }, [managers]);
+  useEffect(() => {}, [managers]);
 
   const useStyles = makeStyles((theme) => ({
     container: {

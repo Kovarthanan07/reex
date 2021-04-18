@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { Paper } from '@material-ui/core';
 // reactstrap components
 import {
@@ -9,7 +9,7 @@ import {
   CardText,
   Row,
   Col,
-} from "reactstrap";
+} from 'reactstrap';
 
 function ReadMore({ children, maxCharacterCount = 150 }) {
   const text = children;
@@ -24,31 +24,36 @@ function ReadMore({ children, maxCharacterCount = 150 }) {
     <>
       <p className="has-text-left">
         {resultString}
-        {isTruncated ? "...." : null}
+        {isTruncated ? '....' : null}
       </p>
 
       <Row>
         <Col xs={12} sm={10}>
-          {text.slice(' ').length > 100 ? <Button color="primary" onClick={toggleIsTruncated} className="tag is-info is-small">
-            {isTruncated ? "Read More" : "Read Less"}
-          </Button> : null}
+          {text.slice(' ').length > 100 ? (
+            <Button
+              color="primary"
+              onClick={toggleIsTruncated}
+              className="tag is-info is-small"
+            >
+              {isTruncated ? 'Read More' : 'Read Less'}
+            </Button>
+          ) : null}
         </Col>
         <Col xs={12} sm={2}>
-          {currentUser.role === "admin" ?
+          {currentUser.role === 'admin' ? (
             <Button
               color="danger"
               href="#pablo"
               onClick={(e) => e.preventDefault()}
             >
               Delete
-            </Button> : null}
+            </Button>
+          ) : null}
         </Col>
       </Row>
     </>
-  )
-
+  );
 }
-
 
 function News(props) {
   const { news } = props;
@@ -60,7 +65,7 @@ function News(props) {
     const year = datee.getUTCFullYear();
     const month = datee.getUTCMonth();
     const date = datee.getUTCDate();
-    const correctDate = date + '-' + month + '-' + year;
+    const correctDate = date + '-' + (month + 1) + '-' + year;
     return correctDate;
   };
 
@@ -88,39 +93,46 @@ function News(props) {
         <Col xs={12} sm={10}>
           {NewsData.reverse().map((singleNews) => (
             <>
-              
-                {(singleNews.startDisplayOn <= new Date() && singleNews.endDisplayOn >= new Date() ) || currentUser.role === 'admin'?
-                  <>
+              {(singleNews.startDisplayOn <= new Date() &&
+                singleNews.endDisplayOn >= new Date()) ||
+              currentUser.role === 'admin' ? (
+                <>
                   <Card>
-                  <Paper elevation={4}>
-                  <CardBody>
-                    <CardTitle style={{ textAlign: "center" }} className=" mb-3" tag="h4">
-                      {singleNews.title}
-                    </CardTitle>
-                    {currentUser.role === 'admin' ?
-                      <Row>
+                    <Paper elevation={4}>
+                      <CardBody>
+                        <CardTitle
+                          style={{ textAlign: 'center' }}
+                          className=" mb-3"
+                          tag="h4"
+                        >
+                          {singleNews.title}
+                        </CardTitle>
+                        {currentUser.role === 'admin' ? (
+                          <Row>
+                            <hr />
+                            <Col xs={12} sm={4}>
+                              <span>
+                                Start Display On : {singleNews.visibleStartOn}
+                              </span>
+                            </Col>
+                            <Col xs={12} sm={4}>
+                              <span>
+                                End Display On : {singleNews.visibleEndOn}
+                              </span>
+                            </Col>
+                            <Col xs={12} sm={4}>
+                              <span>Viewers : {singleNews.viewers}</span>
+                            </Col>
+                          </Row>
+                        ) : null}
                         <hr />
-                        <Col xs={12} sm={4}>
-                          <span>Start Display On : {singleNews.visibleStartOn}</span>
-                        </Col>
-                        <Col xs={12} sm={4}>
-                          <span>End Display On : {singleNews.visibleEndOn}</span>
-                        </Col>
-                        <Col xs={12} sm={4}>
-                          <span>Viewers : {singleNews.viewers}</span>
-                        </Col>
-                      </Row>
-                      : null}
-                    <hr />
-                    <ReadMore>
-                      {singleNews.news}
-                    </ReadMore>
-                  </CardBody>
-                </Paper>
-                </Card>
-                  </>
-                  : null}
-              
+                        <ReadMore>{singleNews.news}</ReadMore>
+                      </CardBody>
+                    </Paper>
+                  </Card>
+                </>
+              ) : null}
+
               <br />
             </>
           ))}
@@ -136,7 +148,6 @@ function News(props) {
               impedit veritatis officiis.
           </ReadMore>
           </CardBody> */}
-
         </Col>
         <Col xs={12} sm={1}></Col>
       </Row>

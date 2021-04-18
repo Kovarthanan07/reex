@@ -85,8 +85,8 @@ export default function ReimburseRequests(props) {
   };
 
   const details = [];
-  if (reimbursements && employees) {
-    reimbursements.reverse().map((reimbursement) => {
+  if (reimbursements && employees && managers) {
+    reimbursements.map((reimbursement) => {
       if (reimbursement.status === 'Pending') {
         const data = {
           id: reimbursement._id,
@@ -117,7 +117,7 @@ export default function ReimburseRequests(props) {
       ) : (
         <React.Fragment>
           <h3>Reimbursement Pending</h3>
-          <DataGrid rows={details} columns={columns} pageSize={5} />
+          <DataGrid rows={details.reverse()} columns={columns} pageSize={5} />
         </React.Fragment>
       )}
     </div>

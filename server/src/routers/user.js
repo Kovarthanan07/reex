@@ -77,7 +77,7 @@ router.get('/user/:userId', [auth.authUser, auth.isAdmin], async (req, res) => {
   }
 });
 
-router.get('/getallusers', [auth.authUser, auth.isAdmin], async (req, res) => {
+router.get('/getallusers', [auth.authUser], async (req, res) => {
   try {
     const allUsers = await User.find({});
     res.send(allUsers);
@@ -120,6 +120,22 @@ router.delete('/users/me', [auth.authUser, auth.isAdmin], async (req, res) => {
     res.send(req.user);
   } catch (e) {
     res.status(500).send();
+  }
+});
+
+router.delete('/users/:id', [auth.authUser, auth.isAdmin], async (req, res) => {
+  try {
+    const user = await User.findOneAndDelete({
+      _id: req.params.id,
+    });
+
+    if (!user) {
+      return res.status(404).send();
+    }
+
+    res.send(user);
+  } catch (e) {
+    res.status(400).send(e);
   }
 });
 
