@@ -109,7 +109,7 @@ const BankDetailForm = (props) => {
                             <button className="btn btn-primary">Update Bank Details</button>
                                 </Col>
                                 <Col xs={12} sm={3} style={{paddingTop:10}}>
-                                <Link style={{textDecoration:"none"}} to="/ChangePassword"><ArrowBackIcon/>Change Password </Link>
+                                <Link style={{textDecoration:"none"}} to="/ViewProfile"><ArrowBackIcon/>View Profile </Link>
                                 </Col>
                             </Row>
                         </form>

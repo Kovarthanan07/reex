@@ -100,6 +100,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+var currentUser = JSON.parse(localStorage.getItem('user'));
+
 export default function Sidenav() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -141,11 +143,9 @@ export default function Sidenav() {
           >
             REEX
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          <Typography color="inherit">
+            {currentUser.name}
+          </Typography>
           <Divider />
           <Divider />
           <IconButton color="inherit">
