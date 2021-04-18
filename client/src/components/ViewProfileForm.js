@@ -38,22 +38,9 @@ const ViewProfileForm = (props) => {
       <Col xs={12} sm={4}>
         <Paper Container elevation={4}>
           {currentUser.profilePictureUrl ? (
-<<<<<<< HEAD
             <img style={{ width: "100%", height: "auto" }} src={currentUser.profilePictureUrl} />
           ) : (
             <img style={{ width: "100%", height: "auto" }} src={DefaultProf} alt="" />
-=======
-            <img
-              style={{ width: '100%', height: 'auto' }}
-              src={currentUser.profilePictureUrl}
-            />
-          ) : (
-            <img
-              style={{ width: '100%', height: 'auto' }}
-              src={DefaultProf}
-              alt=""
-            />
->>>>>>> b80db7a829c45aee9ba356fea85f1576523e0056
           )}
         </Paper>
       </Col>
@@ -62,11 +49,7 @@ const ViewProfileForm = (props) => {
           <Paper elevation={4} style={{ padding: '20px' }}>
             <h3 style={{ textAlign: 'center' }}>My Profile</h3>
             <hr />
-<<<<<<< HEAD
             <Row style={{ fontSize: 20, fontFamily: "Montserrat" }}>
-=======
-            <Row style={{ fontSize: 20, fontFamily: 'Montserrat' }}>
->>>>>>> b80db7a829c45aee9ba356fea85f1576523e0056
               <Col xs={12} sm={6}>
                 <div className="form-group">
                   <label>
