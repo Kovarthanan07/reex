@@ -37,9 +37,9 @@ const ViewProfileForm = (props) => {
       <Col xs={12} sm={4}>
         <Paper Container elevation={4}>
           {currentUser.profilePictureUrl ? (
-            <img style={{width:"100%", height:500}} src={currentUser.profilePictureUrl} />
+            <img style={{width:"100%", height:"auto"}} src={currentUser.profilePictureUrl} />
           ) : (
-            <img src={DefaultProf} alt="" />
+            <img style={{width:"100%", height:"auto"}} src={DefaultProf} alt="" />
           )}
         </Paper>
       </Col>
@@ -48,24 +48,16 @@ const ViewProfileForm = (props) => {
           <Paper elevation={4} style={{ padding: '20px' }}>
             <h3 style={{ textAlign: 'center' }}>My Profile</h3>
             <hr />
-            <Row>
-              <Col xs={12} sm={4}>
+            <Row style={{fontSize:20, fontFamily:"Montserrat"}}>
+              <Col xs={12} sm={6}>
                 <div className="form-group">
                   <label>
-                    <span style={{ fontWeight: 'bold' }}>Name : </span>
+                    <span >Name : </span>
                     {currentUser.name}
                   </label>
                 </div>
               </Col>
-              <Col xs={12} sm={4}>
-                <div className="form-group">
-                  <label>
-                    <span style={{ fontWeight: 'bold' }}>Email : </span>
-                    {currentUser.email}
-                  </label>
-                </div>
-              </Col>
-              <Col xs={12} sm={4}>
+              <Col xs={12} sm={6}>
                 <div className="form-group">
                   <label>
                     <span style={{ fontWeight: 'bold' }}>Date of Birth : </span>
@@ -73,7 +65,7 @@ const ViewProfileForm = (props) => {
                   </label>
                 </div>
               </Col>
-              <Col xs={12} sm={3}>
+              <Col xs={12} sm={6}>
                 <div className="form-group">
                   <label>
                     <span style={{ fontWeight: 'bold' }}>UserID : </span>
@@ -81,7 +73,7 @@ const ViewProfileForm = (props) => {
                   </label>
                 </div>
               </Col>
-              <Col xs={12} sm={3}>
+              <Col xs={12} sm={6}>
                 <div className="form-group">
                   <label>
                     <span style={{ fontWeight: 'bold' }}>Gender : </span>
@@ -89,7 +81,7 @@ const ViewProfileForm = (props) => {
                   </label>
                 </div>
               </Col>
-              <Col xs={12} sm={2}>
+              <Col xs={12} sm={6}>
                 <div className="form-group">
                   <label>
                     <span style={{ fontWeight: 'bold' }}>Role : </span>
@@ -97,7 +89,15 @@ const ViewProfileForm = (props) => {
                   </label>
                 </div>
               </Col>
-              <Col xs={12} sm={4}>
+              <Col xs={12} sm={6}>
+                <div className="form-group">
+                  <label>
+                    <span style={{ fontWeight: 'bold' }}>Email : </span>
+                    {currentUser.email}
+                  </label>
+                </div>
+              </Col>
+              <Col xs={12} sm={6}>
                 <div className="form-group">
                   <label>
                     <span style={{ fontWeight: 'bold' }}>Mobile Number : </span>
@@ -105,7 +105,7 @@ const ViewProfileForm = (props) => {
                   </label>
                 </div>
               </Col>
-              <Col xs={12} sm={3}>
+              <Col xs={12} sm={6}>
                 <div className="form-group">
                   <label>
                     <span style={{ fontWeight: 'bold' }}>Joined On : </span>

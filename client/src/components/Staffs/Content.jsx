@@ -39,7 +39,7 @@ const Content = () => {
 
   const getStaffCard = (staffObj) => {
     return (
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} md={6} sm={12}>
         <StaffCard {...staffObj} />
       </Grid>
     );

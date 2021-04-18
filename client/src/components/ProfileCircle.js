@@ -49,7 +49,7 @@ export default function ProfileCircle(props) {
         }}
       >
         <Typography
-          style={{ width: 150, padding: 12 }}
+          style={{ width: 150, padding: 12, fontFamily:"Montserrat" }}
           className={classes.typography}
         >
           <p style={{ paddingLeft: 5 }}>

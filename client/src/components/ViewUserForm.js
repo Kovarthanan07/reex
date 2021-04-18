@@ -131,7 +131,7 @@ const ViewUserForm = (props) => {
   const [detail, setDetail] = useState(false);
 
   const extraDetail = (
-    <Paper elevation={4} style={{ padding: 10 }}>
+    <Paper elevation={4} style={{ padding: 10, fontFamily:"Montserrat" }}>
       <br />
       <Row>
         <Col xs={12} sm={6}>
@@ -143,7 +143,7 @@ const ViewUserForm = (props) => {
           </div>
         </Col>
 
-        <Col xs={12} sm={4}>
+        <Col xs={12} sm={6}>
           <div className="form-group">
             <label>
               <span style={{ fontWeight: 'bold' }}>Email : </span>
@@ -281,9 +281,9 @@ const ViewUserForm = (props) => {
       <Col xs={12} sm={4}>
         <Paper Container elevation={4}>
           {selectedUserCopy.profilePictureUrl === null ? (
-            <img src={DefaultProf} alt="" />
+            <img style={{width:"100%", height:"auto"}} src={DefaultProf} alt="" />
           ) : (
-            <img src={selectedUserCopy.profilePictureUrl} />
+            <img style={{width:"100%", height:"auto"}} src={selectedUserCopy.profilePictureUrl} />
           )}
         </Paper>
       </Col>
@@ -356,7 +356,7 @@ const ViewUserForm = (props) => {
               <FailedMessage message="Error to set default password" />
             ) : null}
             <Row>
-              <Col xs={12} sm={8}>
+              <Col xs={12} sm={6}>
                 <button className="btn btn-primary">
                   <Link
                     style={{ color: '#FFF', textDecoration: 'none' }}
@@ -367,9 +367,14 @@ const ViewUserForm = (props) => {
                   </Link>
                 </button>
               </Col>
-              <Col xs={12} sm={4}>
+              <Col xs={12} sm={3}>
                 <button className="btn btn-primary" onClick={onPasswordReset}>
                   Reset Password
+                </button>
+              </Col>
+              <Col xs={12} sm={3}>
+                <button className="btn btn-danger" >
+                  Delete User
                 </button>
               </Col>
             </Row>
