@@ -15,8 +15,10 @@ function ReportReceived(props) {
 
   const getSenderDetails = (id) => {
     const sender = allUsers.find((m) => m._id === id);
-    let details = sender.userId + ' - ' + sender.name;
-    return details;
+    if (sender) {
+      let details = sender.userId + ' - ' + sender.name;
+      return details;
+    }
   };
 
   const getDate = (realDate) => {

@@ -1,12 +1,16 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col, Button } from 'reactstrap';
 import { Paper } from '@material-ui/core';
 import DefaultProf from './Admin/profImg.jpg';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import axios from 'axios';
+import { SuccessMessage, FailedMessage } from './layouts/Alert';
 
 const ViewProfileForm = (props) => {
   const { bankDetails } = props;
+
+  const [removeStatus, setRemoveStatus] = useState();
 
   const currentUser = JSON.parse(localStorage.getItem('user'));
 
@@ -23,6 +27,7 @@ const ViewProfileForm = (props) => {
     accountNumber: 'Not Available',
     bank: 'Not Available',
     branch: 'Not Available',
+    id: '',
   };
 
   if (bankDetails && currentUser.role === 'employee') {
@@ -30,17 +35,46 @@ const ViewProfileForm = (props) => {
       bankDetailCopy.accountNumber = bankDetails[0].accountNumber;
       bankDetailCopy.bank = bankDetails[0].bank;
       bankDetailCopy.branch = bankDetails[0].branch;
+      bankDetailCopy.id = bankDetails[0]._id;
     }
   }
+
+  const onRemoveBankDetails = () => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    };
+
+    let deleteUrl = 'http://localhost:3000/bankDetail/' + bankDetailCopy.id;
+
+    axios
+      .delete(deleteUrl, config)
+      .then((res) => {
+        setRemoveStatus(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        setRemoveStatus(false);
+      });
+  };
 
   return (
     <Row>
       <Col xs={12} sm={4}>
         <Paper Container elevation={4}>
           {currentUser.profilePictureUrl ? (
-            <img style={{ width: "100%", height: "auto" }} src={currentUser.profilePictureUrl} />
+            <img
+              style={{ width: '100%', height: 'auto' }}
+              src={currentUser.profilePictureUrl}
+            />
           ) : (
-            <img style={{ width: "100%", height: "auto" }} src={DefaultProf} alt="" />
+            <img
+              style={{ width: '100%', height: 'auto' }}
+              src={DefaultProf}
+              alt=""
+            />
           )}
         </Paper>
       </Col>
@@ -49,7 +83,7 @@ const ViewProfileForm = (props) => {
           <Paper elevation={4} style={{ padding: '20px' }}>
             <h3 style={{ textAlign: 'center' }}>My Profile</h3>
             <hr />
-            <Row style={{ fontSize: 20, fontFamily: "Montserrat" }}>
+            <Row style={{ fontSize: 20, fontFamily: 'Montserrat' }}>
               <Col xs={12} sm={6}>
                 <div className="form-group">
                   <label>
@@ -124,13 +158,30 @@ const ViewProfileForm = (props) => {
                   <Col xs={12} sm={10}>
                     <h4 style={{ textAlign: 'center' }}>My Bank Details</h4>
                   </Col>
-                  {bankDetailCopy.length === 0 ?
+                  {removeStatus === true ? (
+                    <SuccessMessage message="Your bank account details successfully removed. Please refresh." />
+                  ) : null}
+                  {removeStatus === false ? (
+                    <FailedMessage message="Error in removing your bank account details." />
+                  ) : null}
+                  {bankDetailCopy.id === '' ? (
                     <Col xs={12} sm={2}>
-                      <Button color="primary"><Link style={{color:"#FFF", textDecoration:"none"}} to="/BankDetails">Add</Link></Button>
+                      <Button color="primary">
+                        <Link
+                          style={{ color: '#FFF', textDecoration: 'none' }}
+                          to="/BankDetails"
+                        >
+                          Add
+                        </Link>
+                      </Button>
                     </Col>
-                    : <Col xs={12} sm={2}>
-                      <Button disabled color="primary">Add</Button>
-                    </Col>}
+                  ) : (
+                    <Col xs={12} sm={2}>
+                      <Button disabled color="primary">
+                        Add
+                      </Button>
+                    </Col>
+                  )}
                 </Row>
                 <hr />
                 <Row>
@@ -140,11 +191,12 @@ const ViewProfileForm = (props) => {
                         <span style={{ fontWeight: 'bold' }}>
                           Account Number :
                         </span>
-                        {bankDetailCopy.length === 0 ? (
+                        {/* {bankDetailCopy.length === 0 ? (
                           <p>Not Found</p>
                         ) : (
                           bankDetailCopy.accountNumber
-                        )}
+                        )} */}
+                        {bankDetailCopy.accountNumber}
                       </label>
                     </div>
                   </Col>
@@ -159,7 +211,9 @@ const ViewProfileForm = (props) => {
                   <Col xs={12} sm={6}>
                     <div className="form-group">
                       <label>
-                        <span style={{ fontWeight: 'bold' }}>Branch Name : </span>
+                        <span style={{ fontWeight: 'bold' }}>
+                          Branch Name :{' '}
+                        </span>
                         {bankDetailCopy.branch}
                       </label>
                     </div>
@@ -167,13 +221,19 @@ const ViewProfileForm = (props) => {
                 </Row>
                 <Row>
                   <Col xs={12} sm={10}></Col>
-                  {bankDetailCopy.length === 0 ?
+                  {bankDetailCopy.id === '' ? (
                     <Col xs={12} sm={2}>
-                      <Button disabled color="danger">Remove</Button>
+                      <Button disabled color="danger">
+                        Remove
+                      </Button>
                     </Col>
-                    : <Col xs={12} sm={2}>
-                      <Button color="danger">Remove</Button>
-                    </Col>}
+                  ) : (
+                    <Col xs={12} sm={2}>
+                      <Button color="danger" onClick={onRemoveBankDetails}>
+                        Remove
+                      </Button>
+                    </Col>
+                  )}
                 </Row>
                 <hr />
                 <Link
