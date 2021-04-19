@@ -9,6 +9,7 @@ import {
   Row,
   Col,
 } from 'reactstrap';
+import FlagIcon from '@material-ui/icons/Flag';
 
 function ReportReceived(props) {
   const { receivedReports, allUsers } = props;
@@ -39,6 +40,7 @@ function ReportReceived(props) {
         message: receivedReport.message,
         sender: getSenderDetails(receivedReport.sender),
         receivedOn: getDate(receivedReport.createdAt),
+        today: getDate(new Date()),
       };
       reportsDetails.push(data);
     });
@@ -46,15 +48,24 @@ function ReportReceived(props) {
 
   return (
     <React.Fragment>
-      {reportsDetails.map((data) => (
+      {reportsDetails.reverse().map((data) => (
         <React.Fragment>
           <Row>
             <Paper elevation={4}>
               <Col xs={12} sm={12}>
                 <CardBody>
-                  <CardTitle className=" mb-3" tag="h5">
-                    {data.title}
-                  </CardTitle>
+                  <Row>
+                    <Col xs={10} sm={11}>
+                      <CardTitle className=" mb-3" tag="h5">
+                        {data.title}
+                      </CardTitle>
+                    </Col>
+                    <Col xs={2} sm={1}>
+                      {data.receivedOn === data.today ?
+                      <FlagIcon style={{color:"green"}}/>
+                      : null}
+                    </Col>
+                  </Row>
                   <hr />
                   <CardText>
                     <span>From : {data.sender}</span>

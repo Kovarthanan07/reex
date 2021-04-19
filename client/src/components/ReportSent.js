@@ -62,6 +62,12 @@ function ReportSent(props) {
                   <CardText>{data.message}</CardText>
                 </CardBody>
               </Col>
+              <Row style={{padding:10}}>
+                <Col xs={10} sm={10}></Col>
+                <Col xs={10} sm={2}>
+                <Button color="danger">Delete</Button>
+                </Col>
+              </Row>
             </Paper>
           </Row>
           <br />
