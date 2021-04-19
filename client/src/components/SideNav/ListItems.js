@@ -12,18 +12,19 @@ import HowToVoteIcon from '@material-ui/icons/HowToVote';
 import LaunchIcon from '@material-ui/icons/Launch';
 import { Link, Redirect } from 'react-router-dom';
 import { AuthTokenContext } from '../../context/AuthTokenContext';
+import '../../App.css';
 
 function ListItems(props) {
   const currentUser = JSON.parse(localStorage.getItem('user'));
   const { authData } = useContext(AuthTokenContext);
   return (
-    <div>
+    <div className='list'>
       {currentUser.role === 'employee' ? (
         <div>
           <Link className="nav-link" to="/Dashboard">
             <span className="sr-only"></span>
             <ListItem>
-              <ListItemIcon>
+              <ListItemIcon className="ji">
                 <DashboardIcon />
               </ListItemIcon>
               <ListItemText primary="Dashboard" />

@@ -73,14 +73,14 @@ export default function ProfileCircle(props) {
               Edit profile
             </Link>
           </Button>
-          <Button>
+          {/* <Button>
             <Link
               to="/BankDetails"
               style={{ textDecoration: 'none', fontWeight: 'bold' }}
             >
               Bank Details
             </Link>
-          </Button>
+          </Button> */}
           <br />
           <button
             onClick={() => {

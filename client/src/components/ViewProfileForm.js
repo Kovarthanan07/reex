@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Button } from 'reactstrap';
 import { Paper } from '@material-ui/core';
 import DefaultProf from './Admin/profImg.jpg';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -38,16 +38,9 @@ const ViewProfileForm = (props) => {
       <Col xs={12} sm={4}>
         <Paper Container elevation={4}>
           {currentUser.profilePictureUrl ? (
-            <img
-              style={{ width: '100%', height: 'auto' }}
-              src={currentUser.profilePictureUrl}
-            />
+            <img style={{ width: "100%", height: "auto" }} src={currentUser.profilePictureUrl} />
           ) : (
-            <img
-              style={{ width: '100%', height: 'auto' }}
-              src={DefaultProf}
-              alt=""
-            />
+            <img style={{ width: "100%", height: "auto" }} src={DefaultProf} alt="" />
           )}
         </Paper>
       </Col>
@@ -56,7 +49,7 @@ const ViewProfileForm = (props) => {
           <Paper elevation={4} style={{ padding: '20px' }}>
             <h3 style={{ textAlign: 'center' }}>My Profile</h3>
             <hr />
-            <Row style={{ fontSize: 20, fontFamily: 'Montserrat' }}>
+            <Row style={{ fontSize: 20, fontFamily: "Montserrat" }}>
               <Col xs={12} sm={6}>
                 <div className="form-group">
                   <label>
@@ -127,14 +120,25 @@ const ViewProfileForm = (props) => {
           {currentUser.role === 'employee' ? (
             <React.Fragment>
               <Paper elevation={4} style={{ padding: '20px' }}>
-                <h4 style={{ textAlign: 'center' }}>My Bank Details</h4>
+                <Row>
+                  <Col xs={12} sm={10}>
+                    <h4 style={{ textAlign: 'center' }}>My Bank Details</h4>
+                  </Col>
+                  {bankDetailCopy.length === 0 ?
+                    <Col xs={12} sm={2}>
+                      <Button color="primary"><Link style={{color:"#FFF", textDecoration:"none"}} to="/BankDetails">Add</Link></Button>
+                    </Col>
+                    : <Col xs={12} sm={2}>
+                      <Button disabled color="primary">Add</Button>
+                    </Col>}
+                </Row>
                 <hr />
                 <Row>
                   <Col xs={12} sm={6}>
                     <div className="form-group">
                       <label>
                         <span style={{ fontWeight: 'bold' }}>
-                          Account Number:
+                          Account Number :
                         </span>
                         {bankDetailCopy.length === 0 ? (
                           <p>Not Found</p>
@@ -147,7 +151,7 @@ const ViewProfileForm = (props) => {
                   <Col xs={12} sm={6}>
                     <div className="form-group">
                       <label>
-                        <span style={{ fontWeight: 'bold' }}>Bank Name:</span>
+                        <span style={{ fontWeight: 'bold' }}>Bank Name : </span>
                         {bankDetailCopy.bank}
                       </label>
                     </div>
@@ -155,12 +159,23 @@ const ViewProfileForm = (props) => {
                   <Col xs={12} sm={6}>
                     <div className="form-group">
                       <label>
-                        <span style={{ fontWeight: 'bold' }}>Branch Name:</span>
+                        <span style={{ fontWeight: 'bold' }}>Branch Name : </span>
                         {bankDetailCopy.branch}
                       </label>
                     </div>
                   </Col>
                 </Row>
+                <Row>
+                  <Col xs={12} sm={10}></Col>
+                  {bankDetailCopy.length === 0 ?
+                    <Col xs={12} sm={2}>
+                      <Button disabled color="danger">Remove</Button>
+                    </Col>
+                    : <Col xs={12} sm={2}>
+                      <Button color="danger">Remove</Button>
+                    </Col>}
+                </Row>
+                <hr />
                 <Link
                   style={{ textDecoration: 'none', fontWeight: 'bold' }}
                   to="/EditProfile"
