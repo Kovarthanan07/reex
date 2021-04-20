@@ -3,15 +3,11 @@ import { withRouter } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Iconimg from './Login/regi.png';
+import sampleImage from './Login/payment.svg';
+import sampleImage1 from './Login/Payment Information-bro (1).png';
 import Chart from './Login/landing.svg';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-
-// const useStyles = makeStyles((theme) => ({
-// full: {
-//   backgroundColor: '#FFF',
-// }
-// }));
 
 export default function Landn() {
   return (
@@ -31,7 +27,6 @@ export default function Landn() {
         >
           <div />
           <div>
-            {/* <Grid container justify='center'> */}
             <img
               src={Iconimg}
               alt="logo"
@@ -39,23 +34,17 @@ export default function Landn() {
               height={80}
               style={{ margin: 10 }}
             />
-            {/* </Grid> */}
+
             <div style={{ marginBottom: 160, marginTop: 60 }}>
-              <p style={{ fontSize: 35 }}>
+              <p style={{ fontSize: 40 }}>
                 <b>Welcome to</b>
               </p>
-              <p style={{ fontSize: 35 }}>
-                <b>Recipt & Expense Managment System</b>
+              <p style={{ fontSize: 32 }}>
+                <b>Receipt & Expense Management System</b>
               </p>
-              <p style={{ fontSize: 15 }}>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the{' '}
+              <p style={{ fontSize: 20 }}>
+                Best place for managing your expenses.
               </p>
-              {/* <button type="submit"
-            fullWidth
-            variant="contained"
-            color="blue"><Link to="/Login">Log In</Link></button> */}
               <Button variant="contained" color="primary">
                 <Link
                   style={{ color: '#fff', textDecoration: 'none' }}
@@ -83,9 +72,9 @@ export default function Landn() {
             <Grid container justify="center">
               <img
                 className="container"
-                src={Chart}
+                src={sampleImage1}
                 alt="logo"
-                width={450}
+                width={400}
                 height={500}
               />
             </Grid>

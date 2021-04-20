@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Paper } from '@material-ui/core';
-// reactstrap components
 import {
   Button,
   Card,
@@ -10,19 +9,49 @@ import {
   Row,
   Col,
 } from 'reactstrap';
+import axios from 'axios';
+import { SuccessMessage, FailedMessage } from '../layouts/Alert';
 
-function ReadMore({ children, maxCharacterCount = 150 }) {
+function ReadMore(props) {
+  const { singleNewsId, children, maxCharacterCount } = props;
   const text = children;
   const [isTruncated, setIsTruncated] = useState(true);
   const resultString = isTruncated ? text.slice(0, maxCharacterCount) : text;
+  const [deleteStatus, setDeleteStatus] = useState();
 
   function toggleIsTruncated() {
     setIsTruncated(!isTruncated);
   }
   var currentUser = JSON.parse(localStorage.getItem('user'));
+
+  const onDeleteNews = () => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    };
+    let deleteUrl = 'http://localhost:3000/news/' + singleNewsId;
+    axios
+      .delete(deleteUrl, config)
+      .then((res) => {
+        setDeleteStatus(true);
+      })
+      .catch((err) => {
+        setDeleteStatus(false);
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <p className="has-text-left">
+        {deleteStatus === true ? (
+          <SuccessMessage message="This news deleted successfully." />
+        ) : null}
+        {deleteStatus === false ? (
+          <FailedMessage message="Error in deleting this news." />
+        ) : null}
         {resultString}
         {isTruncated ? '....' : null}
       </p>
@@ -41,11 +70,7 @@ function ReadMore({ children, maxCharacterCount = 150 }) {
         </Col>
         <Col xs={12} sm={2}>
           {currentUser.role === 'admin' ? (
-            <Button
-              color="danger"
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
+            <Button color="danger" href="#pablo" onClick={onDeleteNews}>
               Delete
             </Button>
           ) : null}
@@ -126,7 +151,13 @@ function News(props) {
                           </Row>
                         ) : null}
                         <hr />
-                        <ReadMore>{singleNews.news}</ReadMore>
+                        <ReadMore
+                          singleNewsId={singleNews.id}
+                          children={singleNews.news}
+                          maxCharacterCount={150}
+                        >
+                          {singleNews.news}
+                        </ReadMore>
                       </CardBody>
                     </Paper>
                   </Card>
@@ -136,18 +167,6 @@ function News(props) {
               <br />
             </>
           ))}
-          {/* <CardBody>
-            <CardTitle style={{ textAlign: "center" }} className=" mb-3" tag="h3">
-              Card title
-          </CardTitle>
-            <hr />
-            <ReadMore>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Facilis non dolore est fuga nobis ipsum illum eligendi nemo iure
-              repellat, soluta, optio minus ut reiciendis voluptates enim
-              impedit veritatis officiis.
-          </ReadMore>
-          </CardBody> */}
         </Col>
         <Col xs={12} sm={1}></Col>
       </Row>

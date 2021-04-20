@@ -40,11 +40,6 @@ export default function TotalExpenses(props) {
   return (
     <div>
       <Title>Reimbusements</Title>
-      {/* {currentUser.role === 'employee' ? (
-        <Title>Expenses</Title>
-      ) : currentUser.role === 'manager' || currentUser.role === 'admin' ? (
-        <Title>Transaction</Title>
-      ) : null} */}
       <hr />
       <Row>
         <Col xs={12} sm={6}>

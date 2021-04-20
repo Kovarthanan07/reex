@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Paper } from '@material-ui/core';
-// reactstrap components
 import {
   Button,
   Card,
@@ -10,9 +9,13 @@ import {
   Row,
   Col,
 } from 'reactstrap';
+import axios from 'axios';
+import { SuccessMessage, FailedMessage } from './layouts/Alert';
 
 function ReportSent(props) {
   const { sentReports, allUsers } = props;
+  const [deleteStatus, setDeleteStatus] = useState();
+  const [deletedReportId, setDeletedReportId] = useState();
 
   const getReceiverDetails = (id) => {
     const receiver = allUsers.find((m) => m._id === id);
@@ -34,6 +37,7 @@ function ReportSent(props) {
   if (sentReports && allUsers) {
     sentReports.map((sentReport) => {
       let data = {
+        id: sentReport._id,
         title: sentReport.title,
         message: sentReport.message,
         receiver: getReceiverDetails(sentReport.receiver),
@@ -42,6 +46,30 @@ function ReportSent(props) {
       reportsDetails.push(data);
     });
   }
+
+  function onDeleteReport(id) {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    };
+
+    let deleteUrl = 'http://localhost:3000/report/' + id;
+
+    axios
+      .delete(deleteUrl, config)
+      .then((res) => {
+        setDeletedReportId(id);
+        setDeleteStatus(true);
+      })
+      .catch((err) => {
+        setDeletedReportId(id);
+        setDeleteStatus(false);
+        console.log(err);
+      });
+  }
+
   return (
     <React.Fragment>
       {reportsDetails.reverse().map((data) => (
@@ -54,6 +82,12 @@ function ReportSent(props) {
                     {data.title}
                   </CardTitle>
                   <hr />
+                  {deleteStatus === true && deletedReportId === data.id ? (
+                    <SuccessMessage message="Report deleted to everyone successfully. Please Refresh." />
+                  ) : null}
+                  {deleteStatus === false && deletedReportId === data.id ? (
+                    <FailedMessage message="Error in deleting this report." />
+                  ) : null}
                   <CardText>
                     <span>To : {data.receiver}</span>
                     <br />
@@ -62,10 +96,17 @@ function ReportSent(props) {
                   <CardText>{data.message}</CardText>
                 </CardBody>
               </Col>
-              <Row style={{padding:10}}>
+              <Row style={{ padding: 10 }}>
                 <Col xs={10} sm={10}></Col>
                 <Col xs={10} sm={2}>
-                <Button color="danger">Delete</Button>
+                  <Button
+                    color="danger"
+                    onClick={() => {
+                      onDeleteReport(data.id);
+                    }}
+                  >
+                    Delete
+                  </Button>
                 </Col>
               </Row>
             </Paper>

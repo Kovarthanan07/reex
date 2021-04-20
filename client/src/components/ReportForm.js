@@ -120,12 +120,14 @@ const ModalExample = (props) => {
                 <option aria-label="None" value="" />
                 {allUsers
                   ? allUsers.map((user) => {
-                      return (
-                        <option value={user._id}>
-                          {' '}
-                          {user.userId} - {user.name} ({user.role})
-                        </option>
-                      );
+                      if (currentUser._id !== user._id) {
+                        return (
+                          <option value={user._id}>
+                            {' '}
+                            {user.userId} - {user.name} ({user.role})
+                          </option>
+                        );
+                      }
                     })
                   : null}
               </Input>

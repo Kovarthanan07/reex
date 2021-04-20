@@ -56,7 +56,6 @@ const CreateUserForm = (props) => {
     }),
     // validate,
     onSubmit: (user) => {
-      console.log(user);
       const userData = {
         name: user.name,
         role: user.role,

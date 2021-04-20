@@ -144,7 +144,7 @@ export default function Sidenav() {
             REEX
           </Typography>
           <Typography color="inherit">
-            {currentUser.name}
+            {currentUser ? currentUser.name : null}
           </Typography>
           <Divider />
           <Divider />

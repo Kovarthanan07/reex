@@ -118,8 +118,8 @@ export default function NavTabs() {
           aria-label="nav tabs example"
         >
           <Tab label="Pending" {...a11yProps(0)} />
-          <Tab label="Accept" {...a11yProps(1)} />
-          <Tab label="Reject" {...a11yProps(2)} />
+          <Tab label="Completed" {...a11yProps(1)} />
+          <Tab label="Cancelled" {...a11yProps(2)} />
         </Tabs>
       </Paper>
       <TabPanel value={value} index={0}>
