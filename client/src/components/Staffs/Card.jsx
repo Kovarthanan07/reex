@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Typography, Button, Divider } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import { Typography, Button, Divider, Grid, Paper, makeStyles } from '@material-ui/core';
 import { Row } from 'react-bootstrap';
 
 const StaffCard = (props) => {
@@ -19,6 +16,7 @@ const StaffCard = (props) => {
   } = props;
 
   let directTo = '/ViewUser/' + userId;
+
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,

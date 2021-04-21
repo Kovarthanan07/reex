@@ -1,13 +1,11 @@
-import { Paper } from '@material-ui/core';
 import React, { useState } from 'react';
+import { Paper } from '@material-ui/core';
 import {
   Card,
   CardImg,
-  CardText,
   CardBody,
   CardTitle,
   CardSubtitle,
-  Button,
   Row,
   Col,
 } from 'reactstrap';
@@ -314,7 +312,7 @@ const ManagerReimburseDetail = (props) => {
                   <br />
                 </Row>
                 {currentUser.role === 'manager' &&
-                rowData.status === 'Pending' ? (
+                  rowData.status === 'Pending' ? (
                   <Row>
                     <Col xs={12} sm={6}>
                       <button className="btn btn-primary" onClick={onAccept}>

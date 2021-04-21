@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col, Button } from 'reactstrap';
 import { Paper } from '@material-ui/core';
@@ -66,7 +66,7 @@ const ViewProfileForm = (props) => {
         <Paper Container elevation={4}>
           {currentUser.profilePictureUrl ? (
             <img
-              style={{ width: '100%', height: 'auto' }}
+              style={{ width: '100%', height: '450px' }}
               src={currentUser.profilePictureUrl}
             />
           ) : (

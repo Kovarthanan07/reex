@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { InputGroup, InputGroupText } from 'reactstrap';
 import axios from 'axios';
 import { GetUsersContext } from '../../context/GetUsersContext';
@@ -16,7 +16,7 @@ function TopupForm(props) {
     getManagers();
   }, []);
 
-  useEffect(() => {}, [managers]);
+  useEffect(() => { }, [managers]);
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });

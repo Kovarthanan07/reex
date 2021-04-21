@@ -5,7 +5,6 @@ import {
   Card,
   CardBody,
   CardTitle,
-  CardText,
   Row,
   Col,
 } from 'reactstrap';
@@ -105,6 +104,7 @@ function News(props) {
         viewers: data.viewers,
         visibleStartOn: getDate(data.startDisplayOn),
         visibleEndOn: getDate(data.endDisplayOn),
+        createdOn: getDate(data.createdAt),
       };
       NewsData.push(dataa);
     });
@@ -119,10 +119,9 @@ function News(props) {
           {NewsData.reverse().map((singleNews) => (
             <>
               {(singleNews.startDisplayOn <= new Date() &&
-                singleNews.endDisplayOn >= new Date()) ||
-              currentUser.role === 'admin' ? (
+                singleNews.endDisplayOn >= new Date()) ? (
                 <>
-                  <Card>
+                  <Card style={{ borderColor: "#ef4730", borderStyle: "solid", borderWidth: "2px" }}>
                     <Paper elevation={4}>
                       <CardBody>
                         <CardTitle
@@ -134,19 +133,22 @@ function News(props) {
                         </CardTitle>
                         {currentUser.role === 'admin' ? (
                           <Row>
-                            <hr />
-                            <Col xs={12} sm={4}>
-                              <span>
-                                Start Display On : {singleNews.visibleStartOn}
-                              </span>
+                            <hr style={{ width: "98%" }} />
+                            <Col xs={12} sm={3}>
+                              <span style={{ fontWeight: "bold" }}>
+                                Start Display On : </span> {singleNews.visibleStartOn}
+
                             </Col>
-                            <Col xs={12} sm={4}>
-                              <span>
-                                End Display On : {singleNews.visibleEndOn}
-                              </span>
+                            <Col xs={12} sm={3}>
+                              <span style={{ fontWeight: "bold" }}>
+                                End Display On :</span> {singleNews.visibleEndOn}
+
                             </Col>
-                            <Col xs={12} sm={4}>
-                              <span>Viewers : {singleNews.viewers}</span>
+                            <Col xs={12} sm={3}>
+                              <span style={{ fontWeight: "bold" }}>Viewers : </span> {singleNews.viewers[0]} {singleNews.viewers[1]}
+                            </Col>
+                            <Col xs={12} sm={3}>
+                              <span style={{ fontWeight: "bold" }}>Created On : </span> {singleNews.createdOn}
                             </Col>
                           </Row>
                         ) : null}
@@ -162,7 +164,50 @@ function News(props) {
                     </Paper>
                   </Card>
                 </>
-              ) : null}
+              ) :
+                <Card style={{ borderColor: "#1278B8", borderStyle: "solid", borderWidth: "2px" }}>
+                  <Paper elevation={4}>
+                    <CardBody>
+                      <CardTitle
+                        style={{ textAlign: 'center' }}
+                        className=" mb-3"
+                        tag="h4"
+                      >
+                        {singleNews.title}
+                      </CardTitle>
+                      {currentUser.role === 'admin' ? (
+                        <Row>
+                          <hr style={{ width: "98%" }} />
+                          <Col xs={12} sm={3}>
+                            <span style={{ fontWeight: "bold" }}>
+                              Start Display On : </span> {singleNews.visibleStartOn}
+
+                          </Col>
+                          <Col xs={12} sm={3}>
+                            <span style={{ fontWeight: "bold" }}>
+                              End Display On :</span> {singleNews.visibleEndOn}
+
+                          </Col>
+                          <Col xs={12} sm={3}>
+                            <span style={{ fontWeight: "bold" }}>Viewers : </span> {singleNews.viewers[0]} {singleNews.viewers[1]}
+                          </Col>
+                          <Col xs={12} sm={3}>
+                            <span style={{ fontWeight: "bold" }}>Created On : </span> {singleNews.createdOn}
+                          </Col>
+                        </Row>
+                      ) : null}
+                      <hr />
+                      <ReadMore
+                        singleNewsId={singleNews.id}
+                        children={singleNews.news}
+                        maxCharacterCount={150}
+                      >
+                        {singleNews.news}
+                      </ReadMore>
+                    </CardBody>
+                  </Paper>
+                </Card>
+              }
 
               <br />
             </>

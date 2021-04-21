@@ -1,13 +1,8 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Button } from '@material-ui/core';
 import Iconimg from './Login/regi.png';
-import sampleImage from './Login/payment.svg';
 import sampleImage1 from './Login/Payment Information-bro (1).png';
-import Chart from './Login/landing.svg';
 import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
 
 export default function Landn() {
   return (

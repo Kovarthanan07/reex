@@ -79,7 +79,6 @@ export default function TopupPending(props) {
       details.push(data);
     });
 
-    console.log('Rows : ', rows);
   }
 
   return (

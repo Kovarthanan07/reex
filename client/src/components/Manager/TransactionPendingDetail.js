@@ -1,16 +1,14 @@
-import { Paper } from '@material-ui/core';
 import React, { useState } from 'react';
 import {
   Card,
   CardImg,
-  CardText,
   CardBody,
   CardTitle,
   CardSubtitle,
-  Button,
   Row,
   Col,
 } from 'reactstrap';
+import { Paper } from '@material-ui/core';
 import axios from 'axios';
 import { SuccessMessage, FailedMessage } from '../layouts/Alert';
 

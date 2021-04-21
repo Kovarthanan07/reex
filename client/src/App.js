@@ -10,10 +10,12 @@ import NewsPage from './components/News/NewsPage';
 import CreateUser from './components/Admin/CreateUser';
 import Reimbursement from './components/Manager/ReimburseRequests';
 import Staffs from './components/Staffs/Staffs';
+import EmployeeStaffs from './components/Staffs/EmployeeStaff';
 import ViewProfile from './components/ViewProfile';
 import EditProfile from './components/EditProfile';
 import EditUser from './components/EditUser';
 import ViewUser from './components/ViewUser';
+import ViewEmployee from './components/ViewEmployee';
 import BankDetails from './components/BankDetail';
 import ChangePassword from './components/ChangePassword';
 import EmployeeReimbursement from './components/Employee/EmployeeReimbursement';
@@ -138,6 +140,15 @@ function App() {
                             exact
                             path="/Reimbursement"
                             component={Reimbursement}
+                          />
+                          <ProtectedRouterManager
+                            exact
+                            path="/EmployeeStaffs"
+                            component={EmployeeStaffs}
+                          />
+                          <ProtectedRouterManager
+                            path="/ViewEmployee/:userId"
+                            component={ViewEmployee}
                           />
 
                           {/* Employee Routes */}

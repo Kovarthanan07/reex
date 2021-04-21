@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 
 export default function TopupAccept(props) {
@@ -13,7 +13,6 @@ export default function TopupAccept(props) {
     {
       field: 'amount',
       headerName: 'Amount',
-      // type: 'number',
       width: 110,
     },
     {
