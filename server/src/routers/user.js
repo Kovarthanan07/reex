@@ -68,7 +68,7 @@ router.get('/getalladmin', [auth.authUser], async (req, res) => {
   }
 });
 
-router.get('/user/:userId', [auth.authUser, auth.isAdmin], async (req, res) => {
+router.get('/user/:userId', [auth.authUser, auth.isAdminOrManager], async (req, res) => {
   try {
     const user = await User.find({ userId: req.params.userId });
     res.send(user);

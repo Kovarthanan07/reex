@@ -1,14 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Paper } from '@material-ui/core';
-import {
-  Button,
-  Card,
-  CardBody,
-  CardTitle,
-  CardText,
-  Row,
-  Col,
-} from 'reactstrap';
+import { CardBody, CardTitle, CardText, Row, Col } from 'reactstrap';
 import FlagIcon from '@material-ui/icons/Flag';
 
 function ReportReceived(props) {
@@ -62,8 +54,8 @@ function ReportReceived(props) {
                     </Col>
                     <Col xs={2} sm={1}>
                       {data.receivedOn === data.today ?
-                      <FlagIcon style={{color:"green"}}/>
-                      : null}
+                        <FlagIcon style={{ color: "green" }} />
+                        : null}
                     </Col>
                   </Row>
                   <hr />
@@ -72,10 +64,6 @@ function ReportReceived(props) {
                     <br />
                     <span>Received On : {data.receivedOn}</span>
                   </CardText>
-                  {/* <CardText>
-                    <span>Received On : {data.receivedOn}</span>
-                    <br />
-                  </CardText> */}
                   <CardText>{data.message}</CardText>
                 </CardBody>
               </Col>
@@ -84,33 +72,6 @@ function ReportReceived(props) {
           <br />
         </React.Fragment>
       ))}
-      {/* {reportsDetails?.map((report) => {
-          <p> hello testing</p>;
-          // <React.Fragment>
-          //   <Row>
-              <Paper elevation={4}>
-                <Col xs={12} sm={12}>
-                  <CardBody>
-                    <CardTitle className=" mb-3" tag="h5">
-                      {reportsDetails.title}
-                    </CardTitle>
-                    <hr />
-                    <CardText>
-                      <span>From : {reportsDetails.sender}</span>
-                      <br />
-                    </CardText>
-                    <CardText>
-                      <span>Received On : {reportsDetails.receivedOn}</span>
-                      <br />
-                    </CardText>
-                    <CardText>{reportsDetails.message}</CardText>
-                  </CardBody>
-                </Col>
-              </Paper>
-          //   </Row>
-          // </React.Fragment>;
-      }
-      } */}
     </React.Fragment>
   );
 }

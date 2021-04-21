@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import StaffCard from './Card';
 import { Grid } from '@material-ui/core';
 import { GetUsersContext } from '../../context/GetUsersContext';

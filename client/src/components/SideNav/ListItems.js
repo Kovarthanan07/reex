@@ -116,6 +116,14 @@ function ListItems(props) {
               <ListItemText primary="Reimbursement" />
             </ListItem>
           </Link>
+          <Link className="nav-link" to="/EmployeeStaffs">
+            <ListItem>
+              <ListItemIcon>
+                <PeopleIcon />
+              </ListItemIcon>
+              <ListItemText primary="EmployeeStaffs" />
+            </ListItem>
+          </Link>
         </div>
       ) : currentUser.role === 'admin' ? (
         <div>

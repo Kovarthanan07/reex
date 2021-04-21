@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React from 'react';
 import { Col, Row } from 'reactstrap';
 import Typography from '@material-ui/core/Typography';
 import Title from '../../components/Title';

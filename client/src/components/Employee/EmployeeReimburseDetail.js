@@ -1,13 +1,11 @@
-import { Paper } from '@material-ui/core';
 import React from 'react';
+import { Paper } from '@material-ui/core';
 import {
   Card,
   CardImg,
-  CardText,
   CardBody,
   CardTitle,
   CardSubtitle,
-  Button,
   Row,
   Col,
 } from 'reactstrap';

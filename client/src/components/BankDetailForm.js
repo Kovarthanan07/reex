@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useFormik, Field } from 'formik';
-import * as yup from 'yup';
+import { useFormik } from 'formik';
 import axios from 'axios';
-import { toast } from 'react-toastify';
-import { Input, Row, Col } from 'reactstrap';
-import { Select, Paper } from '@material-ui/core';
-import DefaultProf from './Admin/profImg.jpg';
+import { Row, Col } from 'reactstrap';
+import { Paper } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { SuccessMessage, FailedMessage } from './layouts/Alert';
 

@@ -1,15 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import { Tabs, Tab, Typography, Box, Paper } from '@material-ui/core';
 import ReimbursementPending from './ReimbursementPending';
 import ReimbursementAccept from './ReimbursementAccept';
 import ReimbursementReject from './ReimbursementReject';
-import { Paper } from '@material-ui/core';
 import { GetUsersContext } from '../../context/GetUsersContext';
 import { ReimbursementContext } from '../../context/ReimbursementContext';
 import { TransactionContext } from '../../context/TransactionContext';
@@ -46,18 +41,6 @@ function a11yProps(index) {
     id: `nav-tab-${index}`,
     'aria-controls': `nav-tabpanel-${index}`,
   };
-}
-
-function LinkTab(props) {
-  return (
-    <Tab
-      component="a"
-      onClick={(event) => {
-        event.preventDefault();
-      }}
-      {...props}
-    />
-  );
 }
 
 const useStyles = makeStyles((theme) => ({
