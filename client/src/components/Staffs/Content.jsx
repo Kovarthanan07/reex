@@ -1,10 +1,12 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import StaffCard from './Card';
 import { Grid } from '@material-ui/core';
 import { GetUsersContext } from '../../context/GetUsersContext';
+import SearchIcon from '@material-ui/icons/Search';
 
 const Content = () => {
   const { allUsers, getAllUsers } = useContext(GetUsersContext);
+  const [searchItem, setSearchItem] = useState('');
 
   useEffect(async () => {
     await getAllUsers();
@@ -47,8 +49,28 @@ const Content = () => {
 
   return (
     <div>
+      <div className="staff-search">
+        <input
+          type="text"
+          style={{ backgroundColor: '#fefefe' }}
+          onChange={(event) => {
+            setSearchItem(event.target.value);
+          }}
+        />
+        <SearchIcon />
+      </div>
       <Grid container spacing={2}>
-        {usersDetails.map((staffObj) => getStaffCard(staffObj))}
+        {usersDetails
+          .filter((value) => {
+            if (searchItem === '') {
+              return value;
+            } else if (
+              value.name.toLowerCase().includes(searchItem.toLowerCase())
+            ) {
+              return value;
+            }
+          })
+          .map((staffObj) => getStaffCard(staffObj))}
       </Grid>
     </div>
   );
