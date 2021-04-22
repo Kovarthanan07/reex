@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import HelpOutlinedIcon from '@material-ui/icons/HelpOutlined';
 import ListItems from './ListItems';
 import {useStyles} from '../Styles';
 import ProfileCircle from '../ProfileCircle';
@@ -57,9 +58,9 @@ export default function Sidenav() {
           >
             REEX
           </Typography>
-          <Typography color="inherit">
-            {currentUser ? currentUser.name : null}
-          </Typography>
+          <IconButton style={{paddingTop:"15px"}} color="inherit">
+            <HelpOutlinedIcon />
+          </IconButton>
           <Divider />
           <Divider />
           <IconButton color="inherit">
