@@ -29,6 +29,7 @@ import {
 } from 'react-router-dom';
 import Landing from './components/landing';
 import Login from './components/Login/login';
+import Help from './components/Help/Help';
 import { AuthTokenContextProvider } from './context/AuthTokenContext';
 import { GetUsersContextProvider } from './context/GetUsersContext';
 import { TransactionContextProvider } from './context/TransactionContext';
@@ -60,6 +61,7 @@ function App() {
                         <Switch>
                           <Route exact path="/" component={Landing} />
                           <Route exact path="/login" component={Login} />
+                          <Route exact path="/help" component={Help} />
 
                           {/* Common Routes */}
                           <ProtectedRouter
