@@ -10,6 +10,12 @@ export default function TopupPending(props) {
   const columns = [
     { field: 'submissionDate', headerName: 'Submission Date', width: 161 },
     { field: 'employeeName', headerName: 'Employee Name', width: 165 },
+    {
+      field: 'employeeId',
+      headerName: 'Employee Name',
+      width: 165,
+      hide: true,
+    },
     { field: 'category', headerName: 'Category', width: 110 },
     { field: 'paymentMethod', headerName: 'Payment Method', width: 160 },
     {
@@ -122,6 +128,7 @@ export default function TopupPending(props) {
         status: pendingTransaction.status,
         receiptUrl: pendingTransaction.receiptUrl,
         description: pendingTransaction.description,
+        employeeId: pendingTransaction.transactionBy,
       };
       details.push(data);
     });
