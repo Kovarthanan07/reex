@@ -4,6 +4,8 @@ import Container from '@material-ui/core/Container';
 import HelpDetails from './HelpDetails';
 import {useStyles} from '../Styles';
 
+// .................Help sections.....................
+
 export default function NewsPage() {
   const classes = useStyles();
 
