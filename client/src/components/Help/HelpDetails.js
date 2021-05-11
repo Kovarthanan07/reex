@@ -31,42 +31,100 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SimpleAccordion() {
-    const Accordians = [
-        {heading:"Get Help to Sign in", component:<SignInHelp/>},
-        {heading:"Get Help to Add expenses", component:<AddExpenseHelp/>},
-        {heading:"Get Help to Add Topup requests", component:<AddTopupHelp/>},
-        {heading:"How to view Expense and Topup history", component:<History/>},
-        {heading:"Get Help to Report to Manager or Admin", component:<Report/>},
-        {heading:"How to Check Received Reports", component:<ReceivedReport/>},
-        {heading:"How to Check Sent Reports", component:<SentReport/>},
-        {heading:"How to Delete Sent Reports", component:<DeleteReport/>},
-        {heading:"How to view cash expenses", component:<Reimbusement/>},
-        {heading:"How to create news", component:<CreateNews/>},
-        {heading:"How to create users", component:<CreateUser/>},
-        {heading:"How to View staffs", component:<ViewStaff/>},
-        {heading:"How to view our profile", component:<ViewProfile/>},
-        {heading:"How to edit our profile", component:<EditProfile/>},
-    ]
+  const AccordiansEmployee = [
+    { heading: "Get Help to Sign in", component: <SignInHelp /> },
+    { heading: "Get Help to Add expenses", component: <AddExpenseHelp /> },
+    { heading: "Get Help to Add Topup requests", component: <AddTopupHelp /> },
+    { heading: "How to view Expense and Topup history", component: <History /> },
+    { heading: "Get Help to Report to Manager or Admin", component: <Report /> },
+    { heading: "How to Check Received Reports", component: <ReceivedReport /> },
+    { heading: "How to Check Sent Reports", component: <SentReport /> },
+    { heading: "How to Delete Sent Reports", component: <DeleteReport /> },
+    { heading: "How to view cash expenses", component: <Reimbusement /> },
+    { heading: "How to view our profile", component: <ViewProfile /> },
+    { heading: "How to edit our profile", component: <EditProfile /> },
+  ]
+
+  const AccordiansManager = [
+    { heading: "How to Check Received Reports", component: <ReceivedReport /> },
+    { heading: "How to Check Sent Reports", component: <SentReport /> },
+    { heading: "How to view cash expenses", component: <Reimbusement /> },
+    { heading: "How to View Employees", component: <ViewStaff /> },
+    { heading: "How to view our profile", component: <ViewProfile /> },
+    { heading: "How to edit our profile", component: <EditProfile /> },
+  ]
+
+  const AccordiansAdmin = [
+    { heading: "How to create news", component: <CreateNews /> },
+    { heading: "How to create users", component: <CreateUser /> },
+    { heading: "How to View staffs", component: <ViewStaff /> },
+    { heading: "How to view our profile", component: <ViewProfile /> },
+    { heading: "How to edit our profile", component: <EditProfile /> },
+  ]
+
   const classes = useStyles();
+
+  var currentUser = JSON.parse(localStorage.getItem('user')); 
 
   return (
     <div className={classes.root}>
-        {Accordians.map(e => (
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography variant="h6" >{e.heading}</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            {e.component}
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+      {currentUser.role === 'employee' ? 
+      <>
+      {AccordiansEmployee.map(e => (
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography variant="h6" >{e.heading}</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              {e.component}
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
       ))}
+      </> : 
+      currentUser.role === 'manager' ? 
+      <>
+      {AccordiansManager.map(e => (
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography variant="h6" >{e.heading}</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              {e.component}
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+      ))}
+      </> :
+      currentUser.role === 'admin' ? 
+      <>
+      {AccordiansAdmin.map(e => (
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography variant="h6" >{e.heading}</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              {e.component}
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+      ))}
+      </> : null }
     </div>
   );
 }
