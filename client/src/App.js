@@ -18,6 +18,7 @@ import ViewUser from './components/ViewUser';
 import ViewEmployee from './components/ViewEmployee';
 import BankDetails from './components/BankDetail';
 import ChangePassword from './components/ChangePassword';
+import HelpSignIn from './components/Help/SignInHelp';
 import EmployeeReimbursement from './components/Employee/EmployeeReimbursement';
 import {
   BrowserRouter,
@@ -56,6 +57,7 @@ function App() {
             <GetUsersContextProvider>
               <ReimbursementContextProvider>
                 <BankDetailsContextProvider>
+
                   <CardDetailsContextProvider>
                     <NewsContextProvider>
                       <ReportsContextProvider>
@@ -96,7 +98,12 @@ function App() {
                               path="/ChangePassword"
                               component={ChangePassword}
                             />
-
+<ProtectedRouter
+                            exact
+                            path="/help"
+                            component={Help}
+                          />
+    
                             {/* Admin Routes */}
                             <ProtectedRouterAdmin
                               exact
