@@ -115,9 +115,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Dashboard() {
-  const { getManagers, managers, employees, getEmployees } = useContext(
-    GetUsersContext
-  );
+  const { getManagers, managers, employees, getEmployees } =
+    useContext(GetUsersContext);
 
   const {
     transactions,
@@ -133,12 +132,8 @@ export default function Dashboard() {
     getAllReimbursement,
   } = useContext(ReimbursementContext);
 
-  const {
-    topups,
-    getEmployeeTopups,
-    getManagerTopups,
-    getAllTopups,
-  } = useContext(TopupContext);
+  const { topups, getEmployeeTopups, getManagerTopups, getAllTopups } =
+    useContext(TopupContext);
 
   const { cardDetails, getUserCardDetails } = useContext(CardDetailsContext);
 
@@ -163,7 +158,7 @@ export default function Dashboard() {
   useEffect(async () => {
     var user = JSON.parse(localStorage.getItem('user'));
 
-    if (user.role === 'admin') {
+    if (user.role === 'admin' || user.role === 'manager') {
       await getEmployees();
     }
   }, []);
