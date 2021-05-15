@@ -41,7 +41,7 @@ function ReportReceived(props) {
 
   return (
     <React.Fragment>
-      {reportsDetails ? (
+      {receivedReports || reportsDetails > 0 ? (
         <>
           {reportsDetails.reverse().map((data) => (
             <React.Fragment>

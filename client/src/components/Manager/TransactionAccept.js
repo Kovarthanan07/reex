@@ -81,7 +81,7 @@ export default function TopupAccept(props) {
 
   return (
     <div style={{ height: 400, width: '100%' }}>
-      {rows.length > 0 ? (
+      {transactions ? (
         <>
           <h3>Transactions Approved</h3>
           <DataGrid rows={rows} columns={columns} pageSize={5} />
