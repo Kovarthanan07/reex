@@ -91,7 +91,7 @@ export default function TopupPending(props) {
 
   return (
     <div style={{ height: 400, width: '100%' }}>
-      {details.length > 0 ?
+      {topups ?
       <>
       {rowSelected ? (
         <TopupPendingDetail topups={topups} rows={rows} />
