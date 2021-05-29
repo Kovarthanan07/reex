@@ -22,6 +22,7 @@ const AddExpense = () => {
         <Grid container direction="column" alignItems="center" justify="space-around" spacing={1}>
           <br/>
         <AddExpenseForm/>
+        <br/>
         </Grid>
       </Modal>
       
