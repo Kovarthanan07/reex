@@ -103,6 +103,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function Report() {
   const classes = useStyles();
   const { allUsers, getAllUsers } = useContext(GetUsersContext);
